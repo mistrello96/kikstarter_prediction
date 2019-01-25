@@ -438,11 +438,6 @@
   </notepads>
   <order>
     <hop>
-      <from>Country code input</from>
-      <to>Sort rows for country name</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Sort rows for country name 2</from>
       <to>Merge join</to>
       <enabled>Y</enabled>
@@ -454,22 +449,7 @@
     </hop>
     <hop>
       <from>Country PIL input</from>
-      <to>Trim spaces at the end of country</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Trim spaces at the end of country</from>
-      <to>Sort rows for country name 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Merge join</from>
-      <to>Extract usefull values</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Extract usefull values</from>
-      <to>Sort rows for country code</to>
+      <to>Trim spaces</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -478,28 +458,53 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
+      <from>Merge join 2</from>
+      <to>Output</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
       <from>Sort rows for country code 2</from>
       <to>Merge join 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Extraxt usefull values</from>
-      <to>Sort rows for country code 2</to>
+      <from>Trim spaces</from>
+      <to>Extract usefull values</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Remove unvalid countries countries</from>
-      <to>Extraxt usefull values</to>
+      <from>Extract usefull values</from>
+      <to>Sort rows for country name 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Merge join</from>
+      <to>Sort rows for country code</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Kikstarter input</from>
+      <to>Extract usefull values 3 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Extract usefull values 3 2</from>
       <to>Remove unvalid countries countries</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Merge join 2</from>
-      <to>Output</to>
+      <from>Remove unvalid countries countries</from>
+      <to>Sort rows for country code 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Country code input</from>
+      <to>Extract usefull values 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Extract usefull values 2</from>
+      <to>Sort rows for country name</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -582,7 +587,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>160</xloc>
+      <xloc>80</xloc>
       <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
@@ -842,7 +847,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>144</xloc>
+      <xloc>80</xloc>
       <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1025,8 +1030,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>160</xloc>
-      <yloc>400</yloc>
+      <xloc>80</xloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1034,7 +1039,7 @@
     <name>Merge join</name>
     <type>MergeJoin</type>
     <description />
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution />
     <copies>1</copies>
     <partitioning>
@@ -1059,8 +1064,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>576</xloc>
-      <yloc>208</yloc>
+      <xloc>736</xloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1075,7 +1080,7 @@
       <method>none</method>
       <schema_name />
     </partitioning>
-    <join_type>INNER</join_type>
+    <join_type>FULL OUTER</join_type>
     <step1>Sort rows for country code</step1>
     <step2>Sort rows for country code 2</step2>
     <keys_1>
@@ -1094,145 +1099,7 @@
     </remotesteps>
     <GUI>
       <xloc>1136</xloc>
-      <yloc>288</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Extraxt usefull values</name>
-    <type>SelectValues</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <fields>
-      <field>
-        <name>country</name>
-        <rename>Kick_counry_code</rename>
-      </field>
-      <select_unspecified>Y</select_unspecified>
-      <remove>
-        <name>name</name>
-      </remove>
-      <remove>
-        <name>currency</name>
-      </remove>
-      <remove>
-        <name>deadline</name>
-      </remove>
-      <remove>
-        <name>launched</name>
-      </remove>
-      <remove>
-        <name>usd pledged</name>
-      </remove>
-    </fields>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>720</xloc>
-      <yloc>352</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Extract usefull values</name>
-    <type>SelectValues</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <fields>
-      <select_unspecified>N</select_unspecified>
-      <remove>
-        <name>ID</name>
-      </remove>
-      <remove>
-        <name>Country_name</name>
-      </remove>
-      <remove>
-        <name>code_3digit</name>
-      </remove>
-      <remove>
-        <name>Country</name>
-      </remove>
-      <remove>
-        <name>Region</name>
-      </remove>
-      <remove>
-        <name>Population</name>
-      </remove>
-      <remove>
-        <name>Area (sq. mi.)</name>
-      </remove>
-      <remove>
-        <name>Pop. Density (per sq. mi.)</name>
-      </remove>
-      <remove>
-        <name>Coastline (coast/area ratio)</name>
-      </remove>
-      <remove>
-        <name>Net migration</name>
-      </remove>
-      <remove>
-        <name>Infant mortality (per 1000 births)</name>
-      </remove>
-      <remove>
-        <name>Literacy (%)</name>
-      </remove>
-      <remove>
-        <name>Phones (per 1000)</name>
-      </remove>
-      <remove>
-        <name>Arable (%)</name>
-      </remove>
-      <remove>
-        <name>Crops (%)</name>
-      </remove>
-      <remove>
-        <name>Other (%)</name>
-      </remove>
-      <remove>
-        <name>Climate</name>
-      </remove>
-      <remove>
-        <name>Birthrate</name>
-      </remove>
-      <remove>
-        <name>Deathrate</name>
-      </remove>
-      <remove>
-        <name>Agriculture</name>
-      </remove>
-      <remove>
-        <name>Industry</name>
-      </remove>
-    </fields>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>720</xloc>
-      <yloc>208</yloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1273,7 +1140,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>400</xloc>
+      <xloc>544</xloc>
       <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1315,8 +1182,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>416</xloc>
-      <yloc>256</yloc>
+      <xloc>544</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1324,7 +1191,7 @@
     <name>Sort rows for country code</name>
     <type>SortRows</type>
     <description />
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution />
     <copies>1</copies>
     <partitioning>
@@ -1358,7 +1225,7 @@
     </remotesteps>
     <GUI>
       <xloc>896</xloc>
-      <yloc>208</yloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1405,7 +1272,7 @@
     </GUI>
   </step>
   <step>
-    <name>Trim spaces at the end of country</name>
+    <name>Trim spaces</name>
     <type>StringOperations</type>
     <description />
     <distribute>Y</distribute>
@@ -1439,8 +1306,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>288</xloc>
-      <yloc>320</yloc>
+      <xloc>192</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1455,12 +1322,12 @@
       <method>none</method>
       <schema_name />
     </partitioning>
-    <send_true_to>Extraxt usefull values</send_true_to>
+    <send_true_to>Sort rows for country code 2</send_true_to>
     <send_false_to />
     <compare>
       <condition>
         <negated>N</negated>
-        <leftvalue>country</leftvalue>
+        <leftvalue>Kick_counry_code</leftvalue>
         <function>REGEXP</function>
         <rightvalue />
         <value>
@@ -1483,8 +1350,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>480</xloc>
-      <yloc>400</yloc>
+      <xloc>656</xloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1507,7 +1374,7 @@
     <footer>N</footer>
     <format>DOS</format>
     <compression>None</compression>
-    <encoding />
+    <encoding>UTF-8</encoding>
     <endedLine />
     <fileNameInField>N</fileNameInField>
     <fileNameField />
@@ -1673,7 +1540,167 @@
     </remotesteps>
     <GUI>
       <xloc>1264</xloc>
-      <yloc>288</yloc>
+      <yloc>256</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Extract usefull values 2</name>
+    <type>SelectValues</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <fields>
+      <select_unspecified>N</select_unspecified>
+      <remove>
+        <name>ID</name>
+      </remove>
+      <remove>
+        <name>code_3digit</name>
+      </remove>
+    </fields>
+    <attributes />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>352</xloc>
+      <yloc>128</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Extract usefull values</name>
+    <type>SelectValues</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <fields>
+      <select_unspecified>N</select_unspecified>
+      <remove>
+        <name>Region</name>
+      </remove>
+      <remove>
+        <name>Population</name>
+      </remove>
+      <remove>
+        <name>Area (sq. mi.)</name>
+      </remove>
+      <remove>
+        <name>Pop. Density (per sq. mi.)</name>
+      </remove>
+      <remove>
+        <name>Coastline (coast/area ratio)</name>
+      </remove>
+      <remove>
+        <name>Net migration</name>
+      </remove>
+      <remove>
+        <name>Infant mortality (per 1000 births)</name>
+      </remove>
+      <remove>
+        <name>Literacy (%)</name>
+      </remove>
+      <remove>
+        <name>Phones (per 1000)</name>
+      </remove>
+      <remove>
+        <name>Arable (%)</name>
+      </remove>
+      <remove>
+        <name>Crops (%)</name>
+      </remove>
+      <remove>
+        <name>Other (%)</name>
+      </remove>
+      <remove>
+        <name>Climate</name>
+      </remove>
+      <remove>
+        <name>Birthrate</name>
+      </remove>
+      <remove>
+        <name>Deathrate</name>
+      </remove>
+      <remove>
+        <name>Agriculture</name>
+      </remove>
+      <remove>
+        <name>Industry</name>
+      </remove>
+    </fields>
+    <attributes />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>352</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Extract usefull values 3 2</name>
+    <type>SelectValues</type>
+    <description />
+    <distribute>N</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <fields>
+      <field>
+        <name>country</name>
+        <rename>Kick_counry_code</rename>
+      </field>
+      <select_unspecified>Y</select_unspecified>
+      <remove>
+        <name>name</name>
+      </remove>
+      <remove>
+        <name>currency</name>
+      </remove>
+      <remove>
+        <name>deadline</name>
+      </remove>
+      <remove>
+        <name>launched</name>
+      </remove>
+      <remove>
+        <name>usd pledged</name>
+      </remove>
+    </fields>
+    <attributes />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>304</xloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
