@@ -509,11 +509,11 @@
     </hop>
     <hop>
       <from>Sort rows for country code 2</from>
-      <to>Select values</to>
+      <to>project_country_code</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Select values</from>
+      <from>project_country_code</from>
       <to>Unique rows</to>
       <enabled>Y</enabled>
     </hop>
@@ -1298,7 +1298,7 @@
     <fileNameField/>
     <create_parent_folder>Y</create_parent_folder>
     <file>
-      <name>transformed</name>
+      <name>${PATH_TO_REPO}transformed</name>
       <servlet_output>N</servlet_output>
       <do_not_open_new_file_init>N</do_not_open_new_file_init>
       <extention>csv</extention>
@@ -1715,7 +1715,7 @@
     </GUI>
   </step>
   <step>
-    <name>Select values</name>
+    <name>project_country_code</name>
     <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
