@@ -1,0 +1,14 @@
+Country_name: 0
+code_2digit: 0
+Country: 0
+GDP ($ per capita): 0
+Service: 0
+Kick_counry_code: 0
+ID: 0
+backers: 0
+category: 0
+goal: 0
+main_category: 0
+pledged: 0
+state: 0
+diff: 0
