@@ -1,0 +1,13 @@
+ID: 0
+name: 0
+category: 5
+main_category: 0
+currency: 0
+deadline: 0
+goal: 0
+launched: 0
+pledged: 0
+state: 0
+backers: 0
+country: 0
+usd pledged: 3790

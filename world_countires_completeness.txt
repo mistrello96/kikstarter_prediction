@@ -1,0 +1,20 @@
+Country: 0
+Region: 0
+Population: 0
+Area (sq. mi.): 0
+Pop. Density (per sq. mi.): 0
+Coastline (coast/area ratio): 0
+Net migration: 3
+Infant mortality (per 1000 births): 3
+GDP ($ per capita): 1
+Literacy (%): 18
+Phones (per 1000): 4
+Arable (%): 2
+Crops (%): 2
+Other (%): 2
+Climate: 22
+Birthrate: 3
+Deathrate: 4
+Agriculture: 15
+Industry: 16
+Service: 15
