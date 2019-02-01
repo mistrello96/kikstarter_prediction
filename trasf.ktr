@@ -504,7 +504,7 @@
     </hop>
     <hop>
       <from>Extract usefull values 4</from>
-      <to>Output</to>
+      <to>OutputML</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -540,6 +540,11 @@
     <hop>
       <from>Remove unconsistent successful</from>
       <to>Sort rows for country code 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Merge join 2</from>
+      <to>OutputDQ</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -1111,10 +1116,13 @@
         <name>ID</name>
       </remove>
       <remove>
-        <name>category</name>
+        <name>diff</name>
       </remove>
       <remove>
-        <name>diff</name>
+        <name>Kick_counry_code</name>
+      </remove>
+      <remove>
+        <name>pledged</name>
       </remove>
     </fields>
     <attributes />
@@ -1352,7 +1360,7 @@
     <name>Merge join 2</name>
     <type>MergeJoin</type>
     <description />
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution />
     <copies>1</copies>
     <partitioning>
@@ -1383,7 +1391,7 @@
     </GUI>
   </step>
   <step>
-    <name>Output</name>
+    <name>OutputML</name>
     <type>TextFileOutput</type>
     <description />
     <distribute>Y</distribute>
@@ -1407,7 +1415,7 @@
     <fileNameField />
     <create_parent_folder>Y</create_parent_folder>
     <file>
-      <name>${PATH_TO_REPO}Dataset/transformed</name>
+      <name>${PATH_TO_REPO}Dataset/transformedML</name>
       <servlet_output>N</servlet_output>
       <do_not_open_new_file_init>N</do_not_open_new_file_init>
       <extention>csv</extention>
@@ -1461,18 +1469,6 @@
         <precision>0</precision>
       </field>
       <field>
-        <name>Kick_counry_code</name>
-        <type>String</type>
-        <format />
-        <currency />
-        <decimal />
-        <group />
-        <nullif />
-        <trim_type>none</trim_type>
-        <length>2</length>
-        <precision>-1</precision>
-      </field>
-      <field>
         <name>backers</name>
         <type>Integer</type>
         <format>#</format>
@@ -1483,6 +1479,18 @@
         <trim_type>none</trim_type>
         <length>15</length>
         <precision>0</precision>
+      </field>
+      <field>
+        <name>category</name>
+        <type>String</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <nullif />
+        <trim_type>none</trim_type>
+        <length>16</length>
+        <precision>-1</precision>
       </field>
       <field>
         <name>goal</name>
@@ -1507,18 +1515,6 @@
         <trim_type>none</trim_type>
         <length>12</length>
         <precision>-1</precision>
-      </field>
-      <field>
-        <name>pledged</name>
-        <type>Number</type>
-        <format>#.#</format>
-        <currency>$</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <nullif />
-        <trim_type>none</trim_type>
-        <length>8</length>
-        <precision>2</precision>
       </field>
       <field>
         <name>state</name>
@@ -2074,6 +2070,231 @@
     <GUI>
       <xloc>224</xloc>
       <yloc>240</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>OutputDQ</name>
+    <type>TextFileOutput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <separator>;</separator>
+    <enclosure>"</enclosure>
+    <enclosure_forced>N</enclosure_forced>
+    <enclosure_fix_disabled>N</enclosure_fix_disabled>
+    <header>Y</header>
+    <footer>N</footer>
+    <format>DOS</format>
+    <compression>None</compression>
+    <encoding />
+    <endedLine />
+    <fileNameInField>N</fileNameInField>
+    <fileNameField />
+    <create_parent_folder>Y</create_parent_folder>
+    <file>
+      <name>${PATH_TO_REPO}Dataset/transformedDQ</name>
+      <servlet_output>N</servlet_output>
+      <do_not_open_new_file_init>N</do_not_open_new_file_init>
+      <extention>csv</extention>
+      <append>N</append>
+      <split>N</split>
+      <haspartno>N</haspartno>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <SpecifyFormat>N</SpecifyFormat>
+      <date_time_format />
+      <add_to_result_filenames>Y</add_to_result_filenames>
+      <pad>N</pad>
+      <fast_dump>N</fast_dump>
+      <splitevery />
+    </file>
+    <fields>
+      <field>
+        <name>Country_name</name>
+        <type>String</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <nullif />
+        <trim_type>none</trim_type>
+        <length>30</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>code_2digit</name>
+        <type>String</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <nullif />
+        <trim_type>none</trim_type>
+        <length>2</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>Country</name>
+        <type>String</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <nullif />
+        <trim_type>none</trim_type>
+        <length>21</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>GDP ($ per capita)</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>$</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <nullif />
+        <trim_type>none</trim_type>
+        <length>15</length>
+        <precision>0</precision>
+      </field>
+      <field>
+        <name>Service</name>
+        <type>Number</type>
+        <format>#.#</format>
+        <currency>$</currency>
+        <decimal>,</decimal>
+        <group>.</group>
+        <nullif />
+        <trim_type>none</trim_type>
+        <length>15</length>
+        <precision>0</precision>
+      </field>
+      <field>
+        <name>Kick_counry_code</name>
+        <type>String</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <nullif />
+        <trim_type>none</trim_type>
+        <length>2</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>ID</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>$</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <nullif />
+        <trim_type>none</trim_type>
+        <length>15</length>
+        <precision>0</precision>
+      </field>
+      <field>
+        <name>backers</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>$</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <nullif />
+        <trim_type>none</trim_type>
+        <length>15</length>
+        <precision>0</precision>
+      </field>
+      <field>
+        <name>category</name>
+        <type>String</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <nullif />
+        <trim_type>none</trim_type>
+        <length>16</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>goal</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>$</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <nullif />
+        <trim_type>none</trim_type>
+        <length>15</length>
+        <precision>0</precision>
+      </field>
+      <field>
+        <name>main_category</name>
+        <type>String</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <nullif />
+        <trim_type>none</trim_type>
+        <length>12</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>pledged</name>
+        <type>Number</type>
+        <format>#.#</format>
+        <currency>$</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <nullif />
+        <trim_type>none</trim_type>
+        <length>8</length>
+        <precision>2</precision>
+      </field>
+      <field>
+        <name>state</name>
+        <type>String</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <nullif />
+        <trim_type>none</trim_type>
+        <length>10</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>diff</name>
+        <type>Number</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <nullif />
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
+    </fields>
+    <attributes />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1440</xloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
