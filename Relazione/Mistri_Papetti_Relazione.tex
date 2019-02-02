@@ -1,0 +1,35 @@
+\documentclass[11pt, a4paper]{report}
+
+\usepackage{hyperref}
+\hypersetup{pdfborder = 0 0 0, 	colorlinks, urlcolor=black, linkcolor=black}
+\usepackage[utf8]{inputenc} %utf8
+\usepackage[italian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+\usepackage{graphicx}
+
+\title{\emph{Kickstarter Predictions}}
+
+\author{Matteo Mistri 808097, \href{m.mistri2@campus.unimib.it}{m.mistri2@campus.unimib.it}\\%
+	Daniele Maria Papetti 808027, \href{d.papetti1@campus.unimib.it}{d.papetti1@campus.unimib.it}}
+
+\pagenumbering{roman}
+
+\begin{document}
+	
+\clearpage
+\maketitle
+
+
+\tableofcontents
+\newpage
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\chapter{Introduzione}
+\input{introduzione}
+\chapter{Data Technology}
+\input{data_technology}
+\chapter{Machine Learning}
+\input{machine_learning}
+\end{document}
