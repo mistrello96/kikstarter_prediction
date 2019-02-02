@@ -1,1 +1,9 @@
-hey there
+\section{Dominio}
+Il dominio di riferimento del progetto è quello delle startup, in particolare il sito di crowdfunding Kickstarter. Questa piattaforma permette a chiunque abbia una idea da realizzare di proporla al pubblio, chiedendo il pagamento di diverse quote di denaro in cambio di ricompense crescenti e relative all'idea proposta.\\
+Questo tipo di proposte hanno riscosso un discreto successo, producendo di fatto una grande quantità di informazioni circa l'interesse del pubblico per le varie tipologie di progetto.\\
+L'idea scaturita dal nostro gruppo è stata quella di sfruttare i dati relativi ai progetti Kickstarter resi disponibili pubblicamente sulla piattaforma Kaggle al fine di comprendere quali aspetti di questi progetti potessero portare al loro successo o al loro fallimento (aspetti quali categoria, soglia di denaro richiesto, paese di origine dell'idea \dots).
+
+\section{Selte di design}
+Al fine di creare un dataset integrato da poter sfruttare per eseguire il training del modello di Machine Learning, sono stati sfruttati tre diversi dataset, provenienti da fonti diverse.\\
+Per l'integrazione di questi tre dataset è stato necessario riconciliare alcune eterogeneità di schema. In particolare, all'interno del dataset contenente i dati relativi ai progetti Kickstarter, alcuni attributi mostravano eterogeneità di dominio, che hanno causato inizialmente diversi problemi in fase di analisi esplorativa del dataset.\\
+E' stato inoltre necessario eseguire operazioni di record linkage tra i restanti due dataset, in quanto gli attributi necessari ad eseguire l'operazione di join tra le due tabelle erano rappresentati utilizzando una sintassi simile ma non identica.
