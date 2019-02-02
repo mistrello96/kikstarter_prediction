@@ -5,24 +5,116 @@ In particolare, due di questi dataset (\textit{countries of the world.csv} e \te
 Il dataset \textit{countries of the world.csv} contiene informazioni che descrivono il rispettivo territorio e sviluppo di 227 nazioni del mondo.
 Tra queste si possono trovare informazioni utili come il PIL (GDP) \textit{pro capite}, lo sviluppo in percentuale dei tre settori ed il numero medio di telefoni per abitante; la chiave della relazione è il nome della nazione per esteso.
 Invece, \todo[inline]{descrizione kickstarter e poi il perché del terzo dataset DP}
+%%% Aggiungerei una descrizione più analitica, tiportamdo sotto forma tabellare nome esatto colonna, tipologia del dato contenuto e descrizione semantica.
 
-\section{Analisi di qualità dei dataset}
+\section{Analisi di qualità dei dataset (pre-integrazione)}
 \todo[inline]{tutto DP}
+
+\subsection{Accessibilità dei dataset}
+Tutti i dataset analizzati mostrano un ottimo livello di accessibilità da parte dell'utente, con nomi degli attributi auto-esplicativi e facile reperibilità dei dati di interesse. Per questo motivo, non si è resa necessaria la creazione di viste sugli schemi locali dei dataset, mantenendo inalterata la struttura di questi ultimi.
+
+\subsection{Porprietà temporali}
+Il dataset \textit{ks-projects-201612.csv} contiene tutti i progetti registrati sulla piattaforma Kickstarter fino alla fine del 2016. Il dataset \textit{countries of the world.csv} contiene invece statistiche sugli stati che si riferiscono all'anno 2017. Ne consegue che i dati non siano perfettamente coerenti dal punto di vista temporale, ma abbiamo reputato questo sfasamento marginale, considerata l'assenza di modifiche radicali degli indici statistici presi in considerazioni negli anni consecutivi.
 
 \section{Processo di integrazione dei dati}
 Al fine di produrre un dataset integrato per il processo di Machine Learning, si è reso necessario unire i tre dataset scelti in un unico schema integrato. Prima di fare ciò, sfruttando le considerazioni fatte nella parte di analisi di qualità dei dati, sono state eseguite una serie di operazioni di pulizia e raffinamento dei dati.\\
 \subsection{Dataset Kickstarter}
 Inizialmente sono stati eliminati tutti quegli attributi che non avevano alcuna informazione rilevante ai fini del training del modello di Machine Learning (Data di creazione e di terminazione, nome, moneta utilizzata \dots).\\
 In seguito sono stati rimossi tutti quei record il cui campo relativo alla nazione di origine violasse la rappresentazione standard, ovvero due lettere dell'alfabeto maiuscole. Ciò si è reso necessario in quanto l'analisi della correttezza sintattica sul campo aveva mostrato una serie di valori privi di significato.\\
-Sono stati poi rimossi una serie di record che creavano problemi di consistenza per quanto rigurda il campo dei sostenitori e del totale raccolto. Le analisi condotte in precedenza avevano infatti rilevato che alcuni record avevano un numero di sostenitori negativo, oppure un numero di sostenitori pari a zero, ma il campo che rppresenta l'ammontare del denaro raccolto non era zero anch'esso.\\
+Sono stati poi rimossi una serie di record che creavano problemi di consistenza per quanto riguarda il campo dei sostenitori e del totale raccolto. Le analisi condotte in precedenza avevano infatti rilevato che alcuni record avevano un numero di sostenitori negativo, oppure un numero di sostenitori pari a zero, ma il campo che rappresenta l'ammontare del denaro raccolto non era zero anch'esso.\\
 E' stata poi condotta una operazione di raffinazione sul campo \textit{state} del dataset, che rappresenta lo stato in cui il progetto si trova. Dopo aver rimosso tutti i valori sintatticamente privi di senso, abbiamo deciso di rimuovere tutti i record il cui stato fosse live, ovvero ancora in corso, oppure suspended, ovvero bloccati dalla piattaforma Kickstarter per violazioni dei termini contrattuali. Questa decisione è stata presa in quanto questo tipo di record potrebbe influenzare negativamente le performance del modello di Machine Learnig, fornendo tuple con uno stato di dubbio significato.
 E' stato poi deciso di rendere tutti i record con il campo state uguale a canceled, ovvero cancellati dal creatore, come progetti falliti.\\
-Infine, sono tati rimossi tutti i record che mostravano inconsisteza tra lo stato del progetto e la differenza tra denaro richiesto e denaro raccolto. E' infatti mandatorio che se è stato raccolto più denaro di quanto richiesto, il progetto risulti completato, mentre se non sono stati raccolti fondi sufficienti, il progetto risulti fallito.\\
+Infine, sono stati rimossi tutti i record che mostravano inconsistenza tra lo stato del progetto e la differenza tra denaro richiesto e denaro raccolto. E' infatti mandatorio che se è stato raccolto più denaro di quanto richiesto, il progetto risulti completato, mentre se non sono stati raccolti fondi sufficienti, il progetto risulti fallito.\\
+L'intera pipeline di trasformazione è riportata in Figura \ref{fig:transformationkick}.
+
+\begin{figure}
+	\hspace*{-1cm}%
+	\includegraphics[width=\dimexpr\textwidth+2cm\relax]{images/transformation_kick}%
+	\hspace*{-1cm}%
+	\caption{Pipeline di trasformazione per il dataset contenente i dati dei progetti Kickstarter}
+	\label{fig:transformationkick}
+\end{figure}
+
 \subsection{Countries}
-Siccome il dataset contenente i dettagli sui progetti Kicktarter sfrutta il codice di 2 lettere per rappresentare la nazione di origine del progetto, mentre il dataset con le informazoini circa il livello di sviluppo dei vari paesi sfrutta il nome completo, è stato necessario individuare un terzo dataset da utilizzare come una tabella di join, in modo da associare ogni nome per esteso con il relativo codice di due lettere.\\
+Siccome il dataset contenente i dettagli sui progetti Kickstarter sfrutta il codice di 2 lettere per rappresentare la nazione di origine del progetto, mentre il dataset con le informazioni circa il livello di sviluppo dei vari paesi sfrutta il nome completo, è stato necessario individuare un terzo dataset da utilizzare come una tabella di join, in modo da associare ogni nome per esteso con il relativo codice di due lettere.\\
 Il dataset individuato per questo scopo si è però rivelato utilizzare una differente sintassi per rappresentare il nome per esteso dei paesi. Per questo motivo, sono state applicate delle tecniche di record linkage per individuare i record corrispondenti ed uniformare la sintassi di questi. Per fare ciò, sono stati utilizzati i dati prodotti dal processo di analisi di qualità dei dati (trattato nella prima parte di questo documento).\\
 In particolare, sono stati ignorati i record di perfect match prodotti dalla distanza di edit con soglia zero, mentre sono stati confrontati caso per caso i risultati prodotti dall'analisi tramite bigram. Ponendo la soglia di match a 0.7 e la soglia di non match a 0.5, la soluzione proposta ha prodotto performance ottime, individuando correttamente tutti i match (20/20), e buona parte dei non match(7/11). La presenza di casi limite, quali rappresentazioni radicalmente diverse di un medesimo record, ha reso necessario la supervisione manuale per un piccolo sottoinsieme di questi record.\\
 
 \section{Produzione dataset integrato}
 A seguito del processo di raffinamento e integrazione dei dataset esposto in precedenza, i tre database sono stati uniti in un unica tabella tramite delle operazioni di merge join, per motivi di efficienza.\\
-A seguito dell'unione, sono stati prodotti due nuovi dataset, uno contenente tutti gli attributi risultanti dalle operazioni precedneti, mentre l'altro epurato da tutti gli attributi privi di valore ai fini dell'addestramento del modello di Machine Learning.
+A seguito dell'unione, sono stati prodotti due nuovi dataset (come mostrato in Figura \ref{fig:transformationcomplete}), uno contenente tutti gli attributi risultanti dalle operazioni precedenti, mentre l'altro epurato da tutti gli attributi privi di valore ai fini dell'addestramento del modello di Machine Learning.
+
+\begin{comment}
+\begin{figure}
+	\hspace*{-2cm}%
+	\includegraphics[width=\dimexpr\textwidth+5cm\relax]{images/transformation_complete}%
+	\hspace*{-3cm}%
+	\caption{Intero processo di trasformazione eseguito al fine di produrre il dataset integrato}
+	\label{fig:transformationcomplete}
+\end{figure}
+\end{comment}
+
+\begin{figure}
+	\centering
+	\includegraphics[angle=90,origin=c,width=0.55\linewidth]{images/transformation_complete}
+	\caption{Pipeline di trasformazione per il dataset contenente i dati dei progetti Kickstarter}
+	\label{fig:transformationcomplete}
+\end{figure}
+
+\newpage
+\section{Analisi di qualità dei dataset (post-integrazione)}
+Al fine di valutare la qualità del lavoro svolto nella fase di integrazione del dataset, le misure di qualità precedentemente stabilite sono state applicate al dataset integrato. In questa sezione verranno riportati i risultati ottenuti e relative considerazioni.
+
+\subsection{Correttezza sintattica attributo country (Figura \ref{fig:dqtcountries})}
+L'attributo presenta 21 possibili valori, tutti formati da una coppia di 2 lettere maiuscole dell'alfabeto. Non sono presenti tuple con valore dell'attributo che violino questo vincolo sintattico.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\linewidth]{images/DQT_countries}
+	\caption{Pipeline per la verifica della correttezza sintattica dell'attributo country}
+	\label{fig:dqtcountries}
+\end{figure}
+
+
+\subsection{Correttezza sintattica attributo state (Figura \ref{fig:dqtstate})}
+L'attributo state risulta assumere due possibili valori, successful e failed. Le trasformazioni applicate producono quindi una riduzione dei possibili valori da 408 a 2 possibili valori.
+
+\subsection{Consistenza attributo state (Figura \ref{fig:dqtstate})}
+Per l'attributo in esame, non sono presenti tuple inconsistenti, ove il totale raccolto non sia consistente con lo stato del progetto.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.6\linewidth]{images/DQT_state}
+	\caption{Pipeline per la verifica della consistenza e della correttezza sintattica dell'attributo state}
+	\label{fig:dqtstate}
+\end{figure}
+
+\subsection{Consistenza attributo backers (Figura \ref{fig:dqtbackers})}
+Per il campo backers, non sono state rilevate tuple con valore del campo negativo oppure con un valore non consistente con totale del denaro raccolto
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/DQT_backers}
+	\caption{Pipeline per la verifica della consistenza dell'attributo backers}
+	\label{fig:dqtbackers}
+\end{figure}
+
+\subsection{Completezza del dataset}
+Ai fini di valutare la completezza del dataset prodotto, è stato eseguito nuovamente lo script che ricerca e conta i campi nulli presenti del dataset. L'esecuzione di questo processo conferma l'assenza di campi nulli nel dataset prodotto.
+
+\subsection{Accessibilità del dataset}
+Al fine di garantire una accessibilità ottimale al dataset sfruttato per eseguire il training del modello di Machine Learning, sono stati selezionati nomi significativi ed autoesplicativi per le gli attributi rappresentati nel dataset.
+
+\subsection{Porprietà temporali}
+Le considerazioni rimangono analoghe a quelle effettuate prima delle operazioni di integrazione dei dati.
+
+\subsection{Altre misure di qualità}
+Al fine di verificare l'efficacia dell'operazione di record linkage e data fusion (eseguite a mano) compiute sul campo country del dataset \textit{countries of the world.csv}, sono state nuovamente misurate le distanze con il campo country\_name del dataset \textit{country\_code.csv}. Questa misura, eseguita mediante la pipeline riportata in Figura \ref{fig:qdtrecordlinkage}, mostrano come il nome dei perfect match sia aumentato a seguito delle modifche apportate al dataset \textit{countries of the world.csv}. Allo stesso modo, sfruttando le bigrams, all'interno degli insiemi di incertezza e di non match, sono rimaste solo le coppie che effettivamente non dovevano essere linkate, mentre quelle rilevate come match nella prima analisi sono state tutte portate ad essere perfect match.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\linewidth]{images/QDT_recordlinkage}
+	\caption{Pipeline utilizzata per la verifica del processo di record linkage effettuata}
+	\label{fig:qdtrecordlinkage}
+\end{figure}
+
