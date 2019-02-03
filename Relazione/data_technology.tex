@@ -134,8 +134,41 @@ Al contempo, \textit{ks-projects-201612} è stato analizzato rispetto alle segue
 	\item consistenza dell'attributo Backers;
 	\item misure di completezza rispetto a tutti gli attributi.
 \end{itemize}
+Infine, per ambo i dataset sono stati valutati anche la temporalità e la leggibilità.
 
-\subsection{Accuratezza sintattica attributo country (Figura \ref{fig:dqcountrycodeaccuracy})}
+\subsection{Accuratezza sintattica dell'attributo Country del dataset delle nazioni}
+Come detto in precedenza, per misurare l'accuratezza sintattica rispetto all'attributo Country del dataset contenente le informazioni sulle nazioni è stato utilizzato un secondo dataset come dizionario.
+In prima battuta, abbiamo cercato dei match perfetti tra i nomi delle nazioni, ovvero le coppie di stringhe la cui distanza di edit è pari a zero.
+Per tutti i casi in cui non è stato possibile individuare un match perfetto, si è in primo luogo provato ad aumentare la soglia di distanza di edit, ottenendo però scarsi risultati.
+Il motivo di ciò è dovuto al fatto che i non match spesso sono causati da modi diversi di riferirsi ad una stessa nazione (\textit{i.e.}, Vietnam e Viet Nam) o la presenza di un prefisso davanti al nome con cui normalmente ci si rifersce alla nazione (\textit{i.e.}, The Bahamas e Bahamas).
+A fronte di ciò, si è deciso di utilizzare una distanza basata sulle Bigram in modo da ridurre problemi causati dalle situazioni descritte in precedenza; gli intervalli per cui stabilire se si sono ottenuti dei match, non match o dubbio sono state rispettivamente: $[0.7, 1.0], [0.0,0.5], (0.5, 0.7)$, si faccia riferimento alla Tabella \ref{tab:matches} per i dettagli.
+Poiché in tutti 3 i casi le tuple sono di un numero molto ridotto si è deciso ulteriormente di verificare “a mano” dei possibili falsi positivi o negativi, oltre a risolvere a mano le situazioni di dubbio.
+Dall'analisi effettuata, siamo arrivati a stabilire l'assenza di falsi positivi e la presenza di 4 falsi positivi (ovvero il 36 \%, si ricorda che in totale sono stati riscontrati 11 non match), per le situazioni di dubbio sono stati trovati 7 match ed un solo non match.
+A fronte di questi numeri, si possono fare ulteriori considerazioni a posteriori per quanto concerne la determinazione delle soglie abbassando il limite superiore della soglia di dubbio e dei non match, ottenendo così delle distribuzioni di errori più ragionevoli. 
+Poiché il dominio applicativo, in questo caso, è costituito da un dataset molto ristretto, tali conflitti possono essere risolti “a mano” senza dover modificare le soglie e rianalizzare la distribuzione degli errori. 
+Quest'analisi è stata poi utilizzata per modificare il dataset contenente le nazioni e i relativi codici in modo da aver un dataset accurato per le attività di integrazione.\\
+In Figura \ref{fig:dqcountrycodeaccuracy} è presente la pipeline utilizzata in Pentaho per l'analisi di questa metrica.
+\todo[inline]{Figura Errata! serve quella del primo pezzo del file data\_quality DP}
+\begin{table}
+	\caption{Tabella riassuntiva contenente numero e percentuale (si ricorda che si hanno 227 nazioni) dei match perfetti e match, non match e dubbio secondo le bigram calcolate sulle nazioni che non hanno avuto il match perfetto.}
+	
+	\label{tab:matches}
+	
+	\centering
+	\begin{tabular}{|c|c|c|}
+		\hline
+		 & \textbf{Numero} & \textbf{Percentuale (\%)} \\ 
+		\hline  
+		\rule{0pt}{13pt}Match perfetti & 188 & 83 \\ 
+		\hline  
+		\rule{0pt}{13pt}Match & 20 & 9 \\ 
+		\hline  
+		\rule{0pt}{13pt}Non match & 11 & 5 \\ 
+		\hline  
+		\rule{0pt}{13pt}Dubbio & 8 & 3 \\ 
+		\hline   
+	\end{tabular}
+\end{table} 
 
 \begin{figure}[h!]
 	\centering
@@ -143,6 +176,73 @@ Al contempo, \textit{ks-projects-201612} è stato analizzato rispetto alle segue
 	\caption{Pipeline per il conteggio delle tuple con codice della country non valido.}
 	\label{fig:dqcountrycodeaccuracy}
 \end{figure}
+
+\subsection{Completezza del dataset delle nazioni}
+La completezza analizzata è la completezza per attributo, in particolare abbiamo utilizzato la definizione “standard”, ovvero:\\“il numero di valori  \texttt{null} che compaiono nella colonna di un attributo.”\\
+Stando alla definizione, non abbiamo ricercato possibili valori non \texttt{null} ma i quali non possegono valori semantici corretti rispetto all'attributo.
+Questa casistica è stata analizzata e studiata per la parte di integrazione dei dati ma non per la parte di completezza, poiché ci siamo limitati alla definizione di completezza. 
+In Tabella \ref{tab:compl_country} sono presenti il numero e la relativa percentuale di valori \texttt{null} per ogni colonna, infine si è contato anche il numero complessivo di valori nulli e la loro percentuale rispetto al totale dei valori.
+Dalle misure effettuate, possiamo dire che il dataset è praticamente completo, soprattutto riguardo al GDP che è un attributo che verrà utilizzato per la parte di apprendimento automatico.
+\begin{table}
+	\caption{Tabella riassuntiva contenente numero e percentuale (si ricorda che si hanno 227 nazioni) dei \texttt{null} presenti nel dataset per ogni attributo. Infine, si fornisce un'ultima riga contenente il numero totale di \texttt{null} e la percentuale rispetto ad ogni campo del dataset.}
+	
+	\label{tab:compl_country}
+	
+	\centering
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\textbf{Attributo}  & \textbf{Numero} & \textbf{Percentuale (\%)} \\ 
+		\hline  
+		\rule{0pt}{13pt}Country & 0 & 0 \\ 
+		\hline  
+		\rule{0pt}{13pt}Region & 0  & 0 \\ 
+		\hline  
+		\rule{0pt}{13pt}Population & 0 & 0 \\ 
+		\hline  
+		\rule{0pt}{13pt}Area & 0 & 3 \\ 
+		\hline
+		\rule{0pt}{13pt}Pop. Density & 0 & 0 \\
+		\hline
+		\rule{0pt}{13pt}Coastline & 0 & 0 \\
+		\hline
+		\rule{0pt}{13pt}Net migration & 3 & 1 \\
+		\hline
+		\rule{0pt}{13pt}Infant mortality & 3 & 1 \\
+		\hline
+		\rule{0pt}{13pt}GDP & 1 & 0.4 \\
+		\hline
+		\rule{0pt}{13pt}Literacy & 18 & 8 \\
+		\hline
+		\rule{0pt}{13pt}Phones & 4 & 2 \\
+		\hline
+		\rule{0pt}{13pt}Arable & 2 & 1 \\
+		\hline
+		\rule{0pt}{13pt}Crops & 2 & 1 \\
+		\hline
+		\rule{0pt}{13pt}Other & 2 & 1 \\
+		\hline
+		\rule{0pt}{13pt}Climate & 22 & 10 \\
+		\hline
+		\rule{0pt}{13pt}Birthrate & 3 & 1 \\
+		\hline
+		\rule{0pt}{13pt}Deathrate & 4 & 2 \\
+		\hline
+		\rule{0pt}{13pt}Agriculture & 15 & 7 \\
+		\hline
+		\rule{0pt}{13pt}Industry & 16 & 7 \\
+		\hline
+		\rule{0pt}{13pt}Service & 15 & 7 \\
+		\hline   
+		\rule{0pt}{13pt}\textbf{Totale} & \textbf{110} & \textbf{2.4} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\todo[inline]{Ricordarsi di mettere poi il riferimento alla figura DP}
+\todo[inline]{Pipeline della completezza di world country DP}
+
+\subsection{Accuratezza sintattica del codice delle nazioni del dataset Kickstarter}
+
 
 \subsection{Accuratezza sintattica attributo state (Figura \ref{fig:dqstateaccuracy})}
 
