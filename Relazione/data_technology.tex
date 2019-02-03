@@ -1,10 +1,10 @@
 In questo capitolo discuteremo della qualità dei dati contenuti nei dataset utilizzati prima e dopo il processo di integrazione; inoltre, proporremo delle analisi descrittive effettuate sui dati integrati. 
 \section{Descrizione dei dataset}
 I 3 dataset utilizzati, che sono presenti nella \href{https://gitlab.com/Daniele-Papetti/kickstarterprediction}{repository online}, sono stati scaricati dal sito \href{https://www.kaggle.com/}{\emph{www.kaggle.com/}}.
-In particolare, due di questi dataset (\textit{countries of the world.csv} e \textit{ks-projects-201612.csv}) sono quelli che verrano utilizzati effettivamente per estrarre delle features per il processo di apprendimento automatico, mentre il terzo (\textit{country\_code.csv}) viene utilizzato sia come dizionario per l'analisi di qualità dei dati, sia per la parte di integrazione.\\
+In particolare, due di questi dataset (\textit{countries of the world.csv} e \textit{ks-projects-201612.csv}) sono quelli che verrano utilizzati effettivamente per estrarre delle \textit{features} per il processo di apprendimento automatico, mentre il terzo (\textit{country\_code.csv}) viene utilizzato sia come dizionario per l'analisi di qualità dei dati, sia per la parte di integrazione.\\
 Il dataset \textit{countries of the world.csv} contiene informazioni che descrivono il rispettivo territorio e sviluppo di 227 nazioni del mondo; si veda la Tabella \ref{tab:world_countires_att} per i dettagli.
 \begin{table}
-	\caption{Tabella riassuntiva degli attributi presenti nel file \textit{countries of the world.csv}.\\(*) Si veda la Sotto sezione \ref{subsec:temporali}}
+	\caption{Tabella riassuntiva degli attributi presenti nel file \textit{countries of the world.csv}.\\(*) Si veda la Sotto sezione \ref{subsec:temporali}.}
 
 	\label{tab:world_countires_att}
 
@@ -13,51 +13,110 @@ Il dataset \textit{countries of the world.csv} contiene informazioni che descriv
 		\hline
 		\textbf{Nome attributo} & \textbf{Tipo di dato} & \textbf{Descrizione} \\ 
 		\hline  
-		\emph{Country} & Stringa & Nome della nazione \\ 
+		\rule{0pt}{13pt}\emph{Country} & Stringa & Nome della nazione \\ 
 		\hline  
-		\rule{0pt}{20pt}Region & Stringa & \shortstack{Regione del mondo \\ in cui è situata la nazione} \\ 
+		\rule{0pt}{24pt}Region & Stringa & \shortstack{Regione del mondo \\ in cui è situata la nazione} \\ 
 		\hline  
 		\rule{0pt}{13pt}Population & Intero & Numero di abitanti in quella regione \\ 
 		\hline  
-		\rule{0pt}{20pt}Area & Intero & \shortstack{Estensione in miglia al quadrato \\ della superficie della nazione} \\ 
+		\rule{0pt}{24pt}Area & Intero & \shortstack{Estensione in miglia al quadrato \\ della superficie della nazione} \\ 
 		\hline   
-		\rule{0pt}{20pt}Pop. Density & \shortstack{Numero con \\ virgola mobile} & Numero di abitanti per miglio quadro \\ 
+		\rule{0pt}{24pt}Pop. Density & \shortstack{Numero con \\ virgola mobile} & Numero di abitanti per miglio quadro \\ 
 		\hline   
-		\rule{0pt}{20pt}Coastline & \shortstack{Numero con \\ virgola mobile} & \shortstack{Rapporto tra area costiera \\ e area non costiera (*)} \\ 
+		\rule{0pt}{24pt}Coastline & \shortstack{Numero con \\ virgola mobile} & \shortstack{Rapporto tra area costiera \\ e area non costiera (*)} \\ 
 		\hline   
-		\rule{0pt}{20pt}Net migration & \shortstack{Numero con \\ virgola mobile} & Tasso di migrazione netta \\ 
+		\rule{0pt}{24pt}Net migration & \shortstack{Numero con \\ virgola mobile} & Tasso di migrazione netta \\ 
 		\hline  
-		\rule{0pt}{20pt}Infant mortality & \shortstack{Numero con \\ virgola mobile} & Mortalità infantile ogni 1000 nascite \\ 
+		\rule{0pt}{24pt}Infant mortality & \shortstack{Numero con \\ virgola mobile} & Mortalità infantile ogni 1000 nascite \\ 
 		\hline  
 		\rule{0pt}{13pt}GDP & Intero & PIL \textit{pro capite} \\ 
 		\hline  
-		\rule{0pt}{20pt}Literacy & \shortstack{Numero con \\ virgola mobile} & Percentuale di alfabetismo \\ 
+		\rule{0pt}{24pt}Literacy & \shortstack{Numero con \\ virgola mobile} & Percentuale di alfabetismo \\ 
 		\hline  
-		\rule{0pt}{20pt}Phones & \shortstack{Numero con \\ virgola mobile} & Numero di telefoni ogni 1000 persone \\ 
+		\rule{0pt}{24pt}Phones & \shortstack{Numero con \\ virgola mobile} & Numero di telefoni ogni 1000 persone \\ 
 		\hline  
-		\rule{0pt}{20pt}Arable & \shortstack{Numero con \\ virgola mobile} & Percentuale di terreno arabile \\ 
+		\rule{0pt}{24pt}Arable & \shortstack{Numero con \\ virgola mobile} & Percentuale di terreno arabile \\ 
 		\hline  
-		\rule{0pt}{20pt}Crops & \shortstack{Numero con \\ virgola mobile} & Percentuale di terreno coltivato \\ 
+		\rule{0pt}{24pt}Crops & \shortstack{Numero con \\ virgola mobile} & Percentuale di terreno coltivato \\ 
 		\hline  
-		\rule{0pt}{20pt}Other & \shortstack{Numero con \\ virgola mobile} & \shortstack{Percentuale di terreno che non\\ ricade nelle due categorie precedenti} \\ 
+		\rule{0pt}{24pt}Other & \shortstack{Numero con \\ virgola mobile} & \shortstack{Percentuale di terreno che non\\ ricade nelle due categorie precedenti} \\ 
 		\hline  
-		\rule{0pt}{20pt}Climate & \shortstack{Numero con \\ virgola mobile} & \shortstack{Clima nella nazione, \\ i numeri sono associati ad un relativo clima}  \\ 
+		\rule{0pt}{24pt}Climate & \shortstack{Numero con \\ virgola mobile} & \shortstack{Clima nella nazione, \\ i numeri sono associati ad un relativo clima}  \\ 
 		\hline  
-		\rule{0pt}{20pt}Birthrate & \shortstack{Numero con \\ virgola mobile} & Tasso di natalità \\ 
+		\rule{0pt}{24pt}Birthrate & \shortstack{Numero con \\ virgola mobile} & Tasso di natalità \\ 
 		\hline  
-		\rule{0pt}{20pt}Deathrate & \shortstack{Numero con \\ virgola mobile} & Tasso di mortalità \\ 
+		\rule{0pt}{24pt}Deathrate & \shortstack{Numero con \\ virgola mobile} & Tasso di mortalità \\ 
 		\hline  
-		\rule{0pt}{20pt}Agriculture & \shortstack{Numero con \\ virgola mobile} & \shortstack{Percentuale di diffusione \\ del settore primario} \\ 
+		\rule{0pt}{24pt}Agriculture & \shortstack{Numero con \\ virgola mobile} & \shortstack{Percentuale di diffusione \\ del settore primario} \\ 
 		\hline  
-		\rule{0pt}{20pt}Industry & \shortstack{Numero con \\ virgola mobile} & \shortstack{Percentuale di diffusione \\ del settore secondario} \\ 
+		\rule{0pt}{24pt}Industry & \shortstack{Numero con \\ virgola mobile} & \shortstack{Percentuale di diffusione \\ del settore secondario} \\ 
 		\hline   
-		\rule{0pt}{20pt}Service & \shortstack{Numero con \\ virgola mobile} & \shortstack{Percentuale di diffusione \\ del settore terziario} \\ 
+		\rule{0pt}{24pt}Service & \shortstack{Numero con \\ virgola mobile} & \shortstack{Percentuale di diffusione \\ del settore terziario} \\ 
 		\hline  
 	\end{tabular}
 \end{table} 
 %Tra queste si possono trovare informazioni utili come il PIL (GDP) \textit{pro capite}, lo sviluppo in percentuale dei tre settori ed il numero medio di telefoni per abitante; la chiave della relazione è il nome della nazione per esteso.
-Invece, \todo[inline]{descrizione kickstarter e poi il perché del terzo dataset DP}
-%%% Aggiungerei una descrizione più analitica, tiportamdo sotto forma tabellare nome esatto colonna, tipologia del dato contenuto e descrizione semantica.
+Invece, \textit{ks-projects-201612.csv} è il dataset contenente tutte le informazioni riguardo i progetti kickstarter fino a Dicembre 2016, si tratta di più di 323 mila istanze; gli attributi del dataset sono riportati nella Tabella \ref{tab:ks}.
+\begin{table}
+	\caption{Tabella riassuntiva degli attributi presenti nel file \textit{ks-projects-201612.csv}.}
+	
+	\label{tab:ks}
+	
+	\centering
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\textbf{Nome attributo} & \textbf{Tipo di dato} & \textbf{Descrizione} \\ 
+		\hline  
+		\rule{0pt}{13pt}\emph{ID} & Intero & ID interno di kickstarter \\ 
+		\hline  
+		\rule{0pt}{13pt}Name & Stringa & Nome del progetto \\ 
+		\hline  
+		\rule{0pt}{13pt}Category & Stringa & Categoria specfica del progetto \\ 
+		\hline  
+		\rule{0pt}{24pt}Main category & Stringa & \shortstack{Categoria più generica \\ in cui ricade il progetto} \\ 
+		\hline   
+		\rule{0pt}{24pt}Currency & Stringa & \shortstack{Valuta monetaria usata \\ per supportare il progetto} \\ 
+		\hline   
+		\rule{0pt}{13pt}Deadline & Data & Data di termine campagna \\ 
+		\hline   
+		\rule{0pt}{24pt}Goal & Intero & \shortstack{Ammontare monetario da venir raggiunto \\ purché si possa realizzare il progetto} \\ 
+		\hline  
+		\rule{0pt}{13pt}Launched & Data & Data di lancio della campagna \\ 
+		\hline  
+		\rule{0pt}{24pt}Pledged & \shortstack{Numero con \\ virgola mobile} & Ammontare monetario donato \\ 
+		\hline  
+		\rule{0pt}{13pt}State & Stringa & Stato del progetto \\ 
+		\hline  
+		\rule{0pt}{24pt}Backers & Intero & \shortstack{Numero di persone che hanno \\ supportato la campagna} \\ 
+		\hline  
+		\rule{0pt}{24pt}Country & Stringa & \shortstack{Codice della nazione in cui \\ è stata avviata la campagna} \\ 
+		\hline  
+		\rule{0pt}{24pt}Usd pledged & \shortstack{Numero con \\ virgola mobile} & Corrispetti in dollari americani donati \\ 
+		\hline
+	\end{tabular}
+\end{table} 
+Poiché i due dataset devono venire fusi mediante le nazioni, le quali però sono rappresentate in modo differente (il primo ha il nome completo delle nazioni ed il secondo il codice a due caratteri), abbiamo dovuto utilizzare un terzo dataset (\textit{country\_code.csv}) che mettesse in relazione i nomi delle nazioni ed il loro codice; si faccia riferimento alla Tabella \ref{tab:code} per la semantica della relazione.
+
+\begin{table}
+	\caption{Tabella riassuntiva degli attributi presenti nel file \textit{country\_code.csv}.}
+	
+	\label{tab:code}
+	
+	\centering
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\textbf{Nome attributo} & \textbf{Tipo di dato} & \textbf{Descrizione} \\ 
+		\hline  
+		\rule{0pt}{13pt}\emph{ID} & Intero & ID incrementale \\ 
+		\hline  
+		\rule{0pt}{13pt}Country name & Stringa & Nome della nazione \\ 
+		\hline  
+		\rule{0pt}{13pt}Code 2digit & Stringa & Codice di due cifre univoco \\ 
+		\hline  
+		\rule{0pt}{13pt}Code 3digit & Stringa & Codice di tre cifre univoco \\ 
+		\hline   
+	\end{tabular}
+\end{table} 
 
 \section{Analisi di qualità dei dataset (pre-integrazione)}
 \todo[inline]{tutto DP}
