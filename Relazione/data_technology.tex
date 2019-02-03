@@ -1,7 +1,7 @@
 In questo capitolo discuteremo della qualità dei dati contenuti nei dataset utilizzati prima e dopo il processo di integrazione; inoltre, proporremo delle analisi descrittive effettuate sui dati integrati. 
 \section{Descrizione dei dataset}
 I 3 dataset utilizzati, che sono presenti nella \href{https://gitlab.com/Daniele-Papetti/kickstarterprediction}{repository online}, sono stati scaricati dal sito \href{https://www.kaggle.com/}{\emph{www.kaggle.com/}}.
-In particolare, due di questi dataset (\textit{countries of the world.csv} e \textit{ks-projects-201612.csv}) sono quelli che verrano utilizzati effettivamente per estrarre delle features per il processo di apprendimento automatico, mentre il terzo (\textit{country\_code.csv}) viene utilizzato sia come dizionario per l'analisi di qualità dei dati, sia per la parte di integrazione.\\
+In particolare, due di questi dataset (\textit{countries of the world.csv} e \textit{ks-projects-201612.csv}) sono quelli che verrano utilizzati effettivamente per estrarre delle feature per il processo di apprendimento automatico, mentre il terzo (\textit{country\_code.csv}) viene utilizzato sia come dizionario per l'analisi di qualità dei dati, sia per la parte di integrazione.\\
 Il dataset \textit{countries of the world.csv} contiene informazioni che descrivono il rispettivo territorio e sviluppo di 227 nazioni del mondo.
 Tra queste si possono trovare informazioni utili come il PIL (GDP) \textit{pro capite}, lo sviluppo in percentuale dei tre settori ed il numero medio di telefoni per abitante; la chiave della relazione è il nome della nazione per esteso.
 Invece, \todo[inline]{descrizione kickstarter e poi il perché del terzo dataset DP}
@@ -9,6 +9,10 @@ Invece, \todo[inline]{descrizione kickstarter e poi il perché del terzo dataset
 
 \section{Analisi di qualità dei dataset (pre-integrazione)}
 \todo[inline]{tutto DP}
+
+\subsection{Completezza del dataset Kickstarter}
+\todo[inline]{tua parte}
+La profilazione dei dati eseguita in precedenza ha mostrato possibili casi di valori sintatticamente corretti ma semanticamente errati; in particolare, un piccolo sottoinsieme di tuple (circa 500) ha mostrato valori privi di senso in diversi campi. Questo sottoinsieme di tuple è stato rimosso dalle operazioni di trasformazione eseguite successivamente, ed è quindi stato deciso di non includere il conteggio di queste tuple nell'analisi della completezza
 
 \subsection{Accessibilità dei dataset}
 Tutti i dataset analizzati mostrano un ottimo livello di accessibilità da parte dell'utente, con nomi degli attributi auto-esplicativi e facile reperibilità dei dati di interesse. Per questo motivo, non si è resa necessaria la creazione di viste sugli schemi locali dei dataset, mantenendo inalterata la struttura di questi ultimi.
@@ -44,17 +48,7 @@ In particolare, sono stati ignorati i record di perfect match prodotti dalla dis
 A seguito del processo di raffinamento e integrazione dei dataset esposto in precedenza, i tre database sono stati uniti in un unica tabella tramite delle operazioni di merge join, per motivi di efficienza.\\
 A seguito dell'unione, sono stati prodotti due nuovi dataset (come mostrato in Figura \ref{fig:transformationcomplete}), uno contenente tutti gli attributi risultanti dalle operazioni precedenti, mentre l'altro epurato da tutti gli attributi privi di valore ai fini dell'addestramento del modello di Machine Learning.
 
-\begin{comment}
-\begin{figure}
-	\hspace*{-2cm}%
-	\includegraphics[width=\dimexpr\textwidth+5cm\relax]{images/transformation_complete}%
-	\hspace*{-3cm}%
-	\caption{Intero processo di trasformazione eseguito al fine di produrre il dataset integrato}
-	\label{fig:transformationcomplete}
-\end{figure}
-\end{comment}
-
-\begin{figure}
+\begin{figure}[p!]
 	\centering
 	\includegraphics[angle=90,origin=c,width=0.55\linewidth]{images/transformation_complete}
 	\caption{Pipeline di trasformazione per il dataset contenente i dati dei progetti Kickstarter}
@@ -117,4 +111,22 @@ Al fine di verificare l'efficacia dell'operazione di record linkage e data fusio
 	\caption{Pipeline utilizzata per la verifica del processo di record linkage effettuata}
 	\label{fig:qdtrecordlinkage}
 \end{figure}
+
+\captionof{table}{Tabella riassuntiva che mostra il numero di tuple che non soddisfano i vincoli di consistenza o di correttezza sintattica prima e dopo le trasformazioni applicate}
+
+\begin{tabular}{|c|c|c|}
+	\hline 
+	Misura & Pre-trasformazione & Post-trasformazione \\ 
+	\hline 
+	Correttezza sintattica state & 406 & 0 \\ 
+	\hline 
+	Consistenza state & 524 & 0 \\ 
+	\hline 
+	Correttezza sintattica country code & 141 & 0 \\ 
+	\hline 
+	Consistenza backers & 3703 & 0 \\ 
+	\hline 
+	Completezza tabella & 3795 & 0 \\ 
+	\hline 
+\end{tabular} 
 
