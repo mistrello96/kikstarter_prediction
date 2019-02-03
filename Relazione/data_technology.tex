@@ -95,7 +95,7 @@ Invece, \textit{ks-projects-201612.csv} è il dataset contenente tutte le inform
 		\hline
 	\end{tabular}
 \end{table} 
-Poiché i due dataset devono venire fusi mediante le nazioni, le quali però sono rappresentate in modo differente (il primo ha il nome completo delle nazioni ed il secondo il codice a due caratteri), abbiamo dovuto utilizzare un terzo dataset (\textit{country\_code.csv}) che mettesse in relazione i nomi delle nazioni ed il loro codice; si faccia riferimento alla Tabella \ref{tab:code} per la semantica della relazione.
+Poiché i due dataset devono venire fusi mediante le nazioni, le quali però sono rappresentate in modo differente (il primo ha il nome completo delle nazioni ed il secondo il codice a due caratteri), abbiamo dovuto utilizzare un terzo dataset (\textit{country\_code.csv}) che mettesse in relazione i nomi delle nazioni ed il loro codice, in totale sono conenute le informazioni riguardo 247 nazioni; si faccia riferimento alla Tabella \ref{tab:code} per la semantica della relazione.
 
 \begin{table}
 	\caption{Tabella riassuntiva degli attributi presenti nel file \textit{country\_code.csv}.}
@@ -119,7 +119,21 @@ Poiché i due dataset devono venire fusi mediante le nazioni, le quali però son
 \end{table} 
 
 \section{Analisi di qualità dei dataset (pre-integrazione)}
-\todo[inline]{tutto DP}
+In questa sezione verranno presentate tutte le misure di qualità effettuate sui singoli dataset prima del processo di integrazione.
+I dataset analizzati, come già detto, sono i due dataset da cui poi verranno estratte le \textit{features}: \textit{countries of the world} e \textit{ks-projects-201612}.
+Per quanto concerne \textit{countries of the world} sono state effettuate le seguenti misure:
+\begin{itemize}
+	\item accuratezza sintattica rispetto all'attributo Country;
+	\item misure di completezza rispetto a tutti gli attributti.
+\end{itemize}
+Al contempo, \textit{ks-projects-201612} è stato analizzato rispetto alle seguenti metriche:
+\begin{itemize}
+	\item accuratezza sintattica rispetto ai codici delle nazioni;
+	\item indagine dei valori assunti dall'attributo State;
+	\item consistenza dell'attributo State;
+	\item consistenza dell'attributo Backers;
+	\item misure di completezza rispetto a tutti gli attributi.
+\end{itemize}
 
 \subsection{Accuratezza sintattica attributo country (Figura \ref{fig:dqcountrycodeaccuracy})}
 

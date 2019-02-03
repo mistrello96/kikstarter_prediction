@@ -2,21 +2,21 @@
 <transformation>
   <info>
     <name>data_quality</name>
-    <description />
-    <extended_description />
-    <trans_version />
+    <description/>
+    <extended_description/>
+    <trans_version/>
     <trans_type>Normal</trans_type>
     <directory>/</directory>
     <parameters>
     </parameters>
     <log>
       <trans-log-table>
-        <connection />
-        <schema />
-        <table />
-        <size_limit_lines />
-        <interval />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <size_limit_lines/>
+        <interval/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -41,37 +41,37 @@
           <id>LINES_READ</id>
           <enabled>Y</enabled>
           <name>LINES_READ</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_WRITTEN</id>
           <enabled>Y</enabled>
           <name>LINES_WRITTEN</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_UPDATED</id>
           <enabled>Y</enabled>
           <name>LINES_UPDATED</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_INPUT</id>
           <enabled>Y</enabled>
           <name>LINES_INPUT</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_OUTPUT</id>
           <enabled>Y</enabled>
           <name>LINES_OUTPUT</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_REJECTED</id>
           <enabled>Y</enabled>
           <name>LINES_REJECTED</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>ERRORS</id>
@@ -125,11 +125,11 @@
         </field>
       </trans-log-table>
       <perf-log-table>
-        <connection />
-        <schema />
-        <table />
-        <interval />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <interval/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -207,10 +207,10 @@
         </field>
       </perf-log-table>
       <channel-log-table>
-        <connection />
-        <schema />
-        <table />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -273,10 +273,10 @@
         </field>
       </channel-log-table>
       <step-log-table>
-        <connection />
-        <schema />
-        <table />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -349,10 +349,10 @@
         </field>
       </step-log-table>
       <metrics-log-table>
-        <connection />
-        <schema />
-        <table />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -401,9 +401,9 @@
       </metrics-log-table>
     </log>
     <maxdate>
-      <connection />
-      <table />
-      <field />
+      <connection/>
+      <table/>
+      <field/>
       <offset>0.0</offset>
       <maxdiff>0.0</maxdiff>
     </maxdate>
@@ -414,7 +414,7 @@
     <feedback_shown>Y</feedback_shown>
     <feedback_size>50000</feedback_size>
     <using_thread_priorities>Y</using_thread_priorities>
-    <shared_objects_file />
+    <shared_objects_file/>
     <capture_step_performance>N</capture_step_performance>
     <step_performance_capturing_delay>1000</step_performance_capturing_delay>
     <step_performance_capturing_size_limit>100</step_performance_capturing_size_limit>
@@ -765,13 +765,13 @@
   <step>
     <name>Calculator</name>
     <type>Calculator</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <failIfNoFile>Y</failIfNoFile>
     <calculation>
@@ -779,18 +779,18 @@
       <calc_type>SUBTRACT</calc_type>
       <field_a>pledged</field_a>
       <field_b>goal</field_b>
-      <field_c />
+      <field_c/>
       <value_type>None</value_type>
       <value_length>-1</value_length>
       <value_precision>-1</value_precision>
       <remove>N</remove>
-      <conversion_mask />
-      <decimal_symbol />
-      <grouping_symbol />
-      <currency_symbol />
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
     </calculation>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -806,13 +806,13 @@
   <step>
     <name>Change attribute name</name>
     <type>SelectValues</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <fields>
       <field>
@@ -821,8 +821,8 @@
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -836,15 +836,222 @@
     </GUI>
   </step>
   <step>
-    <name>Clean_null_columns</name>
-    <type>SelectValues</type>
-    <description />
+    <name>Check for unvalid backers</name>
+    <type>FilterRows</type>
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
+    </partitioning>
+    <send_true_to>Select values</send_true_to>
+    <send_false_to>number of invalid 2 2</send_false_to>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <conditions>
+          <condition>
+            <negated>N</negated>
+            <operator>OR</operator>
+            <leftvalue>backers</leftvalue>
+            <function>REGEXP</function>
+            <rightvalue/>
+            <value>
+              <name>constant</name>
+              <type>String</type>
+              <text>[0-9]+</text>
+              <length>-1</length>
+              <precision>-1</precision>
+              <isnull>N</isnull>
+              <mask>####0;-####0</mask>
+            </value>
+          </condition>
+        </conditions>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>400</xloc>
+      <yloc>1344</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Check for unvalid backers 2</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to>number of invalid 2 2</send_true_to>
+    <send_false_to>number of valid 2 2</send_false_to>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <conditions>
+          <condition>
+            <negated>N</negated>
+            <operator>OR</operator>
+            <conditions>
+              <condition>
+                <negated>N</negated>
+                <leftvalue>backers</leftvalue>
+                <function>=</function>
+                <rightvalue/>
+                <value>
+                  <name>constant</name>
+                  <type>Integer</type>
+                  <text>0</text>
+                  <length>-1</length>
+                  <precision>0</precision>
+                  <isnull>N</isnull>
+                  <mask>####0;-####0</mask>
+                </value>
+              </condition>
+              <condition>
+                <negated>N</negated>
+                <operator>AND</operator>
+                <leftvalue>pledged</leftvalue>
+                <function>&lt;></function>
+                <rightvalue/>
+                <value>
+                  <name>constant</name>
+                  <type>String</type>
+                  <text>0</text>
+                  <length>-1</length>
+                  <precision>-1</precision>
+                  <isnull>N</isnull>
+                  <mask/>
+                </value>
+              </condition>
+            </conditions>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>OR</operator>
+            <conditions>
+              <condition>
+                <negated>N</negated>
+                <leftvalue>pledged</leftvalue>
+                <function>=</function>
+                <rightvalue/>
+                <value>
+                  <name>constant</name>
+                  <type>String</type>
+                  <text>0</text>
+                  <length>-1</length>
+                  <precision>-1</precision>
+                  <isnull>N</isnull>
+                  <mask/>
+                </value>
+              </condition>
+              <condition>
+                <negated>N</negated>
+                <operator>AND</operator>
+                <leftvalue>backers</leftvalue>
+                <function>&lt;></function>
+                <rightvalue/>
+                <value>
+                  <name>constant</name>
+                  <type>Integer</type>
+                  <text>0</text>
+                  <length>-1</length>
+                  <precision>0</precision>
+                  <isnull>N</isnull>
+                  <mask>####0;-####0</mask>
+                </value>
+              </condition>
+            </conditions>
+          </condition>
+        </conditions>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>656</xloc>
+      <yloc>1344</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Check for unvalid countries</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to>Sort rows 2 2</send_true_to>
+    <send_false_to>Sort rows 2 2 2</send_false_to>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <conditions>
+          <condition>
+            <negated>N</negated>
+            <leftvalue>country</leftvalue>
+            <function>REGEXP</function>
+            <rightvalue/>
+            <value>
+              <name>constant</name>
+              <type>String</type>
+              <text>[A-Z]{2}</text>
+              <length>-1</length>
+              <precision>-1</precision>
+              <isnull>N</isnull>
+              <mask/>
+            </value>
+          </condition>
+        </conditions>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>400</xloc>
+      <yloc>1200</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Clean_null_columns</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
     </partitioning>
     <fields>
       <select_unspecified>N</select_unspecified>
@@ -855,8 +1062,8 @@
         <name>measure value</name>
       </remove>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -870,15 +1077,140 @@
     </GUI>
   </step>
   <step>
-    <name>Filter rows</name>
-    <type>FilterRows</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
+    <name>Extract country and code</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <select_unspecified>Y</select_unspecified>
+      <remove>
+        <name>ID</name>
+      </remove>
+      <remove>
+        <name>name</name>
+      </remove>
+      <remove>
+        <name>category</name>
+      </remove>
+      <remove>
+        <name>main_category</name>
+      </remove>
+      <remove>
+        <name>currency</name>
+      </remove>
+      <remove>
+        <name>deadline</name>
+      </remove>
+      <remove>
+        <name>goal</name>
+      </remove>
+      <remove>
+        <name>launched</name>
+      </remove>
+      <remove>
+        <name>pledged</name>
+      </remove>
+      <remove>
+        <name>state</name>
+      </remove>
+      <remove>
+        <name>backers</name>
+      </remove>
+      <remove>
+        <name>usd pledged</name>
+      </remove>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>192</xloc>
+      <yloc>1200</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Extract country and code 2</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <select_unspecified>Y</select_unspecified>
+      <remove>
+        <name>ID</name>
+      </remove>
+      <remove>
+        <name>name</name>
+      </remove>
+      <remove>
+        <name>category</name>
+      </remove>
+      <remove>
+        <name>main_category</name>
+      </remove>
+      <remove>
+        <name>currency</name>
+      </remove>
+      <remove>
+        <name>deadline</name>
+      </remove>
+      <remove>
+        <name>goal</name>
+      </remove>
+      <remove>
+        <name>launched</name>
+      </remove>
+      <remove>
+        <name>state</name>
+      </remove>
+      <remove>
+        <name>country</name>
+      </remove>
+      <remove>
+        <name>usd pledged</name>
+      </remove>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>192</xloc>
+      <yloc>1344</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Filter rows</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
     </partitioning>
     <send_true_to>Calculator</send_true_to>
     <send_false_to>not_valid</send_false_to>
@@ -890,7 +1222,7 @@
             <negated>N</negated>
             <leftvalue>state</leftvalue>
             <function>=</function>
-            <rightvalue />
+            <rightvalue/>
             <value>
               <name>constant</name>
               <type>String</type>
@@ -898,7 +1230,7 @@
               <length>-1</length>
               <precision>-1</precision>
               <isnull>N</isnull>
-              <mask />
+              <mask/>
             </value>
           </condition>
           <condition>
@@ -906,7 +1238,7 @@
             <operator>OR</operator>
             <leftvalue>state</leftvalue>
             <function>=</function>
-            <rightvalue />
+            <rightvalue/>
             <value>
               <name>constant</name>
               <type>String</type>
@@ -914,7 +1246,7 @@
               <length>-1</length>
               <precision>-1</precision>
               <isnull>N</isnull>
-              <mask />
+              <mask/>
             </value>
           </condition>
           <condition>
@@ -922,7 +1254,7 @@
             <operator>OR</operator>
             <leftvalue>state</leftvalue>
             <function>=</function>
-            <rightvalue />
+            <rightvalue/>
             <value>
               <name>constant</name>
               <type>String</type>
@@ -930,14 +1262,14 @@
               <length>-1</length>
               <precision>-1</precision>
               <isnull>N</isnull>
-              <mask />
+              <mask/>
             </value>
           </condition>
         </conditions>
       </condition>
     </compare>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -953,13 +1285,13 @@
   <step>
     <name>Fuzzy match</name>
     <type>FuzzyMatch</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <from>country_code(copy)</from>
     <lookupfield>code_2digit</lookupfield>
@@ -974,8 +1306,8 @@
     <algorithm>levenshtein</algorithm>
     <lookup>
     </lookup>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -991,17 +1323,17 @@
   <step>
     <name>Identify last row in a stream</name>
     <type>DetectLastRow</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <resultfieldname>last</resultfieldname>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1017,17 +1349,17 @@
   <step>
     <name>Identify last row in a stream 2</name>
     <type>DetectLastRow</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <resultfieldname>last</resultfieldname>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1041,15 +1373,50 @@
     </GUI>
   </step>
   <step>
-    <name>Modified Java Script Value</name>
-    <type>ScriptValueMod</type>
-    <description />
+    <name>Invalid countries</name>
+    <type>Unique</type>
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
+    </partitioning>
+    <count_rows>N</count_rows>
+    <count_field/>
+    <reject_duplicate_row>N</reject_duplicate_row>
+    <error_description/>
+    <fields>
+      <field>
+        <name>country</name>
+        <case_insensitive>N</case_insensitive>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>704</xloc>
+      <yloc>1248</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Modified Java Script Value</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
     </partitioning>
     <compatible>N</compatible>
     <optimizationLevel>-1</optimizationLevel>
@@ -1094,8 +1461,8 @@ if (last == true) {
       </jsScript>
     </jsScripts>
     <fields>    </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1111,13 +1478,13 @@ if (last == true) {
   <step>
     <name>Modified Java Script Value 2</name>
     <type>ScriptValueMod</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <compatible>N</compatible>
     <optimizationLevel>-1</optimizationLevel>
@@ -1162,8 +1529,8 @@ if (last == true) {
       </jsScript>
     </jsScripts>
     <fields>    </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1179,13 +1546,13 @@ if (last == true) {
   <step>
     <name>Perfect_match</name>
     <type>FuzzyMatch</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <from>Trim of spaces</from>
     <lookupfield>Country_name</lookupfield>
@@ -1200,8 +1567,8 @@ if (last == true) {
     <algorithm>levenshtein</algorithm>
     <lookup>
     </lookup>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1217,13 +1584,13 @@ if (last == true) {
   <step>
     <name>Project_country</name>
     <type>SelectValues</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <fields>
       <select_unspecified>N</select_unspecified>
@@ -1285,8 +1652,8 @@ if (last == true) {
         <name>Service</name>
       </remove>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1300,22 +1667,67 @@ if (last == true) {
     </GUI>
   </step>
   <step>
-    <name>Sort rows</name>
-    <type>SortRows</type>
-    <description />
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <select_unspecified>N</select_unspecified>
+      <meta>
+        <name>backers</name>
+        <rename>backers</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>544</xloc>
+      <yloc>1344</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Sort rows</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
     </partitioning>
     <directory>%%java.io.tmpdir%%</directory>
     <prefix>out</prefix>
     <sort_size>1000000</sort_size>
-    <free_memory />
+    <free_memory/>
     <compress>N</compress>
-    <compress_variable />
+    <compress_variable/>
     <unique_rows>N</unique_rows>
     <fields>
       <field>
@@ -1327,8 +1739,8 @@ if (last == true) {
         <presorted>N</presorted>
       </field>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1344,20 +1756,20 @@ if (last == true) {
   <step>
     <name>Sort rows 2</name>
     <type>SortRows</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <directory>%%java.io.tmpdir%%</directory>
     <prefix>out</prefix>
     <sort_size>1000000</sort_size>
-    <free_memory />
+    <free_memory/>
     <compress>N</compress>
-    <compress_variable />
+    <compress_variable/>
     <unique_rows>N</unique_rows>
     <fields>
       <field>
@@ -1369,8 +1781,8 @@ if (last == true) {
         <presorted>N</presorted>
       </field>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1384,22 +1796,106 @@ if (last == true) {
     </GUI>
   </step>
   <step>
-    <name>Sort rows 4</name>
+    <name>Sort rows 2 2</name>
     <type>SortRows</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <directory>%%java.io.tmpdir%%</directory>
     <prefix>out</prefix>
     <sort_size>1000000</sort_size>
-    <free_memory />
+    <free_memory/>
     <compress>N</compress>
-    <compress_variable />
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>country</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>576</xloc>
+      <yloc>1168</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Sort rows 2 2 2</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>country</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>576</xloc>
+      <yloc>1248</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Sort rows 4</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
     <unique_rows>N</unique_rows>
     <fields>
       <field>
@@ -1411,8 +1907,8 @@ if (last == true) {
         <presorted>N</presorted>
       </field>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1428,31 +1924,31 @@ if (last == true) {
   <step>
     <name>Trim of spaces</name>
     <type>StringOperations</type>
-    <description />
+    <description/>
     <distribute>N</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <fields>
       <field>
         <in_stream_name>Country_name</in_stream_name>
-        <out_stream_name />
+        <out_stream_name/>
         <trim_type>both</trim_type>
         <lower_upper>none</lower_upper>
         <padding_type>none</padding_type>
-        <pad_char />
-        <pad_len />
+        <pad_char/>
+        <pad_len/>
         <init_cap>no</init_cap>
         <mask_xml>none</mask_xml>
         <digits>none</digits>
         <remove_special_characters>none</remove_special_characters>
       </field>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1468,31 +1964,31 @@ if (last == true) {
   <step>
     <name>Trim of spaces 2</name>
     <type>StringOperations</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <fields>
       <field>
         <in_stream_name>Country_world</in_stream_name>
-        <out_stream_name />
+        <out_stream_name/>
         <trim_type>both</trim_type>
         <lower_upper>none</lower_upper>
         <padding_type>none</padding_type>
-        <pad_char />
-        <pad_len />
+        <pad_char/>
+        <pad_len/>
         <init_cap>no</init_cap>
         <mask_xml>none</mask_xml>
         <digits>none</digits>
         <remove_special_characters>none</remove_special_characters>
       </field>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1508,26 +2004,26 @@ if (last == true) {
   <step>
     <name>Unique rows</name>
     <type>Unique</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <count_rows>N</count_rows>
-    <count_field />
+    <count_field/>
     <reject_duplicate_row>N</reject_duplicate_row>
-    <error_description />
+    <error_description/>
     <fields>
       <field>
         <name>country</name>
         <case_insensitive>Y</case_insensitive>
       </field>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1543,21 +2039,21 @@ if (last == true) {
   <step>
     <name>Unique rows 2</name>
     <type>Unique</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <count_rows>N</count_rows>
-    <count_field />
+    <count_field/>
     <reject_duplicate_row>N</reject_duplicate_row>
-    <error_description />
+    <error_description/>
     <fields>      </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1573,21 +2069,21 @@ if (last == true) {
   <step>
     <name>Unique rows 4</name>
     <type>Unique</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <count_rows>N</count_rows>
-    <count_field />
+    <count_field/>
     <reject_duplicate_row>N</reject_duplicate_row>
-    <error_description />
+    <error_description/>
     <fields>      </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1601,15 +2097,50 @@ if (last == true) {
     </GUI>
   </step>
   <step>
-    <name>bigrams_distance</name>
-    <type>FuzzyMatch</type>
-    <description />
-    <distribute>N</distribute>
-    <custom_distribution />
+    <name>Valid counries</name>
+    <type>Unique</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
+    </partitioning>
+    <count_rows>N</count_rows>
+    <count_field/>
+    <reject_duplicate_row>N</reject_duplicate_row>
+    <error_description/>
+    <fields>
+      <field>
+        <name>country</name>
+        <case_insensitive>N</case_insensitive>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>704</xloc>
+      <yloc>1168</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>bigrams_distance</name>
+    <type>FuzzyMatch</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
     </partitioning>
     <from>Trim of spaces</from>
     <lookupfield>Country_name</lookupfield>
@@ -1624,8 +2155,8 @@ if (last == true) {
     <algorithm>pairsimilarity</algorithm>
     <lookup>
     </lookup>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1641,13 +2172,13 @@ if (last == true) {
   <step>
     <name>cast_type</name>
     <type>SelectValues</type>
-    <description />
+    <description/>
     <distribute>N</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <fields>
       <select_unspecified>N</select_unspecified>
@@ -1659,14 +2190,14 @@ if (last == true) {
         <precision>0</precision>
         <conversion_mask>#</conversion_mask>
         <date_format_lenient>false</date_format_lenient>
-        <date_format_locale />
-        <date_format_timezone />
+        <date_format_locale/>
+        <date_format_timezone/>
         <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding />
-        <decimal_symbol />
-        <grouping_symbol />
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
         <currency_symbol>$</currency_symbol>
-        <storage_type />
+        <storage_type/>
       </meta>
       <meta>
         <name>pledged</name>
@@ -1676,18 +2207,18 @@ if (last == true) {
         <precision>2</precision>
         <conversion_mask>#.#</conversion_mask>
         <date_format_lenient>false</date_format_lenient>
-        <date_format_locale />
-        <date_format_timezone />
+        <date_format_locale/>
+        <date_format_timezone/>
         <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding />
-        <decimal_symbol />
-        <grouping_symbol />
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
         <currency_symbol>$</currency_symbol>
-        <storage_type />
+        <storage_type/>
       </meta>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1703,17 +2234,17 @@ if (last == true) {
   <step>
     <name>countries_world</name>
     <type>CsvInput</type>
-    <description />
+    <description/>
     <distribute>N</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <filename>${PATH_TO_REPO}Dataset/countries of the world.csv</filename>
-    <filename_field />
-    <rownum_field />
+    <filename_field/>
+    <rownum_field/>
     <include_filename>N</include_filename>
     <separator>,</separator>
     <enclosure>"</enclosure>
@@ -1723,12 +2254,12 @@ if (last == true) {
     <add_filename_result>N</add_filename_result>
     <parallel>N</parallel>
     <newline_possible>N</newline_possible>
-    <encoding />
+    <encoding/>
     <fields>
       <field>
         <name>Country</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
@@ -1739,7 +2270,7 @@ if (last == true) {
       <field>
         <name>Region</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
@@ -1946,8 +2477,8 @@ if (last == true) {
         <trim_type>none</trim_type>
       </field>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -1963,17 +2494,17 @@ if (last == true) {
   <step>
     <name>country_code</name>
     <type>CsvInput</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <filename>${PATH_TO_REPO}Dataset/country_code.csv</filename>
-    <filename_field />
-    <rownum_field />
+    <filename_field/>
+    <rownum_field/>
     <include_filename>N</include_filename>
     <separator>,</separator>
     <enclosure>"</enclosure>
@@ -1983,7 +2514,7 @@ if (last == true) {
     <add_filename_result>N</add_filename_result>
     <parallel>N</parallel>
     <newline_possible>N</newline_possible>
-    <encoding />
+    <encoding/>
     <fields>
       <field>
         <name>ID</name>
@@ -1999,7 +2530,7 @@ if (last == true) {
       <field>
         <name>Country_name</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
@@ -2010,7 +2541,7 @@ if (last == true) {
       <field>
         <name>code_2digit</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
@@ -2021,7 +2552,7 @@ if (last == true) {
       <field>
         <name>code_3digit</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
@@ -2030,8 +2561,8 @@ if (last == true) {
         <trim_type>none</trim_type>
       </field>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -2047,17 +2578,17 @@ if (last == true) {
   <step>
     <name>country_code(copy)</name>
     <type>CsvInput</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <filename>${PATH_TO_REPO}Dataset/country_code.csv</filename>
-    <filename_field />
-    <rownum_field />
+    <filename_field/>
+    <rownum_field/>
     <include_filename>N</include_filename>
     <separator>,</separator>
     <enclosure>"</enclosure>
@@ -2067,7 +2598,7 @@ if (last == true) {
     <add_filename_result>N</add_filename_result>
     <parallel>N</parallel>
     <newline_possible>N</newline_possible>
-    <encoding />
+    <encoding/>
     <fields>
       <field>
         <name>ID</name>
@@ -2083,7 +2614,7 @@ if (last == true) {
       <field>
         <name>Country_name</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
@@ -2094,7 +2625,7 @@ if (last == true) {
       <field>
         <name>code_2digit</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
@@ -2105,7 +2636,7 @@ if (last == true) {
       <field>
         <name>code_3digit</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
@@ -2114,8 +2645,8 @@ if (last == true) {
         <trim_type>none</trim_type>
       </field>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -2131,16 +2662,16 @@ if (last == true) {
   <step>
     <name>do_not_know_rows</name>
     <type>FilterRows</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <send_true_to>number_of_do_not_know</send_true_to>
-    <send_false_to />
+    <send_false_to/>
     <compare>
       <condition>
         <negated>N</negated>
@@ -2149,7 +2680,7 @@ if (last == true) {
             <negated>N</negated>
             <leftvalue>measure value</leftvalue>
             <function>&gt;</function>
-            <rightvalue />
+            <rightvalue/>
             <value>
               <name>constant</name>
               <type>Number</type>
@@ -2165,7 +2696,7 @@ if (last == true) {
             <operator>AND</operator>
             <leftvalue>measure value</leftvalue>
             <function>&lt;</function>
-            <rightvalue />
+            <rightvalue/>
             <value>
               <name>constant</name>
               <type>Number</type>
@@ -2179,8 +2710,8 @@ if (last == true) {
         </conditions>
       </condition>
     </compare>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -2194,24 +2725,89 @@ if (last == true) {
     </GUI>
   </step>
   <step>
-    <name>filter_goals</name>
+    <name>filter_accured_state</name>
     <type>FilterRows</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
+    </partitioning>
+    <send_true_to>Unique rows 2</send_true_to>
+    <send_false_to/>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <conditions>
+          <condition>
+            <negated>N</negated>
+            <leftvalue>state</leftvalue>
+            <function>&lt;></function>
+            <rightvalue/>
+            <value>
+              <name>constant</name>
+              <type>String</type>
+              <text>successful</text>
+              <length>-1</length>
+              <precision>-1</precision>
+              <isnull>N</isnull>
+              <mask>#.#</mask>
+            </value>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>AND</operator>
+            <leftvalue>state</leftvalue>
+            <function>&lt;></function>
+            <rightvalue/>
+            <value>
+              <name>constant</name>
+              <type>String</type>
+              <text>failed</text>
+              <length>-1</length>
+              <precision>-1</precision>
+              <isnull>N</isnull>
+              <mask/>
+            </value>
+          </condition>
+        </conditions>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>416</xloc>
+      <yloc>880</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>filter_goals</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
     </partitioning>
     <send_true_to>cast_type</send_true_to>
-    <send_false_to />
+    <send_false_to/>
     <compare>
       <condition>
         <negated>N</negated>
         <leftvalue>goal</leftvalue>
         <function>REGEXP</function>
-        <rightvalue />
+        <rightvalue/>
         <value>
           <name>constant</name>
           <type>String</type>
@@ -2223,8 +2819,8 @@ if (last == true) {
         </value>
       </condition>
     </compare>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -2240,22 +2836,22 @@ if (last == true) {
   <step>
     <name>filter_pledged</name>
     <type>FilterRows</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <send_true_to>filter_goals</send_true_to>
-    <send_false_to />
+    <send_false_to/>
     <compare>
       <condition>
         <negated>N</negated>
         <leftvalue>pledged</leftvalue>
         <function>REGEXP</function>
-        <rightvalue />
+        <rightvalue/>
         <value>
           <name>constant</name>
           <type>String</type>
@@ -2267,8 +2863,8 @@ if (last == true) {
         </value>
       </condition>
     </compare>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -2284,13 +2880,13 @@ if (last == true) {
   <step>
     <name>find null</name>
     <type>FilterRows</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <send_true_to>Clean_null_columns</send_true_to>
     <send_false_to>number_of_perfect_match</send_false_to>
@@ -2299,11 +2895,11 @@ if (last == true) {
         <negated>N</negated>
         <leftvalue>match</leftvalue>
         <function>IS NULL</function>
-        <rightvalue />
+        <rightvalue/>
       </condition>
     </compare>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -2319,13 +2915,13 @@ if (last == true) {
   <step>
     <name>find null 2</name>
     <type>FilterRows</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <send_true_to>number_of_match</send_true_to>
     <send_false_to>number_of_not_match</send_false_to>
@@ -2334,11 +2930,11 @@ if (last == true) {
         <negated>N</negated>
         <leftvalue>match</leftvalue>
         <function>IS NOT NULL</function>
-        <rightvalue />
+        <rightvalue/>
       </condition>
     </compare>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -2354,13 +2950,13 @@ if (last == true) {
   <step>
     <name>find_not_successful</name>
     <type>FilterRows</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <send_true_to>not_successful</send_true_to>
     <send_false_to>successful </send_false_to>
@@ -2369,7 +2965,7 @@ if (last == true) {
         <negated>N</negated>
         <leftvalue>state</leftvalue>
         <function>&lt;></function>
-        <rightvalue />
+        <rightvalue/>
         <value>
           <name>constant</name>
           <type>String</type>
@@ -2377,12 +2973,12 @@ if (last == true) {
           <length>-1</length>
           <precision>-1</precision>
           <isnull>N</isnull>
-          <mask />
+          <mask/>
         </value>
       </condition>
     </compare>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -2398,13 +2994,13 @@ if (last == true) {
   <step>
     <name>find_not_successful </name>
     <type>FilterRows</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <send_true_to>not_successful 2</send_true_to>
     <send_false_to>successful  2</send_false_to>
@@ -2413,7 +3009,7 @@ if (last == true) {
         <negated>N</negated>
         <leftvalue>state</leftvalue>
         <function>&lt;></function>
-        <rightvalue />
+        <rightvalue/>
         <value>
           <name>constant</name>
           <type>String</type>
@@ -2421,12 +3017,12 @@ if (last == true) {
           <length>-1</length>
           <precision>-1</precision>
           <isnull>N</isnull>
-          <mask />
+          <mask/>
         </value>
       </condition>
     </compare>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -2442,13 +3038,13 @@ if (last == true) {
   <step>
     <name>find_pledged</name>
     <type>FilterRows</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <send_true_to>find_not_successful</send_true_to>
     <send_false_to>find_not_successful </send_false_to>
@@ -2457,7 +3053,7 @@ if (last == true) {
         <negated>N</negated>
         <leftvalue>pledged-goal</leftvalue>
         <function>&gt;=</function>
-        <rightvalue />
+        <rightvalue/>
         <value>
           <name>constant</name>
           <type>Number</type>
@@ -2469,8 +3065,8 @@ if (last == true) {
         </value>
       </condition>
     </compare>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -2486,17 +3082,17 @@ if (last == true) {
   <step>
     <name>ks_projects</name>
     <type>CsvInput</type>
-    <description />
+    <description/>
     <distribute>N</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <filename>${PATH_TO_REPO}Dataset/ks-projects-201612.csv</filename>
-    <filename_field />
-    <rownum_field />
+    <filename_field/>
+    <rownum_field/>
     <include_filename>N</include_filename>
     <separator>,</separator>
     <enclosure>"</enclosure>
@@ -2522,7 +3118,7 @@ if (last == true) {
       <field>
         <name>name</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
@@ -2533,7 +3129,7 @@ if (last == true) {
       <field>
         <name>category</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
@@ -2544,7 +3140,7 @@ if (last == true) {
       <field>
         <name>main_category</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
@@ -2555,7 +3151,7 @@ if (last == true) {
       <field>
         <name>currency</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
@@ -2577,7 +3173,7 @@ if (last == true) {
       <field>
         <name>goal</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
@@ -2610,7 +3206,7 @@ if (last == true) {
       <field>
         <name>state</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
@@ -2632,7 +3228,7 @@ if (last == true) {
       <field>
         <name>country</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
@@ -2652,8 +3248,8 @@ if (last == true) {
         <trim_type>none</trim_type>
       </field>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -2669,17 +3265,17 @@ if (last == true) {
   <step>
     <name>ks_projects_not_lazy</name>
     <type>CsvInput</type>
-    <description />
+    <description/>
     <distribute>N</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <filename>${PATH_TO_REPO}Dataset/ks-projects-201612.csv</filename>
-    <filename_field />
-    <rownum_field />
+    <filename_field/>
+    <rownum_field/>
     <include_filename>N</include_filename>
     <separator>,</separator>
     <enclosure>"</enclosure>
@@ -2705,7 +3301,7 @@ if (last == true) {
       <field>
         <name>name</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
@@ -2716,7 +3312,7 @@ if (last == true) {
       <field>
         <name>category</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
@@ -2727,7 +3323,7 @@ if (last == true) {
       <field>
         <name>main_category</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
@@ -2738,7 +3334,7 @@ if (last == true) {
       <field>
         <name>currency</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
@@ -2749,7 +3345,7 @@ if (last == true) {
       <field>
         <name>deadline</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
@@ -2760,7 +3356,7 @@ if (last == true) {
       <field>
         <name>goal</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
@@ -2771,7 +3367,7 @@ if (last == true) {
       <field>
         <name>launched</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
@@ -2782,7 +3378,7 @@ if (last == true) {
       <field>
         <name>pledged</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
@@ -2793,7 +3389,7 @@ if (last == true) {
       <field>
         <name>state</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
@@ -2804,7 +3400,7 @@ if (last == true) {
       <field>
         <name>backers</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
@@ -2815,7 +3411,7 @@ if (last == true) {
       <field>
         <name>country</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
@@ -2826,7 +3422,7 @@ if (last == true) {
       <field>
         <name>usd pledged</name>
         <type>String</type>
-        <format />
+        <format/>
         <currency>$</currency>
         <decimal>.</decimal>
         <group>,</group>
@@ -2835,8 +3431,8 @@ if (last == true) {
         <trim_type>none</trim_type>
       </field>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -2852,22 +3448,22 @@ if (last == true) {
   <step>
     <name>matching_rows</name>
     <type>FilterRows</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <send_true_to>number_of_matching</send_true_to>
-    <send_false_to />
+    <send_false_to/>
     <compare>
       <condition>
         <negated>N</negated>
         <leftvalue>measure value</leftvalue>
         <function>&gt;=</function>
-        <rightvalue />
+        <rightvalue/>
         <value>
           <name>constant</name>
           <type>Number</type>
@@ -2879,8 +3475,8 @@ if (last == true) {
         </value>
       </condition>
     </compare>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -2896,22 +3492,22 @@ if (last == true) {
   <step>
     <name>not_matching_rows</name>
     <type>FilterRows</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <send_true_to>number_of_not_matching</send_true_to>
-    <send_false_to />
+    <send_false_to/>
     <compare>
       <condition>
         <negated>N</negated>
         <leftvalue>measure value</leftvalue>
         <function>&lt;=</function>
-        <rightvalue />
+        <rightvalue/>
         <value>
           <name>constant</name>
           <type>Number</type>
@@ -2923,8 +3519,8 @@ if (last == true) {
         </value>
       </condition>
     </compare>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -2940,21 +3536,21 @@ if (last == true) {
   <step>
     <name>not_successful</name>
     <type>GroupBy</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <all_rows>N</all_rows>
     <ignore_aggregate>N</ignore_aggregate>
-    <field_ignore />
+    <field_ignore/>
     <directory>%%java.io.tmpdir%%</directory>
     <prefix>grp</prefix>
     <add_linenr>N</add_linenr>
-    <linenr_fieldname />
+    <linenr_fieldname/>
     <give_back_row>N</give_back_row>
     <group>
       </group>
@@ -2963,11 +3559,11 @@ if (last == true) {
         <aggregate>not_successful</aggregate>
         <subject>pledged</subject>
         <type>COUNT_ALL</type>
-        <valuefield />
+        <valuefield/>
       </field>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -2983,21 +3579,21 @@ if (last == true) {
   <step>
     <name>not_successful 2</name>
     <type>GroupBy</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <all_rows>N</all_rows>
     <ignore_aggregate>N</ignore_aggregate>
-    <field_ignore />
+    <field_ignore/>
     <directory>%%java.io.tmpdir%%</directory>
     <prefix>grp</prefix>
     <add_linenr>N</add_linenr>
-    <linenr_fieldname />
+    <linenr_fieldname/>
     <give_back_row>N</give_back_row>
     <group>
       </group>
@@ -3006,11 +3602,11 @@ if (last == true) {
         <aggregate>not_successful</aggregate>
         <subject>pledged</subject>
         <type>COUNT_ALL</type>
-        <valuefield />
+        <valuefield/>
       </field>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -3026,21 +3622,21 @@ if (last == true) {
   <step>
     <name>not_valid</name>
     <type>GroupBy</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <all_rows>N</all_rows>
     <ignore_aggregate>N</ignore_aggregate>
-    <field_ignore />
+    <field_ignore/>
     <directory>%%java.io.tmpdir%%</directory>
     <prefix>grp</prefix>
     <add_linenr>N</add_linenr>
-    <linenr_fieldname />
+    <linenr_fieldname/>
     <give_back_row>N</give_back_row>
     <group>
       </group>
@@ -3049,11 +3645,11 @@ if (last == true) {
         <aggregate>not_valid</aggregate>
         <subject>pledged</subject>
         <type>COUNT_ALL</type>
-        <valuefield />
+        <valuefield/>
       </field>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -3067,23 +3663,195 @@ if (last == true) {
     </GUI>
   </step>
   <step>
-    <name>number_of_do_not_know</name>
+    <name>number of invalid</name>
     <type>GroupBy</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <all_rows>N</all_rows>
     <ignore_aggregate>N</ignore_aggregate>
-    <field_ignore />
+    <field_ignore/>
     <directory>%%java.io.tmpdir%%</directory>
     <prefix>grp</prefix>
     <add_linenr>N</add_linenr>
-    <linenr_fieldname />
+    <linenr_fieldname/>
+    <give_back_row>N</give_back_row>
+    <group>
+      </group>
+    <fields>
+      <field>
+        <aggregate>n_rows_not_match</aggregate>
+        <subject>country</subject>
+        <type>COUNT_ALL</type>
+        <valuefield/>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>832</xloc>
+      <yloc>1248</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>number of invalid 2 2</name>
+    <type>GroupBy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <all_rows>N</all_rows>
+    <ignore_aggregate>N</ignore_aggregate>
+    <field_ignore/>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>grp</prefix>
+    <add_linenr>N</add_linenr>
+    <linenr_fieldname/>
+    <give_back_row>N</give_back_row>
+    <group>
+      </group>
+    <fields>
+      <field>
+        <aggregate>n_rows_not_match</aggregate>
+        <subject>backers</subject>
+        <type>COUNT_ALL</type>
+        <valuefield/>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>832</xloc>
+      <yloc>1456</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>number of valid</name>
+    <type>GroupBy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <all_rows>N</all_rows>
+    <ignore_aggregate>N</ignore_aggregate>
+    <field_ignore/>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>grp</prefix>
+    <add_linenr>N</add_linenr>
+    <linenr_fieldname/>
+    <give_back_row>N</give_back_row>
+    <group>
+      </group>
+    <fields>
+      <field>
+        <aggregate>n_rows_not_match</aggregate>
+        <subject>country</subject>
+        <type>COUNT_ALL</type>
+        <valuefield/>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>832</xloc>
+      <yloc>1168</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>number of valid 2 2</name>
+    <type>GroupBy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <all_rows>N</all_rows>
+    <ignore_aggregate>N</ignore_aggregate>
+    <field_ignore/>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>grp</prefix>
+    <add_linenr>N</add_linenr>
+    <linenr_fieldname/>
+    <give_back_row>N</give_back_row>
+    <group>
+      </group>
+    <fields>
+      <field>
+        <aggregate>n_rows_not_match</aggregate>
+        <subject>backers</subject>
+        <type>COUNT_ALL</type>
+        <valuefield/>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>832</xloc>
+      <yloc>1344</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>number_of_do_not_know</name>
+    <type>GroupBy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <all_rows>N</all_rows>
+    <ignore_aggregate>N</ignore_aggregate>
+    <field_ignore/>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>grp</prefix>
+    <add_linenr>N</add_linenr>
+    <linenr_fieldname/>
     <give_back_row>N</give_back_row>
     <group>
       </group>
@@ -3092,11 +3860,11 @@ if (last == true) {
         <aggregate>n_rows_do_not_know</aggregate>
         <subject>Country_world</subject>
         <type>COUNT_ALL</type>
-        <valuefield />
+        <valuefield/>
       </field>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -3112,21 +3880,21 @@ if (last == true) {
   <step>
     <name>number_of_match</name>
     <type>GroupBy</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <all_rows>N</all_rows>
     <ignore_aggregate>N</ignore_aggregate>
-    <field_ignore />
+    <field_ignore/>
     <directory>%%java.io.tmpdir%%</directory>
     <prefix>grp</prefix>
     <add_linenr>N</add_linenr>
-    <linenr_fieldname />
+    <linenr_fieldname/>
     <give_back_row>N</give_back_row>
     <group>
       </group>
@@ -3135,11 +3903,11 @@ if (last == true) {
         <aggregate>n_rows_match</aggregate>
         <subject>country</subject>
         <type>COUNT_ALL</type>
-        <valuefield />
+        <valuefield/>
       </field>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -3155,21 +3923,21 @@ if (last == true) {
   <step>
     <name>number_of_matching</name>
     <type>GroupBy</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <all_rows>N</all_rows>
     <ignore_aggregate>N</ignore_aggregate>
-    <field_ignore />
+    <field_ignore/>
     <directory>%%java.io.tmpdir%%</directory>
     <prefix>grp</prefix>
     <add_linenr>N</add_linenr>
-    <linenr_fieldname />
+    <linenr_fieldname/>
     <give_back_row>N</give_back_row>
     <group>
       </group>
@@ -3178,11 +3946,11 @@ if (last == true) {
         <aggregate>n_rows_matching</aggregate>
         <subject>Country_world</subject>
         <type>COUNT_ALL</type>
-        <valuefield />
+        <valuefield/>
       </field>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -3198,21 +3966,21 @@ if (last == true) {
   <step>
     <name>number_of_not_match</name>
     <type>GroupBy</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <all_rows>N</all_rows>
     <ignore_aggregate>N</ignore_aggregate>
-    <field_ignore />
+    <field_ignore/>
     <directory>%%java.io.tmpdir%%</directory>
     <prefix>grp</prefix>
     <add_linenr>N</add_linenr>
-    <linenr_fieldname />
+    <linenr_fieldname/>
     <give_back_row>N</give_back_row>
     <group>
       </group>
@@ -3221,11 +3989,11 @@ if (last == true) {
         <aggregate>n_rows_not_match</aggregate>
         <subject>country</subject>
         <type>COUNT_ALL</type>
-        <valuefield />
+        <valuefield/>
       </field>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -3241,21 +4009,21 @@ if (last == true) {
   <step>
     <name>number_of_not_matching</name>
     <type>GroupBy</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <all_rows>N</all_rows>
     <ignore_aggregate>N</ignore_aggregate>
-    <field_ignore />
+    <field_ignore/>
     <directory>%%java.io.tmpdir%%</directory>
     <prefix>grp</prefix>
     <add_linenr>N</add_linenr>
-    <linenr_fieldname />
+    <linenr_fieldname/>
     <give_back_row>N</give_back_row>
     <group>
       </group>
@@ -3264,11 +4032,11 @@ if (last == true) {
         <aggregate>n_rows_not_match</aggregate>
         <subject>Country_world</subject>
         <type>COUNT_ALL</type>
-        <valuefield />
+        <valuefield/>
       </field>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -3284,21 +4052,21 @@ if (last == true) {
   <step>
     <name>number_of_perfect_match</name>
     <type>GroupBy</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <all_rows>N</all_rows>
     <ignore_aggregate>N</ignore_aggregate>
-    <field_ignore />
+    <field_ignore/>
     <directory>%%java.io.tmpdir%%</directory>
     <prefix>grp</prefix>
     <add_linenr>N</add_linenr>
-    <linenr_fieldname />
+    <linenr_fieldname/>
     <give_back_row>N</give_back_row>
     <group>
       </group>
@@ -3307,11 +4075,11 @@ if (last == true) {
         <aggregate>n_rows_perfect</aggregate>
         <subject>Country_world</subject>
         <type>COUNT_ALL</type>
-        <valuefield />
+        <valuefield/>
       </field>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -3327,13 +4095,13 @@ if (last == true) {
   <step>
     <name>project_country 2</name>
     <type>SelectValues</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <fields>
       <select_unspecified>N</select_unspecified>
@@ -3374,8 +4142,8 @@ if (last == true) {
         <name>usd pledged</name>
       </remove>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -3391,13 +4159,13 @@ if (last == true) {
   <step>
     <name>project_goal_pledged_state</name>
     <type>SelectValues</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <fields>
       <select_unspecified>N</select_unspecified>
@@ -3432,8 +4200,8 @@ if (last == true) {
         <name>usd pledged</name>
       </remove>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -3449,13 +4217,13 @@ if (last == true) {
   <step>
     <name>project_state</name>
     <type>SelectValues</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <fields>
       <select_unspecified>N</select_unspecified>
@@ -3496,8 +4264,8 @@ if (last == true) {
         <name>usd pledged</name>
       </remove>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -3513,13 +4281,13 @@ if (last == true) {
   <step>
     <name>project_state 2</name>
     <type>SelectValues</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <fields>
       <select_unspecified>N</select_unspecified>
@@ -3530,8 +4298,8 @@ if (last == true) {
         <name>pledged</name>
       </remove>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -3547,21 +4315,21 @@ if (last == true) {
   <step>
     <name>successful </name>
     <type>GroupBy</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <all_rows>N</all_rows>
     <ignore_aggregate>N</ignore_aggregate>
-    <field_ignore />
+    <field_ignore/>
     <directory>%%java.io.tmpdir%%</directory>
     <prefix>grp</prefix>
     <add_linenr>N</add_linenr>
-    <linenr_fieldname />
+    <linenr_fieldname/>
     <give_back_row>N</give_back_row>
     <group>
       </group>
@@ -3570,11 +4338,11 @@ if (last == true) {
         <aggregate>successful</aggregate>
         <subject>pledged</subject>
         <type>COUNT_ALL</type>
-        <valuefield />
+        <valuefield/>
       </field>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -3590,21 +4358,21 @@ if (last == true) {
   <step>
     <name>successful  2</name>
     <type>GroupBy</type>
-    <description />
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <all_rows>N</all_rows>
     <ignore_aggregate>N</ignore_aggregate>
-    <field_ignore />
+    <field_ignore/>
     <directory>%%java.io.tmpdir%%</directory>
     <prefix>grp</prefix>
     <add_linenr>N</add_linenr>
-    <linenr_fieldname />
+    <linenr_fieldname/>
     <give_back_row>N</give_back_row>
     <group>
       </group>
@@ -3613,11 +4381,11 @@ if (last == true) {
         <aggregate>successful</aggregate>
         <subject>pledged</subject>
         <type>COUNT_ALL</type>
-        <valuefield />
+        <valuefield/>
       </field>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -3630,741 +4398,10 @@ if (last == true) {
       <draw>Y</draw>
     </GUI>
   </step>
-  <step>
-    <name>Check for unvalid backers</name>
-    <type>FilterRows</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <send_true_to>Select values</send_true_to>
-    <send_false_to>number of invalid 2 2</send_false_to>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <conditions>
-          <condition>
-            <negated>N</negated>
-            <operator>OR</operator>
-            <leftvalue>backers</leftvalue>
-            <function>REGEXP</function>
-            <rightvalue />
-            <value>
-              <name>constant</name>
-              <type>String</type>
-              <text>[0-9]+</text>
-              <length>-1</length>
-              <precision>-1</precision>
-              <isnull>N</isnull>
-              <mask>####0;-####0</mask>
-            </value>
-          </condition>
-        </conditions>
-      </condition>
-    </compare>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>400</xloc>
-      <yloc>1344</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>number of invalid 2 2</name>
-    <type>GroupBy</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <all_rows>N</all_rows>
-    <ignore_aggregate>N</ignore_aggregate>
-    <field_ignore />
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>grp</prefix>
-    <add_linenr>N</add_linenr>
-    <linenr_fieldname />
-    <give_back_row>N</give_back_row>
-    <group>
-      </group>
-    <fields>
-      <field>
-        <aggregate>n_rows_not_match</aggregate>
-        <subject>backers</subject>
-        <type>COUNT_ALL</type>
-        <valuefield />
-      </field>
-    </fields>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>832</xloc>
-      <yloc>1456</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>number of valid 2 2</name>
-    <type>GroupBy</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <all_rows>N</all_rows>
-    <ignore_aggregate>N</ignore_aggregate>
-    <field_ignore />
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>grp</prefix>
-    <add_linenr>N</add_linenr>
-    <linenr_fieldname />
-    <give_back_row>N</give_back_row>
-    <group>
-      </group>
-    <fields>
-      <field>
-        <aggregate>n_rows_not_match</aggregate>
-        <subject>backers</subject>
-        <type>COUNT_ALL</type>
-        <valuefield />
-      </field>
-    </fields>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>832</xloc>
-      <yloc>1344</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Check for unvalid backers 2</name>
-    <type>FilterRows</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <send_true_to>number of invalid 2 2</send_true_to>
-    <send_false_to>number of valid 2 2</send_false_to>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <conditions>
-          <condition>
-            <negated>N</negated>
-            <operator>OR</operator>
-            <conditions>
-              <condition>
-                <negated>N</negated>
-                <leftvalue>backers</leftvalue>
-                <function>=</function>
-                <rightvalue />
-                <value>
-                  <name>constant</name>
-                  <type>Integer</type>
-                  <text>0</text>
-                  <length>-1</length>
-                  <precision>0</precision>
-                  <isnull>N</isnull>
-                  <mask>####0;-####0</mask>
-                </value>
-              </condition>
-              <condition>
-                <negated>N</negated>
-                <operator>AND</operator>
-                <leftvalue>pledged</leftvalue>
-                <function>&lt;></function>
-                <rightvalue />
-                <value>
-                  <name>constant</name>
-                  <type>String</type>
-                  <text>0</text>
-                  <length>-1</length>
-                  <precision>-1</precision>
-                  <isnull>N</isnull>
-                  <mask />
-                </value>
-              </condition>
-            </conditions>
-          </condition>
-        </conditions>
-      </condition>
-    </compare>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>656</xloc>
-      <yloc>1344</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>filter_accured_state</name>
-    <type>FilterRows</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <send_true_to>Unique rows 2</send_true_to>
-    <send_false_to />
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <conditions>
-          <condition>
-            <negated>N</negated>
-            <leftvalue>state</leftvalue>
-            <function>&lt;></function>
-            <rightvalue />
-            <value>
-              <name>constant</name>
-              <type>String</type>
-              <text>successful</text>
-              <length>-1</length>
-              <precision>-1</precision>
-              <isnull>N</isnull>
-              <mask>#.#</mask>
-            </value>
-          </condition>
-          <condition>
-            <negated>N</negated>
-            <operator>AND</operator>
-            <leftvalue>state</leftvalue>
-            <function>&lt;></function>
-            <rightvalue />
-            <value>
-              <name>constant</name>
-              <type>String</type>
-              <text>failed</text>
-              <length>-1</length>
-              <precision>-1</precision>
-              <isnull>N</isnull>
-              <mask />
-            </value>
-          </condition>
-        </conditions>
-      </condition>
-    </compare>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>416</xloc>
-      <yloc>880</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Check for unvalid countries</name>
-    <type>FilterRows</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <send_true_to>Sort rows 2 2</send_true_to>
-    <send_false_to>Sort rows 2 2 2</send_false_to>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <conditions>
-          <condition>
-            <negated>N</negated>
-            <leftvalue>country</leftvalue>
-            <function>REGEXP</function>
-            <rightvalue />
-            <value>
-              <name>constant</name>
-              <type>String</type>
-              <text>[A-Z]{2}</text>
-              <length>-1</length>
-              <precision>-1</precision>
-              <isnull>N</isnull>
-              <mask />
-            </value>
-          </condition>
-        </conditions>
-      </condition>
-    </compare>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>400</xloc>
-      <yloc>1200</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Extract country and code</name>
-    <type>SelectValues</type>
-    <description />
-    <distribute>N</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <fields>
-      <select_unspecified>Y</select_unspecified>
-      <remove>
-        <name>ID</name>
-      </remove>
-      <remove>
-        <name>name</name>
-      </remove>
-      <remove>
-        <name>category</name>
-      </remove>
-      <remove>
-        <name>main_category</name>
-      </remove>
-      <remove>
-        <name>currency</name>
-      </remove>
-      <remove>
-        <name>deadline</name>
-      </remove>
-      <remove>
-        <name>goal</name>
-      </remove>
-      <remove>
-        <name>launched</name>
-      </remove>
-      <remove>
-        <name>pledged</name>
-      </remove>
-      <remove>
-        <name>state</name>
-      </remove>
-      <remove>
-        <name>backers</name>
-      </remove>
-      <remove>
-        <name>usd pledged</name>
-      </remove>
-    </fields>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>192</xloc>
-      <yloc>1200</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Invalid countries</name>
-    <type>Unique</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <count_rows>N</count_rows>
-    <count_field />
-    <reject_duplicate_row>N</reject_duplicate_row>
-    <error_description />
-    <fields>
-      <field>
-        <name>country</name>
-        <case_insensitive>N</case_insensitive>
-      </field>
-    </fields>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>704</xloc>
-      <yloc>1248</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Sort rows 2 2</name>
-    <type>SortRows</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>out</prefix>
-    <sort_size>1000000</sort_size>
-    <free_memory />
-    <compress>N</compress>
-    <compress_variable />
-    <unique_rows>N</unique_rows>
-    <fields>
-      <field>
-        <name>country</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-    </fields>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>576</xloc>
-      <yloc>1168</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Sort rows 2 2 2</name>
-    <type>SortRows</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>out</prefix>
-    <sort_size>1000000</sort_size>
-    <free_memory />
-    <compress>N</compress>
-    <compress_variable />
-    <unique_rows>N</unique_rows>
-    <fields>
-      <field>
-        <name>country</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-    </fields>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>576</xloc>
-      <yloc>1248</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Valid counries</name>
-    <type>Unique</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <count_rows>N</count_rows>
-    <count_field />
-    <reject_duplicate_row>N</reject_duplicate_row>
-    <error_description />
-    <fields>
-      <field>
-        <name>country</name>
-        <case_insensitive>N</case_insensitive>
-      </field>
-    </fields>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>704</xloc>
-      <yloc>1168</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>number of invalid</name>
-    <type>GroupBy</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <all_rows>N</all_rows>
-    <ignore_aggregate>N</ignore_aggregate>
-    <field_ignore />
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>grp</prefix>
-    <add_linenr>N</add_linenr>
-    <linenr_fieldname />
-    <give_back_row>N</give_back_row>
-    <group>
-      </group>
-    <fields>
-      <field>
-        <aggregate>n_rows_not_match</aggregate>
-        <subject>country</subject>
-        <type>COUNT_ALL</type>
-        <valuefield />
-      </field>
-    </fields>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>832</xloc>
-      <yloc>1248</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>number of valid</name>
-    <type>GroupBy</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <all_rows>N</all_rows>
-    <ignore_aggregate>N</ignore_aggregate>
-    <field_ignore />
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>grp</prefix>
-    <add_linenr>N</add_linenr>
-    <linenr_fieldname />
-    <give_back_row>N</give_back_row>
-    <group>
-      </group>
-    <fields>
-      <field>
-        <aggregate>n_rows_not_match</aggregate>
-        <subject>country</subject>
-        <type>COUNT_ALL</type>
-        <valuefield />
-      </field>
-    </fields>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>832</xloc>
-      <yloc>1168</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Extract country and code 2</name>
-    <type>SelectValues</type>
-    <description />
-    <distribute>N</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <fields>
-      <select_unspecified>Y</select_unspecified>
-      <remove>
-        <name>ID</name>
-      </remove>
-      <remove>
-        <name>name</name>
-      </remove>
-      <remove>
-        <name>category</name>
-      </remove>
-      <remove>
-        <name>main_category</name>
-      </remove>
-      <remove>
-        <name>currency</name>
-      </remove>
-      <remove>
-        <name>deadline</name>
-      </remove>
-      <remove>
-        <name>goal</name>
-      </remove>
-      <remove>
-        <name>launched</name>
-      </remove>
-      <remove>
-        <name>state</name>
-      </remove>
-      <remove>
-        <name>country</name>
-      </remove>
-      <remove>
-        <name>usd pledged</name>
-      </remove>
-    </fields>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>192</xloc>
-      <yloc>1344</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Select values</name>
-    <type>SelectValues</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <fields>
-      <select_unspecified>N</select_unspecified>
-      <meta>
-        <name>backers</name>
-        <rename>backers</rename>
-        <type>Integer</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask />
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale />
-        <date_format_timezone />
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding />
-        <decimal_symbol />
-        <grouping_symbol />
-        <currency_symbol />
-        <storage_type />
-      </meta>
-    </fields>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>544</xloc>
-      <yloc>1344</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
   <step_error_handling>
   </step_error_handling>
   <slave-step-copy-partition-distribution>
   </slave-step-copy-partition-distribution>
   <slave_transformation>N</slave_transformation>
-  <attributes />
+  <attributes/>
 </transformation>
