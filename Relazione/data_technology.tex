@@ -1,9 +1,61 @@
 In questo capitolo discuteremo della qualità dei dati contenuti nei dataset utilizzati prima e dopo il processo di integrazione; inoltre, proporremo delle analisi descrittive effettuate sui dati integrati. 
 \section{Descrizione dei dataset}
 I 3 dataset utilizzati, che sono presenti nella \href{https://gitlab.com/Daniele-Papetti/kickstarterprediction}{repository online}, sono stati scaricati dal sito \href{https://www.kaggle.com/}{\emph{www.kaggle.com/}}.
-In particolare, due di questi dataset (\textit{countries of the world.csv} e \textit{ks-projects-201612.csv}) sono quelli che verrano utilizzati effettivamente per estrarre delle feature per il processo di apprendimento automatico, mentre il terzo (\textit{country\_code.csv}) viene utilizzato sia come dizionario per l'analisi di qualità dei dati, sia per la parte di integrazione.\\
-Il dataset \textit{countries of the world.csv} contiene informazioni che descrivono il rispettivo territorio e sviluppo di 227 nazioni del mondo.
-Tra queste si possono trovare informazioni utili come il PIL (GDP) \textit{pro capite}, lo sviluppo in percentuale dei tre settori ed il numero medio di telefoni per abitante; la chiave della relazione è il nome della nazione per esteso.
+In particolare, due di questi dataset (\textit{countries of the world.csv} e \textit{ks-projects-201612.csv}) sono quelli che verrano utilizzati effettivamente per estrarre delle features per il processo di apprendimento automatico, mentre il terzo (\textit{country\_code.csv}) viene utilizzato sia come dizionario per l'analisi di qualità dei dati, sia per la parte di integrazione.\\
+Il dataset \textit{countries of the world.csv} contiene informazioni che descrivono il rispettivo territorio e sviluppo di 227 nazioni del mondo; si veda la Tabella \ref{tab:world_countires_att} per i dettagli.
+\begin{table}
+	\caption{Tabella riassuntiva degli attributi presenti nel file \textit{countries of the world.csv}.\\(*) Si veda la Sotto sezione \ref{subsec:temporali}}
+
+	\label{tab:world_countires_att}
+
+	\centering
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\textbf{Nome attributo} & \textbf{Tipo di dato} & \textbf{Descrizione} \\ 
+		\hline  
+		\emph{Country} & Stringa & Nome della nazione \\ 
+		\hline  
+		\rule{0pt}{20pt}Region & Stringa & \shortstack{Regione del mondo \\ in cui è situata la nazione} \\ 
+		\hline  
+		\rule{0pt}{13pt}Population & Intero & Numero di abitanti in quella regione \\ 
+		\hline  
+		\rule{0pt}{20pt}Area & Intero & \shortstack{Estensione in miglia al quadrato \\ della superficie della nazione} \\ 
+		\hline   
+		\rule{0pt}{20pt}Pop. Density & \shortstack{Numero con \\ virgola mobile} & Numero di abitanti per miglio quadro \\ 
+		\hline   
+		\rule{0pt}{20pt}Coastline & \shortstack{Numero con \\ virgola mobile} & \shortstack{Rapporto tra area costiera \\ e area non costiera (*)} \\ 
+		\hline   
+		\rule{0pt}{20pt}Net migration & \shortstack{Numero con \\ virgola mobile} & Tasso di migrazione netta \\ 
+		\hline  
+		\rule{0pt}{20pt}Infant mortality & \shortstack{Numero con \\ virgola mobile} & Mortalità infantile ogni 1000 nascite \\ 
+		\hline  
+		\rule{0pt}{13pt}GDP & Intero & PIL \textit{pro capite} \\ 
+		\hline  
+		\rule{0pt}{20pt}Literacy & \shortstack{Numero con \\ virgola mobile} & Percentuale di alfabetismo \\ 
+		\hline  
+		\rule{0pt}{20pt}Phones & \shortstack{Numero con \\ virgola mobile} & Numero di telefoni ogni 1000 persone \\ 
+		\hline  
+		\rule{0pt}{20pt}Arable & \shortstack{Numero con \\ virgola mobile} & Percentuale di terreno arabile \\ 
+		\hline  
+		\rule{0pt}{20pt}Crops & \shortstack{Numero con \\ virgola mobile} & Percentuale di terreno coltivato \\ 
+		\hline  
+		\rule{0pt}{20pt}Other & \shortstack{Numero con \\ virgola mobile} & \shortstack{Percentuale di terreno che non\\ ricade nelle due categorie precedenti} \\ 
+		\hline  
+		\rule{0pt}{20pt}Climate & \shortstack{Numero con \\ virgola mobile} & \shortstack{Clima nella nazione, \\ i numeri sono associati ad un relativo clima}  \\ 
+		\hline  
+		\rule{0pt}{20pt}Birthrate & \shortstack{Numero con \\ virgola mobile} & Tasso di natalità \\ 
+		\hline  
+		\rule{0pt}{20pt}Deathrate & \shortstack{Numero con \\ virgola mobile} & Tasso di mortalità \\ 
+		\hline  
+		\rule{0pt}{20pt}Agriculture & \shortstack{Numero con \\ virgola mobile} & \shortstack{Percentuale di diffusione \\ del settore primario} \\ 
+		\hline  
+		\rule{0pt}{20pt}Industry & \shortstack{Numero con \\ virgola mobile} & \shortstack{Percentuale di diffusione \\ del settore secondario} \\ 
+		\hline   
+		\rule{0pt}{20pt}Service & \shortstack{Numero con \\ virgola mobile} & \shortstack{Percentuale di diffusione \\ del settore terziario} \\ 
+		\hline  
+	\end{tabular}
+\end{table} 
+%Tra queste si possono trovare informazioni utili come il PIL (GDP) \textit{pro capite}, lo sviluppo in percentuale dei tre settori ed il numero medio di telefoni per abitante; la chiave della relazione è il nome della nazione per esteso.
 Invece, \todo[inline]{descrizione kickstarter e poi il perché del terzo dataset DP}
 %%% Aggiungerei una descrizione più analitica, tiportamdo sotto forma tabellare nome esatto colonna, tipologia del dato contenuto e descrizione semantica.
 
@@ -62,9 +114,12 @@ La profilazione dei dati eseguita in precedenza ha mostrato possibili casi di va
 
 
 \subsection{Accessibilità dei dataset}
-Tutti i dataset analizzati mostrano un ottimo livello di accessibilità da parte dell'utente, con nomi degli attributi auto-esplicativi e facile reperibilità dei dati di interesse. Per questo motivo, non si è resa necessaria la creazione di viste sugli schemi locali dei dataset, mantenendo inalterata la struttura di questi ultimi.
+Tutti i dataset analizzati mostrano un ottimo livello di accessibilità da parte dell'utente, con nomi degli attributi auto-esplicativi e facile reperibilità dei dati di interesse. 
+Le uniche note a margine di quanto appena detto sono i valori dell'attributo \textit{Climate}, poiché sono dei numeri la cui semantica non è stata specificata, inoltre l'attributo \textit{Coastline} anche se intuitivo non è chiaro come sia stato calcolato, si è supposto essere il rapporto tra area costiera e non costiera, ma non si ha la certezza.
+Per questo motivo, non si è resa necessaria la creazione di viste sugli schemi locali dei dataset, mantenendo inalterata la struttura di questi ultimi.
 
 \subsection{Porprietà temporali}
+\label{subsec:temporali}
 Il dataset \textit{ks-projects-201612.csv} contiene tutti i progetti registrati sulla piattaforma Kickstarter fino alla fine del 2016. Il dataset \textit{countries of the world.csv} contiene invece statistiche sugli stati che si riferiscono all'anno 2017. Ne consegue che i dati non siano perfettamente coerenti dal punto di vista temporale, ma abbiamo reputato questo sfasamento marginale, considerata l'assenza di modifiche radicali degli indici statistici presi in considerazioni negli anni consecutivi.
 
 \section{Processo di integrazione dei dati}
