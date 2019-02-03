@@ -242,19 +242,53 @@ Dalle misure effettuate, possiamo dire che il dataset è praticamente completo, 
 \todo[inline]{Pipeline della completezza di world country DP}
 
 \subsection{Accuratezza sintattica del codice delle nazioni del dataset Kickstarter}
+Per quanto concerne l'accuratezza sintattica delle nazioni nel dataset dei kickstarter (le quali sono rappresentate dal codice a due cifre), prima di verificarne l'accuratezza sintattica, in un modo analogo a come fatto per il dataset precedente, abbiamo valutato quanti valori univoci dell'attributo comparissero, i risultati sono riportati in tabella \ref{tab:unique_code_country}.
+Analizzando i numeri appena riportati in tabella, è stato necessario capire perché comparisse un così alto numero di valori univoci che non riportavano match: andando a vedere la lista dei dei valori univoci assunti da quell'attributo, abbiamo notato che tutti i non match sono stati causati poiché l'attributo assumeva dei valori sintatticamente sbagliati (numeri o stringhe più lunghe di due caratteri); al contempo non vi erano codici di due cifre che non avevano un atch con il dizionario di riferimento.
 
+\begin{table}
+	\caption{Nella prima riga è presente il numero di codici univoci che hanno un match con un codice a due cifre del dizionario di riferimento, nella seconda riga, invece, i codici che non hanno un match.}
+	
+	\label{tab:unique_code_country}
+	
+	\centering
+	\begin{tabular}{c|c}
+		Match & 21\\ 
+		Non match & 141 \\
+	\end{tabular}
+\end{table} 
+
+In seguito, abbiamo misurato l'accuratezza sintattica dei codici, poiché sono composti da due sole cifre, abbiamo deciso di utilizzare la distanza di edit e di cercare solo i match perfetti, il numero di tuple con un codice di nazione sintatticamente valido e quelle con un codice non valido (cioè che non compariva nel dizionario) sono state riportate in Tabella \ref{tab:code_country_compl}.
+A fronte di quello riportato in tabella e tenendo presente la distribuzione dei valori univoci tra match e non match, siamo giunti alla conclusione che nonostante i non match abbiano un numero valori univoci estremamente maggiore, non implica un valore basso di accuratezza sintattica poiché quei valori compaiono poche volte all'interno del dataset e sono causati, probabilmente, dalla mancanza di informazioni su questo campo o da un problema da parte di chi ha generato il dataset. 
+Di conseguenza, facendo riferimento alla Tabella \ref{tab:code_country_compl} possiamo affermare che il dataset è accurato sintatticamente e che queste poche tuple scorrette verranno eliminate durante il processo di data integration, non consideriamo l'ipotesi di sistemarle poiché risulterebbe molto costoso come processo ed il dataset rimane comunque più che sufficiente per la parte di apprendimento automatico.
+
+\begin{table}
+	\caption{Nella prima riga è presente il numero e la relativa percentuale di tuple che hanno un match con un codice a due cifre del dizionario di riferimento, nella seconda riga, invece, le tuple che non hanno un match.}
+	
+	\label{tab:code_country_compl}
+	
+	\centering
+	\begin{tabular}{c|cc}
+		Match & 319328 & 98.6\% \\ 
+		Non match & 4422 & 1.4 \% \\
+	\end{tabular}
+\end{table} 
+
+
+\todo[inline]{Ricordarsi di mettere poi il riferimento alla figura DP}
+\todo[inline]{Figura della pipeline DP}
 
 \subsection{Accuratezza sintattica attributo state (Figura \ref{fig:dqstateaccuracy})}
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.7\linewidth]{images/DQ_stateaccuracy}
-	\caption{Pipeline che verifica tutti i possibili valori dell'attributo state. Gli unici valori plausibili e accettati dovrebbero essere successful, faild, cancelled, live e suspended.}
+	\caption{Pipeline che verifica tutti i possibili valori dell'attributo state. Gli unici valori plausibili e accettati sono successful, failed, cancelled, live e suspended.}
+	\todo{Non capisco perché diciamo anche cancelled, live e suspended. Filtravo tutti i diversi tra failed e succesfull}
 	\label{fig:dqstateaccuracy}
 \end{figure}
 
 
-\subsection{Consistenza attributo state (Figura \ref{fig:dqstateaconsistency})}
+\subsection{Consistenza attributo State}
 
 \begin{figure}[h!]
 	\centering

@@ -702,46 +702,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Check for unvalid countries</from>
-      <to>Sort rows 2 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Check for unvalid countries</from>
-      <to>Sort rows 2 2 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Extract country and code</from>
-      <to>Check for unvalid countries</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Invalid countries</from>
-      <to>number of invalid</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Sort rows 2 2</from>
-      <to>Valid counries</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Sort rows 2 2 2</from>
-      <to>Invalid countries</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Valid counries</from>
-      <to>number of valid</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>ks_projects</from>
-      <to>Extract country and code</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>ks_projects</from>
       <to>Extract country and code 2</to>
       <enabled>Y</enabled>
@@ -759,6 +719,31 @@
     <hop>
       <from>Select values</from>
       <to>Check for unvalid backers 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>country_code(copy)</from>
+      <to>Fuzzy match 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>project_country 2</from>
+      <to>Fuzzy match 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Fuzzy match 2</from>
+      <to>find null 2 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>find null 2 2</from>
+      <to>number_of_match 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>find null 2 2</from>
+      <to>number_of_not_match 2</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -799,7 +784,7 @@
     </remotesteps>
     <GUI>
       <xloc>1040</xloc>
-      <yloc>976</yloc>
+      <yloc>1088</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -994,55 +979,6 @@
     </GUI>
   </step>
   <step>
-    <name>Check for unvalid countries</name>
-    <type>FilterRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <send_true_to>Sort rows 2 2</send_true_to>
-    <send_false_to>Sort rows 2 2 2</send_false_to>
-    <compare>
-      <condition>
-        <negated>N</negated>
-        <conditions>
-          <condition>
-            <negated>N</negated>
-            <leftvalue>country</leftvalue>
-            <function>REGEXP</function>
-            <rightvalue/>
-            <value>
-              <name>constant</name>
-              <type>String</type>
-              <text>[A-Z]{2}</text>
-              <length>-1</length>
-              <precision>-1</precision>
-              <isnull>N</isnull>
-              <mask/>
-            </value>
-          </condition>
-        </conditions>
-      </condition>
-    </compare>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>400</xloc>
-      <yloc>1200</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
     <name>Clean_null_columns</name>
     <type>SelectValues</type>
     <description/>
@@ -1073,70 +1009,6 @@
     <GUI>
       <xloc>704</xloc>
       <yloc>192</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Extract country and code</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <select_unspecified>Y</select_unspecified>
-      <remove>
-        <name>ID</name>
-      </remove>
-      <remove>
-        <name>name</name>
-      </remove>
-      <remove>
-        <name>category</name>
-      </remove>
-      <remove>
-        <name>main_category</name>
-      </remove>
-      <remove>
-        <name>currency</name>
-      </remove>
-      <remove>
-        <name>deadline</name>
-      </remove>
-      <remove>
-        <name>goal</name>
-      </remove>
-      <remove>
-        <name>launched</name>
-      </remove>
-      <remove>
-        <name>pledged</name>
-      </remove>
-      <remove>
-        <name>state</name>
-      </remove>
-      <remove>
-        <name>backers</name>
-      </remove>
-      <remove>
-        <name>usd pledged</name>
-      </remove>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>192</xloc>
-      <yloc>1200</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1278,7 +1150,7 @@
     </remotesteps>
     <GUI>
       <xloc>832</xloc>
-      <yloc>976</yloc>
+      <yloc>1088</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1315,8 +1187,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>416</xloc>
-      <yloc>672</yloc>
+      <xloc>368</xloc>
+      <yloc>624</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1369,41 +1241,6 @@
     <GUI>
       <xloc>336</xloc>
       <yloc>1568</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Invalid countries</name>
-    <type>Unique</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <count_rows>N</count_rows>
-    <count_field/>
-    <reject_duplicate_row>N</reject_duplicate_row>
-    <error_description/>
-    <fields>
-      <field>
-        <name>country</name>
-        <case_insensitive>N</case_insensitive>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>704</xloc>
-      <yloc>1248</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1748,7 +1585,7 @@ if (last == true) {
       </output>
     </remotesteps>
     <GUI>
-      <xloc>304</xloc>
+      <xloc>192</xloc>
       <yloc>784</yloc>
       <draw>Y</draw>
     </GUI>
@@ -1791,91 +1628,7 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>304</xloc>
-      <yloc>880</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Sort rows 2 2</name>
-    <type>SortRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>out</prefix>
-    <sort_size>1000000</sort_size>
-    <free_memory/>
-    <compress>N</compress>
-    <compress_variable/>
-    <unique_rows>N</unique_rows>
-    <fields>
-      <field>
-        <name>country</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>576</xloc>
-      <yloc>1168</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Sort rows 2 2 2</name>
-    <type>SortRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>out</prefix>
-    <sort_size>1000000</sort_size>
-    <free_memory/>
-    <compress>N</compress>
-    <compress_variable/>
-    <unique_rows>N</unique_rows>
-    <fields>
-      <field>
-        <name>country</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>576</xloc>
-      <yloc>1248</yloc>
+      <yloc>992</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1917,7 +1670,7 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>832</xloc>
-      <yloc>1088</yloc>
+      <yloc>1200</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2031,7 +1784,7 @@ if (last == true) {
       </output>
     </remotesteps>
     <GUI>
-      <xloc>416</xloc>
+      <xloc>368</xloc>
       <yloc>784</yloc>
       <draw>Y</draw>
     </GUI>
@@ -2062,7 +1815,7 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>544</xloc>
-      <yloc>880</yloc>
+      <yloc>992</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2092,42 +1845,7 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>1040</xloc>
-      <yloc>1088</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Valid counries</name>
-    <type>Unique</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <count_rows>N</count_rows>
-    <count_field/>
-    <reject_duplicate_row>N</reject_duplicate_row>
-    <error_description/>
-    <fields>
-      <field>
-        <name>country</name>
-        <case_insensitive>N</case_insensitive>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>704</xloc>
-      <yloc>1168</yloc>
+      <yloc>1200</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2227,7 +1945,7 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>656</xloc>
-      <yloc>976</yloc>
+      <yloc>1088</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2579,7 +2297,7 @@ if (last == true) {
     <name>country_code(copy)</name>
     <type>CsvInput</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
@@ -2655,7 +2373,7 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>64</xloc>
-      <yloc>672</yloc>
+      <yloc>624</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2785,7 +2503,7 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>416</xloc>
-      <yloc>880</yloc>
+      <yloc>992</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2829,7 +2547,7 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>544</xloc>
-      <yloc>976</yloc>
+      <yloc>1088</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2873,7 +2591,7 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>416</xloc>
-      <yloc>976</yloc>
+      <yloc>1088</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2942,8 +2660,8 @@ if (last == true) {
       </output>
     </remotesteps>
     <GUI>
-      <xloc>544</xloc>
-      <yloc>672</yloc>
+      <xloc>496</xloc>
+      <yloc>624</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2987,7 +2705,7 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>1296</xloc>
-      <yloc>1040</yloc>
+      <yloc>1152</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -3031,7 +2749,7 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>1296</xloc>
-      <yloc>880</yloc>
+      <yloc>992</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -3075,7 +2793,7 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>1152</xloc>
-      <yloc>976</yloc>
+      <yloc>1088</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -3258,7 +2976,7 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>64</xloc>
-      <yloc>880</yloc>
+      <yloc>992</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -3572,7 +3290,7 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>1504</xloc>
-      <yloc>992</yloc>
+      <yloc>1104</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -3615,7 +3333,7 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>1504</xloc>
-      <yloc>832</yloc>
+      <yloc>944</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -3657,51 +3375,8 @@ if (last == true) {
       </output>
     </remotesteps>
     <GUI>
-      <xloc>832</xloc>
-      <yloc>864</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>number of invalid</name>
-    <type>GroupBy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <all_rows>N</all_rows>
-    <ignore_aggregate>N</ignore_aggregate>
-    <field_ignore/>
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>grp</prefix>
-    <add_linenr>N</add_linenr>
-    <linenr_fieldname/>
-    <give_back_row>N</give_back_row>
-    <group>
-      </group>
-    <fields>
-      <field>
-        <aggregate>n_rows_not_match</aggregate>
-        <subject>country</subject>
-        <type>COUNT_ALL</type>
-        <valuefield/>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>832</xloc>
-      <yloc>1248</yloc>
+      <xloc>1040</xloc>
+      <yloc>976</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -3745,49 +3420,6 @@ if (last == true) {
     <GUI>
       <xloc>832</xloc>
       <yloc>1456</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>number of valid</name>
-    <type>GroupBy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <all_rows>N</all_rows>
-    <ignore_aggregate>N</ignore_aggregate>
-    <field_ignore/>
-    <directory>%%java.io.tmpdir%%</directory>
-    <prefix>grp</prefix>
-    <add_linenr>N</add_linenr>
-    <linenr_fieldname/>
-    <give_back_row>N</give_back_row>
-    <group>
-      </group>
-    <fields>
-      <field>
-        <aggregate>n_rows_not_match</aggregate>
-        <subject>country</subject>
-        <type>COUNT_ALL</type>
-        <valuefield/>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>832</xloc>
-      <yloc>1168</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -3915,8 +3547,8 @@ if (last == true) {
       </output>
     </remotesteps>
     <GUI>
-      <xloc>832</xloc>
-      <yloc>608</yloc>
+      <xloc>784</xloc>
+      <yloc>512</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -4001,8 +3633,8 @@ if (last == true) {
       </output>
     </remotesteps>
     <GUI>
-      <xloc>832</xloc>
-      <yloc>736</yloc>
+      <xloc>784</xloc>
+      <yloc>688</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -4096,7 +3728,7 @@ if (last == true) {
     <name>project_country 2</name>
     <type>SelectValues</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
@@ -4152,7 +3784,7 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>192</xloc>
-      <yloc>784</yloc>
+      <yloc>896</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -4210,7 +3842,7 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>192</xloc>
-      <yloc>976</yloc>
+      <yloc>1088</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -4274,7 +3906,7 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>192</xloc>
-      <yloc>880</yloc>
+      <yloc>992</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -4308,7 +3940,7 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>656</xloc>
-      <yloc>1088</yloc>
+      <yloc>1200</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -4351,7 +3983,7 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>1504</xloc>
-      <yloc>1088</yloc>
+      <yloc>1200</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -4394,7 +4026,166 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>1504</xloc>
-      <yloc>928</yloc>
+      <yloc>1040</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Fuzzy match 2</name>
+    <type>FuzzyMatch</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <from>country_code(copy)</from>
+    <lookupfield>code_2digit</lookupfield>
+    <mainstreamfield>country</mainstreamfield>
+    <outputmatchfield>match</outputmatchfield>
+    <outputvaluefield>measure value</outputvaluefield>
+    <caseSensitive>N</caseSensitive>
+    <closervalue>Y</closervalue>
+    <minimalValue>0</minimalValue>
+    <maximalValue>0</maximalValue>
+    <separator>,</separator>
+    <algorithm>levenshtein</algorithm>
+    <lookup>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>368</xloc>
+      <yloc>896</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>find null 2 2</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <send_true_to>number_of_match 2</send_true_to>
+    <send_false_to>number_of_not_match 2</send_false_to>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>match</leftvalue>
+        <function>IS NOT NULL</function>
+        <rightvalue/>
+      </condition>
+    </compare>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>496</xloc>
+      <yloc>896</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>number_of_match 2</name>
+    <type>GroupBy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <all_rows>N</all_rows>
+    <ignore_aggregate>N</ignore_aggregate>
+    <field_ignore/>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>grp</prefix>
+    <add_linenr>N</add_linenr>
+    <linenr_fieldname/>
+    <give_back_row>N</give_back_row>
+    <group>
+      </group>
+    <fields>
+      <field>
+        <aggregate>n_rows_match</aggregate>
+        <subject>country</subject>
+        <type>COUNT_ALL</type>
+        <valuefield/>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>784</xloc>
+      <yloc>816</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>number_of_not_match 2</name>
+    <type>GroupBy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <all_rows>N</all_rows>
+    <ignore_aggregate>N</ignore_aggregate>
+    <field_ignore/>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>grp</prefix>
+    <add_linenr>N</add_linenr>
+    <linenr_fieldname/>
+    <give_back_row>N</give_back_row>
+    <group>
+      </group>
+    <fields>
+      <field>
+        <aggregate>n_rows_not_match</aggregate>
+        <subject>country</subject>
+        <type>COUNT_ALL</type>
+        <valuefield/>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>784</xloc>
+      <yloc>960</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
