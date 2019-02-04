@@ -559,4 +559,64 @@ Al fine di verificare l'efficacia dell'operazione di record linkage e data fusio
 	\hline 
 \end{tabular} 
 
-\section{Anali descrittiva dei dati integrati}
+\section{Analisi descrittiva dei dati integrati}
+Le analisi descrittive che si sono ritenute importanti per il dataset integrato, il quale è stato ripulito da un insieme di campi non utili per il processo di machine learning, sono di seguito riportate.
+In particolare:
+\begin{itemize}
+	\item in Tabella \ref{tab:prj_country} riportiamo il numero di campagne per ogni nazione e la loro distribuzione;
+\end{itemize} 
+
+\begin{table}
+	\caption{Tabella riassuntiva contenente numero e percentuale (si ricorda che si hanno 323750 campagne) dei \texttt{null} presenti nel dataset per ogni attributo. Infine, si fornisce un'ultima riga contenente il numero totale di \texttt{null} e la percentuale rispetto ad ogni campo del dataset.}
+	
+	\label{tab:prj_country}
+	
+	\centering
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\textbf{Nazione} & \textbf{$n^{\circ}$ campagne} & \textbf{Percentuale}\\
+		\hline
+		Australia & 6020& 1.9 \\
+		\hline
+		Austria & 345& 0.1 \\
+		\hline
+		Belgium & 379& 0.1\\
+		\hline
+		Canada & 11628& 3.7\\
+		\hline
+		Denmark & 783& 0.2\\
+		\hline
+		France & 1792& 0.5\\
+		\hline
+		Germany & 2530& 0.8\\
+		\hline
+		Hong Kong & 61& ~0\\
+		\hline
+		Ireland & 549& 0.1\\
+		\hline
+		Italy & 1622& 0.5\\
+		\hline
+		Luxembourg & 35& ~0\\
+		\hline
+		Mexico & 16& ~0\\
+		\hline
+		Netherlands & 2187& 0.6\\
+		\hline
+		New Zealand & 1106& 0.3\\
+		\hline
+		Norway & 505& 0.1\\
+		\hline
+		Singapore & 78& ~0\\
+		\hline
+		Spain & 1277& 0.4\\
+		\hline
+		Sweden & 1211& 0.4\\
+		\hline
+		Switzerland & 433& 0.1\\
+		\hline
+		United Kingdom & 26882& 8.5\\
+		\hline
+		United States & 253456 & 81\\
+		\hline
+	\end{tabular}
+\end{table}
