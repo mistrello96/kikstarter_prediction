@@ -75,7 +75,7 @@ testset$prediction <- predict(decisionTree, testset, type = "class")
 # e valutiamone le performance
 confusion.matrix = table(testset$state, testset$prediction)
 accuracy = sum(diag(confusion.matrix))/sum(confusion.matrix)
-precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + 0)
+precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,2])
 recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,1])
 f1measure = 2 * (precision * recall / (precision + recall))
 
@@ -92,13 +92,12 @@ testset$prediction <- predict(prunedtree, testset, type = "class")
 
 confusion.matrix = table(testset$state, testset$prediction)
 accuracy = sum(diag(confusion.matrix))/sum(confusion.matrix)
-precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + 0)
+precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,2])
 recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,1])
 f1measure = 2 * (precision * recall / (precision + recall))
 
 # NEURAL NETWORK
 library(neuralnet)
-library(textir)
 # è necessario modificare il train e il test set in modo che le variabili non numeriche siano
 # rappresentate da un numero, in quanto l'algoritmo di learning delle reti neurali non prevede
 # la presenza di feature non numeriche
@@ -124,19 +123,31 @@ for (i in 1:7){
 }
 
 # creiamo la rete e la addestriamo
-network = neuralnet(successful + failed ~  Country + GDP....per.capita. + Service + backers + category +  goal + main_category , trainsetnet[c(0:1000), ], hidden=3)
+network = neuralnet(successful + failed ~  Country + GDP....per.capita. + Service + backers + category +  goal + main_category , trainsetnet[c(0:5000), ], hidden=3, threshold = 0.01, stepmax = 1e+06, learningrate = 0.01)
 #network = neuralnet(successful + failed ~  GDP....per.capita. + Service + backers + goal , trainsetnet[c(0:1000), ], hidden = 3)
 #network
-
+?neuralnet
 # sfruttiamo il modello per eseguire predizione
 net.predict = compute(network, testsetnet[c(1:7)])$net.result
 net.prediction = c("successful", "failed")[apply(net.predict, 1, which.max)]
 testsetnet$prediction = net.prediction
 
 #valutiamo le performance
-confusion.matrix = table(testset$state, testset$prediction)
+confusion.matrix = table(testsetnet$state, testsetnet$prediction)
 accuracy = sum(diag(confusion.matrix))/sum(confusion.matrix)
-precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + 0)
+precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,2])
 recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,1])
 f1measure = 2 * (precision * recall / (precision + recall))
 
+# NAIVE BAIES
+library(e1071)
+classifier <- naiveBayes(trainset, trainset$state) 
+testsetnet$prediction = predict(classifier, testset)
+
+#valutiamo le performance
+confusion.matrix = table(testsetnet$state, testsetnet$prediction)
+accuracy = sum(diag(confusion.matrix))/sum(confusion.matrix)
+precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,2])
+recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,1])
+f1measure = 2 * (precision * recall / (precision + recall))
+confusion.matrix
