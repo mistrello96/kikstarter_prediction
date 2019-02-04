@@ -564,59 +564,129 @@ Le analisi descrittive che si sono ritenute importanti per il dataset integrato,
 In particolare:
 \begin{itemize}
 	\item in Tabella \ref{tab:prj_country} riportiamo il numero di campagne per ogni nazione e la loro distribuzione;
+	\item in Tabella \ref{tab:prj_succ_nosucc} riportiamo il numero di campagne che hanno avuto successo e che non lo hanno avuto per ogni nazione;
+	\item in Tabella \ref{tab:succ_mean_sd} riportiamo la media, e deviazione standard, del goal e l'ammontare pledgiato delle campagne che hanno avuto successo, per ogni percentuale (che compare nel dataset) di diffusione del settore terziario nella nazione; 
+	\item in Tabella \ref{tab:fail_mean_sd} riportiamo la media, e deviazione standard, del goal e l'ammontare pledgiato delle campagne fallite, per ogni percentuale (che compare nel dataset) di diffusione del settore terziario nella nazione.
 \end{itemize} 
 
 \begin{table}
-	\caption{Tabella riassuntiva contenente numero e percentuale (si ricorda che si hanno 323750 campagne) dei \texttt{null} presenti nel dataset per ogni attributo. Infine, si fornisce un'ultima riga contenente il numero totale di \texttt{null} e la percentuale rispetto ad ogni campo del dataset.}
+	\caption{Tabella contenente per ogni nazione il numero di campagne avviate e la relativa percentuale, i dati sono stati calcolati sul dataset integrato. Si noti che le percentuali sono state arrotondate.}
 	
 	\label{tab:prj_country}
 	
 	\centering
 	\begin{tabular}{|c|c|c|}
 		\hline
-		\textbf{Nazione} & \textbf{$n^{\circ}$ campagne} & \textbf{Percentuale}\\
+		\textbf{Nazione} & \textbf{$\mathbf{n^{\circ}}$ campagne} & \textbf{Percentuale}\\
 		\hline
-		Australia & 6020& 1.9 \\
+		Australia & 6020 & 1.9 \\
 		\hline
-		Austria & 345& 0.1 \\
+		Austria & 345 & 0.1 \\
 		\hline
-		Belgium & 379& 0.1\\
+		Belgium & 379 & 0.1\\
 		\hline
-		Canada & 11628& 3.7\\
+		Canada & 11628 & 3.7\\
 		\hline
-		Denmark & 783& 0.2\\
+		Denmark & 783 & 0.2\\
 		\hline
-		France & 1792& 0.5\\
+		France & 1792 & 0.5\\
 		\hline
-		Germany & 2530& 0.8\\
+		Germany & 2530 & 0.8\\
 		\hline
-		Hong Kong & 61& ~0\\
+		Hong Kong & 61 & ~0\\
 		\hline
-		Ireland & 549& 0.1\\
+		Ireland & 549 & 0.1\\
 		\hline
-		Italy & 1622& 0.5\\
+		Italy & 1622 & 0.5\\
 		\hline
-		Luxembourg & 35& ~0\\
+		Luxembourg & 35 & ~0\\
 		\hline
-		Mexico & 16& ~0\\
+		Mexico & 16 & ~0\\
 		\hline
-		Netherlands & 2187& 0.6\\
+		Netherlands & 2187 & 0.6\\
 		\hline
-		New Zealand & 1106& 0.3\\
+		New Zealand & 1106 & 0.3\\
 		\hline
-		Norway & 505& 0.1\\
+		Norway & 505 & 0.1\\
 		\hline
-		Singapore & 78& ~0\\
+		Singapore & 78 & ~0\\
 		\hline
-		Spain & 1277& 0.4\\
+		Spain & 1277 & 0.4\\
 		\hline
-		Sweden & 1211& 0.4\\
+		Sweden & 1211 & 0.4\\
 		\hline
-		Switzerland & 433& 0.1\\
+		Switzerland & 433 & 0.1\\
 		\hline
-		United Kingdom & 26882& 8.5\\
+		United Kingdom & 26882 & 8.5\\
 		\hline
 		United States & 253456 & 81\\
 		\hline
+	\end{tabular}
+\end{table}
+
+\begin{table}
+	\caption{Tabella contenente per ogni nazione il numero di campagne che hanno avuto successo e quelle fallite, i dati sono stati calcolati sul dataset integrato.}
+	
+	\label{tab:prj_succ_nosucc}
+	
+	\centering
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\textbf{Nazione} & \textbf{$\mathbf{n^{\circ}}$ successfull} & \textbf{$\mathbf{n^{\circ}}$ failed}\\ \hline
+		Australia            &1450&4570 \\ \hline
+		Austria              &60&285 \\ \hline
+		Belgium              &79&300 \\ \hline
+		Canada               &3067&8561 \\ \hline
+		Denmark              &231&552 \\ \hline
+		France               &512&1280 \\ \hline 
+		Germany              &529&2001 \\ \hline
+		Hong Kong            &14&47 \\ \hline
+		Ireland              &133&416 \\ \hline
+		Italy                &232&1390 \\ \hline
+		Luxembourg           &13&22 \\ \hline
+		Mexico               &2&14 \\ \hline
+		Netherlands          &410&1777 \\ \hline
+		New Zealand          &330&776 \\ \hline
+		Norway               &108&397 \\ \hline
+		Singapore            &32&46 \\ \hline
+		Spain                &242&1035 \\ \hline
+		Sweden               &335&876 \\ \hline
+		Switzerland          &86&347 \\ \hline
+		United Kingdom       &9340&17542 \\ \hline
+		United States        &95766 &157690 \\ \hline
+	\end{tabular}
+\end{table}
+
+\begin{table}
+	\caption{Tabella contenente per ogni percentuale di diffusione del settore terziario: il goal medio, e sua deviazione standard (D.S.), l'ammontare medio pledgiato, e sua deviazione standard, delle campagne che hanno avuto successo; si noti che l'analisi è stata effettuata sul dataset integrato.}
+	
+	\label{tab:succ_mean_sd}
+	
+	\centering
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		\textbf{Nazione} & \textbf{Media Goal} & \textbf{D.S. Goal} & \textbf{Media Pledged} & \textbf{D.S. Pledged} \\ \hline
+		0.5&10268&22595&14428&29469 \\ \hline
+		0.6&38433&60519&81987&233728\\ \hline
+		0.7&14259&36882&32329&133966\\ \hline
+		0.8&9257&29048&20638&148090\\ \hline
+		0.9&47600&83035&106829&175487 \\ \hline
+	\end{tabular}
+\end{table}
+
+\begin{table}
+	\caption{Tabella contenente per ogni percentuale di diffusione del settore terziario: il goal medio, e sua deviazione standard (D.S.), l'ammontare medio pledgiato, e sua deviazione standard, delle campagne che hanno fallito; si noti che l'analisi è stata effettuata sul dataset integrato.}
+	
+	\label{tab:fail_mean_sd}
+	
+	\centering
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		\textbf{Nazione} & \textbf{Media Goal} & \textbf{D.S. Goal} & \textbf{Media Pledged} & \textbf{D.S. Pledged} \\ \hline
+		0.5&69223&512735&1097&3644 \\ \hline
+		0.6&514278&5516330&3619&14537 \\ \hline
+		0.7&106224&1716871&1903&13943\\ \hline
+		0.8&60798&1300938&1400&7384\\ \hline
+		0.9&238864&751142&5119&12539 \\ \hline
 	\end{tabular}
 \end{table}
