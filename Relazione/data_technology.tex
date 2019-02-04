@@ -268,7 +268,7 @@ Di conseguenza, facendo riferimento alla Tabella \ref{tab:code_country_compl} po
 	
 	\centering
 	\begin{tabular}{c|cc}
-		Match & 319328 & 98.6\% \\ 
+		Match & 319328 & 98.6 \% \\ 
 		Non match & 4422 & 1.4 \% \\
 	\end{tabular}
 \end{table} 
@@ -295,6 +295,7 @@ Dei 405 valori non validi, 404 sono numeri o date e l'ultimo è la stringa “un
 \end{table} 
 Il numero di tuple e la percentuale rispetto al totale sono riportate in Tabella \ref{tab:acc_state}.
 Anche in questo caso, possiamo considerare il dataset accurato perché la percentuale di tuple con un valore valido è estremamente alto e l'eliminazione delle tuple con un campo non valido, quindi su cui non è possibile fare predizione, rimane irrilevante per il processo di estrazione di features e apprendimento automatico.
+Si faccia riferimento alla Figura \ref{fig:dqstateaccuracy}, per com'è stata definita la pipeline.
 \begin{table}
 	\caption{Nella prima riga è presente il numero e la relativa percentuale di tuple (ricordando che in totale si hanno 323750 tuple) che hanno un attributo State valido (ovvero uguale a: successful, failed, canceled, live e suspended), nella seconda le tuple con un valore non valido.}
 	
@@ -317,7 +318,25 @@ Anche in questo caso, possiamo considerare il dataset accurato perché la percen
 
 
 \subsection{Consistenza attributo State}
-
+Il valore dell'attributo State di una tupla deve essere successful se e solo se la differenza tra l'ammontare di soldi pledgiati ed il goal è maggiore o uguale a zero.
+Partendo da questo vincolo, abbiamo misurato il numero di tuple aventi una differenza positiva ed il cui stato non è successful; inoltre, abbiamo misurato anche il caso la cui differenza è negativa e il cui stato è successful.
+Infine, abbiamo calcolato anche i dati complementari ai primi due, ovvero quando la differenza è positiva e lo stato è succesful e quando è negativa e lo stato non è successful.
+Si sottolinea, che i dati riportati nella Tabella \ref{tab:cons_state} sono stati misurati sulla porzione di dataset avente dei valori numerici per i campi Pledged e Goal ed un valore di stato pari a successful, canceled e failed, perché le tuple con altri valori non verranno utilizzate per il processo di apprendimento automatico; queste azioni di filtraggio hanno in totale rimosso 10367 tuple, ovvero il 3 \% del dataset di partenza. 
+Sia le azioni di filtraggio, sia le misure riportate in Tabella \ref{tab:cons_state} evidenziano ancora una volta che il dataset è buono ed è complessivamente consistente rispetto all'attributo soggetto alla predizione.
+Si faccia riferimento alla Figura \ref{fig:dqstateaconsistency} per la relativa pipeline.
+\begin{table}
+	\caption{Tabella riassuntiva della consistenza dell'attributo State, basandosi sulla differenza tra soldi pledgiati ed il goal. Se tale differenza è maggiore o uguale a zero, l'attributo State deve essere successful; al contrario se la differenza è minore o uguale a zero, il valore non deve essere successful.}
+	
+	\label{tab:cons_state}
+	
+	\centering
+	\begin{tabular}{c|cc}
+		& $n^{\circ}$ successful & $n^{\circ}$ non successful \\
+		\hline
+		\rule{0pt}{13pt}Differenza $\geq 0$  & 112960 & 519 \\ 
+		\rule{0pt}{13pt}Differenza $< 0$& 5 & 199899 \\
+	\end{tabular}
+\end{table} 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.7\linewidth]{images/DQ_stateaconsistency}
@@ -326,7 +345,23 @@ Anche in questo caso, possiamo considerare il dataset accurato perché la percen
 \end{figure}
 
 
-\subsection{Consistenza attributo Backers (Figura \ref{fig:dqbackersconsistency})}
+\subsection{Consistenza attributo Backers}
+Il vincolo di consistenza sull'attributo Backers è che il loro valore deve essere maggiore di zero se e solo il valore dell'attributo Pledged è maggiore di zero.
+Per verificare ciò, sono state prima rimosse tutte le tuple aventi un valore di Backers sintatticamente non valido (\textit{i.e.}, numero negativo o una stringa) e successivamente verificato il vincolo sopra citato.
+I risultati di tale metrica sono riportati in Tabella \ref{tab:con_backers}, si fa presente che 624 di tuple delle 3703 non valide sono le tuple aventi un valore dell'attributo non sintatticamente valido.
+La pipeline è rappresentata in Figura \ref{fig:dqbackersconsistency}.
+
+\begin{table}
+	\caption{Nella prima riga è presente il numero e la relativa percentuale di tuple (ricordando che in totale si hanno 323750 tuple) che hanno un attributo Backer che soddisfa il vincolo di integrità, nella seconda il numero di tuple che non lo soddisfano.}
+	
+	\label{tab:con_backers}
+	
+	\centering
+	\begin{tabular}{c|cc}
+		Validi & 320047 & 98.9 \% \\ 
+		Non validi & 3703 & 1.1 \% \\
+	\end{tabular}
+\end{table} 
 
 \begin{figure}[h!]
 	\centering

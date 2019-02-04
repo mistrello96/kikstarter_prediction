@@ -687,11 +687,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Check for unvalid backers</from>
-      <to>number of invalid 2 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Sort rows 2</from>
       <to>filter_accured_state</to>
       <enabled>Y</enabled>
@@ -754,6 +749,21 @@
     <hop>
       <from>Sort rows 2</from>
       <to>Unique rows 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Check for unvalid backers</from>
+      <to>Dummy (do nothing)</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Dummy (do nothing)</from>
+      <to>number of invalid 2 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Dummy (do nothing)</from>
+      <to>number of invalid 2 2 2</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -842,7 +852,7 @@
       <schema_name/>
     </partitioning>
     <send_true_to>Select values</send_true_to>
-    <send_false_to>number of invalid 2 2</send_false_to>
+    <send_false_to>Dummy (do nothing)</send_false_to>
     <compare>
       <condition>
         <negated>N</negated>
@@ -4346,6 +4356,74 @@ if (last == true) {
     <GUI>
       <xloc>304</xloc>
       <yloc>896</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Dummy (do nothing)</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>592</xloc>
+      <yloc>1392</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>number of invalid 2 2 2</name>
+    <type>GroupBy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <all_rows>N</all_rows>
+    <ignore_aggregate>N</ignore_aggregate>
+    <field_ignore/>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>grp</prefix>
+    <add_linenr>N</add_linenr>
+    <linenr_fieldname/>
+    <give_back_row>N</give_back_row>
+    <group>
+      </group>
+    <fields>
+      <field>
+        <aggregate>n_rows_not_match</aggregate>
+        <subject>backers</subject>
+        <type>COUNT_ALL</type>
+        <valuefield/>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>448</xloc>
+      <yloc>1456</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
