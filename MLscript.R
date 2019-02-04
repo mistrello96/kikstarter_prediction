@@ -35,7 +35,7 @@ table.state <- table(dataset$state)
 pie(table.state)
 prop.table(table.state)
 
-#creazione degli indici per la divisione tra trainset e testset
+# creazione degli indici per la divisione tra trainset e testset
 ind = sample(2, nrow(dataset), replace = TRUE, prob=c(0.7, 0.3))
 trainset = dataset[ind == 1,]
 testset = dataset[ind == 2,]
@@ -98,11 +98,45 @@ f1measure = 2 * (precision * recall / (precision + recall))
 
 # NEURAL NETWORK
 library(neuralnet)
+library(textir)
+# è necessario modificare il train e il test set in modo che le variabili non numeriche siano
+# rappresentate da un numero, in quanto l'algoritmo di learning delle reti neurali non prevede
+# la presenza di feature non numeriche
 trainsetnet <- trainset
 trainsetnet$successful = trainset$state == "successful"
 trainsetnet$failed = trainset$state == "failed"
-m <- model.matrix( 
-  ~ Country + GDP....per.capita. + Service + backers + category + goal + main_category + successful + failed, 
-  data = trainsetnet
-)
-network = neuralnet(successful + failed ~ Country + GDP....per.capita. + Service + backers + category + goal + main_category, m, hidden=10)
+
+trainsetnet$Country = as.numeric(trainset$Country)
+trainsetnet$category = as.numeric(trainset$category) 
+trainsetnet$main_category = as.numeric(trainset$main_category) 
+
+for (i in 1:7){
+  trainsetnet[,i] = (trainsetnet[,i] - min(trainsetnet[,i])) / (max(trainsetnet[,i]) - min (trainsetnet[,i]))
+}
+
+testsetnet <- testset
+testsetnet$Country = as.numeric(testset$Country) 
+testsetnet$category = as.numeric(testset$category) 
+testsetnet$main_category = as.numeric(testset$main_category) 
+
+for (i in 1:7){
+  testsetnet[,i] = (testsetnet[,i] - min(testsetnet[,i])) / (max(testsetnet[,i]) - min (testsetnet[,i]))
+}
+
+# creiamo la rete e la addestriamo
+network = neuralnet(successful + failed ~  Country + GDP....per.capita. + Service + backers + category +  goal + main_category , trainsetnet[c(0:1000), ], hidden=3)
+#network = neuralnet(successful + failed ~  GDP....per.capita. + Service + backers + goal , trainsetnet[c(0:1000), ], hidden = 3)
+#network
+
+# sfruttiamo il modello per eseguire predizione
+net.predict = compute(network, testsetnet[c(1:7)])$net.result
+net.prediction = c("successful", "failed")[apply(net.predict, 1, which.max)]
+testsetnet$prediction = net.prediction
+
+#valutiamo le performance
+confusion.matrix = table(testset$state, testset$prediction)
+accuracy = sum(diag(confusion.matrix))/sum(confusion.matrix)
+precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + 0)
+recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,1])
+f1measure = 2 * (precision * recall / (precision + recall))
+
