@@ -178,10 +178,11 @@ In Figura \ref{fig:dqcountrycodeaccuracy} è presente la pipeline utilizzata in 
 \end{figure}
 
 \subsection{Completezza del dataset delle nazioni}
+\label{subsec:compl_country}
 La completezza analizzata è la completezza per attributo, in particolare abbiamo utilizzato la definizione “standard”, ovvero:\\“il numero di valori  \texttt{null} che compaiono nella colonna di un attributo.”\\
 Stando alla definizione, non abbiamo ricercato possibili valori non \texttt{null} ma i quali non possegono valori semantici corretti rispetto all'attributo.
-Questa casistica è stata analizzata e studiata per la parte di integrazione dei dati ma non per la parte di completezza, poiché ci siamo limitati alla definizione di completezza. 
-In Tabella \ref{tab:compl_country} sono presenti il numero e la relativa percentuale di valori \texttt{null} per ogni colonna, infine si è contato anche il numero complessivo di valori nulli e la loro percentuale rispetto al totale dei valori.
+Questa casistica è stata analizzata e studiata per la parte di integrazione dei dati, ma non per la parte di completezza, poiché ci siamo limitati alla definizione di completezza. 
+In Tabella \ref{tab:compl_country} sono presenti il numero e la relativa percentuale di valori \texttt{null} per ogni colonna, infine si è contato anche il numero complessivo di valori nulli e la loro percentuale rispetto al totale.
 Dalle misure effettuate, possiamo dire che il dataset è praticamente completo, soprattutto riguardo al GDP che è un attributo che verrà utilizzato per la parte di apprendimento automatico.
 \begin{table}
 	\caption{Tabella riassuntiva contenente numero e percentuale (si ricorda che si hanno 227 nazioni) dei \texttt{null} presenti nel dataset per ogni attributo. Infine, si fornisce un'ultima riga contenente il numero totale di \texttt{null} e la percentuale rispetto ad ogni campo del dataset.}
@@ -349,6 +350,7 @@ Si faccia riferimento alla Figura \ref{fig:dqstateaconsistency} per la relativa 
 Il vincolo di consistenza sull'attributo Backers è che il loro valore deve essere maggiore di zero se e solo il valore dell'attributo Pledged è maggiore di zero.
 Per verificare ciò, sono state prima rimosse tutte le tuple aventi un valore di Backers sintatticamente non valido (\textit{i.e.}, numero negativo o una stringa) e successivamente verificato il vincolo sopra citato.
 I risultati di tale metrica sono riportati in Tabella \ref{tab:con_backers}, si fa presente che 624 di tuple delle 3703 non valide sono le tuple aventi un valore dell'attributo non sintatticamente valido.
+Anche in questo secondo caso si può considerare il dataset consistente ed accurato rispetto all'attributo Backers.
 La pipeline è rappresentata in Figura \ref{fig:dqbackersconsistency}.
 
 \begin{table}
@@ -371,8 +373,53 @@ La pipeline è rappresentata in Figura \ref{fig:dqbackersconsistency}.
 \end{figure}
 
 
-\subsection{Completezza del dataset Kickstarter (Figura \ref{fig:dqcompletezza})}
-\todo[inline]{tua parte}
+\subsection{Completezza del dataset Kickstarter}
+Come già detto in precedenza (Sotto sezione \ref{subsec:compl_country}), per completezza intendiamo: “il numero di valori  \texttt{null} che compaiono nella colonna di un attributo.”.
+Di conseguenza anche in questo caso andiamo a valutare solo i valori \texttt{null} e non tutti quei valori, anche se presenti come già mostrato precedentemente, sintatticamente scorretti.
+In Tabella \ref{tab:compl_ks} sono presenti il numero e la relativa percentuale di valori \texttt{null} per ogni colonna, infine si è contato anche il numero complessivo di valori nulli e la loro percentuale rispetto al totale.
+Dalle misure effettuate, possiamo dire che il dataset è praticamente completo, inoltre il dato che manca spesso è l'ammontare in dollare dei soldi donati, il quale non è un attributo utilizzato per il processo di apprendimento automatico.
+La Pipeline è analoga a quella utilizzata nella Sotto sezione \ref{subsec:compl_country}, come mostrato in Figura \ref{fig:dqcompletezza}.
+\begin{table}
+	\caption{Tabella riassuntiva contenente numero e percentuale (si ricorda che si hanno 323750 campagne) dei \texttt{null} presenti nel dataset per ogni attributo. Infine, si fornisce un'ultima riga contenente il numero totale di \texttt{null} e la percentuale rispetto ad ogni campo del dataset.}
+	
+	\label{tab:compl_ks}
+	
+	\centering
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\textbf{Attributo}  & \textbf{Numero} & \textbf{Percentuale (\%)} \\ 
+		\hline  
+		\rule{0pt}{13pt}ID & 0 & 0 \\ 
+		\hline  
+		\rule{0pt}{13pt}Name & 0  & 0 \\ 
+		\hline  
+		\rule{0pt}{13pt}Category & 5 & ~0 \\ 
+		\hline  
+		\rule{0pt}{13pt}Main category & 0 & 0 \\ 
+		\hline
+		\rule{0pt}{13pt}Currency & 0 & 0 \\
+		\hline
+		\rule{0pt}{13pt}Deadline & 0 & 0 \\
+		\hline
+		\rule{0pt}{13pt}Goal & 0 & 0 \\
+		\hline
+		\rule{0pt}{13pt}Launched & 0 & 0 \\
+		\hline
+		\rule{0pt}{13pt}Pledged & 0 & 0 \\
+		\hline
+		\rule{0pt}{13pt}State & 0 & 0 \\
+		\hline
+		\rule{0pt}{13pt}Backers & 0 & 0\\
+		\hline
+		\rule{0pt}{13pt}Country & 0 & 0 \\
+		\hline
+		\rule{0pt}{13pt}Usd pledged & 3790 & 1.1 \\
+		\hline
+		\rule{0pt}{13pt}\textbf{Totale} & \textbf{3795} & \textbf{0.09} \\
+		\hline
+	\end{tabular}
+\end{table}
+
 La profilazione dei dati eseguita in precedenza ha mostrato possibili casi di valori sintatticamente corretti ma semanticamente errati; in particolare, un piccolo sottoinsieme di tuple (circa 500) ha mostrato valori privi di senso in diversi campi. Questo sottoinsieme di tuple è stato rimosso dalle operazioni di trasformazione eseguite successivamente, ed è quindi stato deciso di non includere il conteggio di queste tuple nell'analisi della completezza
 
 \begin{figure}[h!]
