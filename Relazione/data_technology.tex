@@ -129,7 +129,7 @@ Per quanto concerne \textit{countries of the world} sono state effettuate le seg
 Al contempo, \textit{ks-projects-201612} è stato analizzato rispetto alle seguenti metriche:
 \begin{itemize}
 	\item accuratezza sintattica rispetto ai codici delle nazioni;
-	\item indagine dei valori assunti dall'attributo State;
+	\item accuratezza sintattica dell'attributo State;
 	\item consistenza dell'attributo State;
 	\item consistenza dell'attributo Backers;
 	\item misure di completezza rispetto a tutti gli attributi.
@@ -148,7 +148,7 @@ A fronte di questi numeri, si possono fare ulteriori considerazioni a posteriori
 Poiché il dominio applicativo, in questo caso, è costituito da un dataset molto ristretto, tali conflitti possono essere risolti “a mano” senza dover modificare le soglie e rianalizzare la distribuzione degli errori. 
 Quest'analisi è stata poi utilizzata per modificare il dataset contenente le nazioni e i relativi codici in modo da aver un dataset accurato per le attività di integrazione.\\
 In Figura \ref{fig:dqcountrycodeaccuracy} è presente la pipeline utilizzata in Pentaho per l'analisi di questa metrica.
-%\todo[inline]{Figura Errata! serve quella del primo pezzo del file data\_quality DP}
+\todo[inline]{Figura Errata! serve quella del primo pezzo del file data\_quality DP}
 \begin{table}
 	\caption{Tabella riassuntiva contenente numero e percentuale (si ricorda che si hanno 227 nazioni) dei match perfetti e match, non match e dubbio secondo le bigram calcolate sulle nazioni che non hanno avuto il match perfetto.}
 	
@@ -238,8 +238,8 @@ Dalle misure effettuate, possiamo dire che il dataset è praticamente completo, 
 	\end{tabular}
 \end{table}
 
-%\todo[inline]{Ricordarsi di mettere poi il riferimento alla figura DP}
-%\todo[inline]{Pipeline della completezza di world country DP}
+\todo[inline]{Ricordarsi di mettere poi il riferimento alla figura DP}
+\todo[inline]{Pipeline della completezza di world country DP}
 
 \subsection{Accuratezza sintattica del codice delle nazioni del dataset Kickstarter}
 Per quanto concerne l'accuratezza sintattica delle nazioni nel dataset dei kickstarter (le quali sono rappresentate dal codice a due cifre), prima di verificarne l'accuratezza sintattica, in un modo analogo a come fatto per il dataset precedente, abbiamo valutato quanti valori univoci dell'attributo comparissero, i risultati sono riportati in tabella \ref{tab:unique_code_country}.
@@ -262,7 +262,7 @@ A fronte di quello riportato in tabella e tenendo presente la distribuzione dei 
 Di conseguenza, facendo riferimento alla Tabella \ref{tab:code_country_compl} possiamo affermare che il dataset è accurato sintatticamente e che queste poche tuple scorrette verranno eliminate durante il processo di data integration, non consideriamo l'ipotesi di sistemarle poiché risulterebbe molto costoso come processo ed il dataset rimane comunque più che sufficiente per la parte di apprendimento automatico.
 
 \begin{table}
-	\caption{Nella prima riga è presente il numero e la relativa percentuale di tuple che hanno un match con un codice a due cifre del dizionario di riferimento, nella seconda riga, invece, le tuple che non hanno un match.}
+	\caption{Nella prima riga è presente il numero e la relativa percentuale di tuple (ricordando che in totale si hanno 323750 tuple) che hanno un match con un codice a due cifre del dizionario di riferimento, nella seconda riga, invece, le tuple che non hanno un match.}
 	
 	\label{tab:code_country_compl}
 	
@@ -274,16 +274,44 @@ Di conseguenza, facendo riferimento alla Tabella \ref{tab:code_country_compl} po
 \end{table} 
 
 
-%\todo[inline]{Ricordarsi di mettere poi il riferimento alla figura DP}
-%\todo[inline]{Figura della pipeline DP}
+\todo[inline]{Ricordarsi di mettere poi il riferimento alla figura DP}
+\todo[inline]{Figura della pipeline DP}
 
-\subsection{Accuratezza sintattica attributo state (Figura \ref{fig:dqstateaccuracy})}
+\subsection{Accuratezza sintattica attributo State}
+Poiché l'attributo State sarà l'attributo soggetto alla predizione dei modelli di apprendimento automatico che verranno sviluppati, è stato necessario, quindi, analizzare la sua accuratezza sintattica.
+Gli unici valori validi sintatticamente sono: successful, failed, canceled, live e suspended; dato che i valori sono di un numero ridotto, le tuple con un valore non valido sono state filtrate mediante l'utilizzo di una \textit{query}, senza applicare, quindi, delle misure di distanza con il dizionario. 
+Tale operazione è stata possibile grazie ad uno studio preliminare dei valori univoci assunti da tale attributo, i risultati sono riportati in Tabella \ref{tab:unique_state}.
+Dei 405 valori non validi, 404 sono numeri o date e l'ultimo è la stringa “undefined”, che agli scopi della nostra analisi è considerata scorretta. 
+\begin{table}
+	\caption{Tabella che rappresenta il numero di valori univoci sintatticamente validi e sintatticamente non validi.}
+	
+	\label{tab:unique_state}
+	
+	\centering
+	\begin{tabular}{c|c}
+		Validi & 5\\ 
+		Non validi & 405 \\
+	\end{tabular}
+\end{table} 
+Il numero di tuple e la percentuale rispetto al totale sono riportate in Tabella \ref{tab:acc_state}.
+Anche in questo caso, possiamo considerare il dataset accurato perché la percentuale di tuple con un valore valido è estremamente alto e l'eliminazione delle tuple con un campo non valido, quindi su cui non è possibile fare predizione, rimane irrilevante per il processo di estrazione di features e apprendimento automatico.
+\begin{table}
+	\caption{Nella prima riga è presente il numero e la relativa percentuale di tuple (ricordando che in totale si hanno 323750 tuple) che hanno un attributo State valido (ovvero uguale a: successful, failed, canceled, live e suspended), nella seconda le tuple con un valore non valido.}
+	
+	\label{tab:acc_state}
+	
+	\centering
+	\begin{tabular}{c|cc}
+		Validi & 319563 & 98.7 \% \\ 
+		Non validi & 4187 & 1.3 \% \\
+	\end{tabular}
+\end{table} 
 
+\todo[inline]{aggiornare immagine.}
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.7\linewidth]{images/DQ_stateaccuracy}
-	\caption{Pipeline che verifica tutti i possibili valori dell'attributo state. Gli unici valori plausibili e accettati sono successful, failed, cancelled, live e suspended.}
-	%\todo{Non capisco perché diciamo anche cancelled, live e suspended. Filtravo tutti i diversi tra failed e succesfull}
+	\caption{Pipeline che verifica tutti i possibili valori dell'attributo state. Gli unici valori plausibili e accettati sono: successful, failed, canceled, live e suspended.}
 	\label{fig:dqstateaccuracy}
 \end{figure}
 
@@ -298,7 +326,7 @@ Di conseguenza, facendo riferimento alla Tabella \ref{tab:code_country_compl} po
 \end{figure}
 
 
-\subsection{Consistenza attributo backers (Figura \ref{fig:dqbackersconsistency})}
+\subsection{Consistenza attributo Backers (Figura \ref{fig:dqbackersconsistency})}
 
 \begin{figure}[h!]
 	\centering
@@ -309,7 +337,7 @@ Di conseguenza, facendo riferimento alla Tabella \ref{tab:code_country_compl} po
 
 
 \subsection{Completezza del dataset Kickstarter (Figura \ref{fig:dqcompletezza})}
-%\todo[inline]{tua parte}
+\todo[inline]{tua parte}
 La profilazione dei dati eseguita in precedenza ha mostrato possibili casi di valori sintatticamente corretti ma semanticamente errati; in particolare, un piccolo sottoinsieme di tuple (circa 500) ha mostrato valori privi di senso in diversi campi. Questo sottoinsieme di tuple è stato rimosso dalle operazioni di trasformazione eseguite successivamente, ed è quindi stato deciso di non includere il conteggio di queste tuple nell'analisi della completezza
 
 \begin{figure}[h!]

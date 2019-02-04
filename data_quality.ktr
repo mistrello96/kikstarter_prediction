@@ -746,6 +746,16 @@
       <to>number_of_not_accurate_state</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>filter_accured_state</from>
+      <to>number_of_accurate_state </to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort rows 2</from>
+      <to>Unique rows 2</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <step>
     <name>Calculator</name>
@@ -960,6 +970,22 @@
                 </value>
               </condition>
             </conditions>
+          </condition>
+          <condition>
+            <negated>N</negated>
+            <operator>OR</operator>
+            <leftvalue>backers</leftvalue>
+            <function>&lt;</function>
+            <rightvalue/>
+            <value>
+              <name>constant</name>
+              <type>Integer</type>
+              <text>0</text>
+              <length>-1</length>
+              <precision>0</precision>
+              <isnull>N</isnull>
+              <mask>####0;-####0</mask>
+            </value>
           </condition>
         </conditions>
       </condition>
@@ -1188,7 +1214,7 @@
     </remotesteps>
     <GUI>
       <xloc>368</xloc>
-      <yloc>624</yloc>
+      <yloc>512</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1226,7 +1252,7 @@
     </remotesteps>
     <GUI>
       <xloc>368</xloc>
-      <yloc>896</yloc>
+      <yloc>784</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1624,7 +1650,7 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>192</xloc>
-      <yloc>784</yloc>
+      <yloc>672</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1632,7 +1658,7 @@ if (last == true) {
     <name>Sort rows 2</name>
     <type>SortRows</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
@@ -1823,7 +1849,7 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>368</xloc>
-      <yloc>784</yloc>
+      <yloc>672</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2381,7 +2407,7 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>64</xloc>
-      <yloc>624</yloc>
+      <yloc>512</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2462,7 +2488,7 @@ if (last == true) {
       <schema_name/>
     </partitioning>
     <send_true_to>number_of_not_accurate_state</send_true_to>
-    <send_false_to/>
+    <send_false_to>number_of_accurate_state </send_false_to>
     <compare>
       <condition>
         <negated>N</negated>
@@ -2717,7 +2743,7 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>496</xloc>
-      <yloc>624</yloc>
+      <yloc>512</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2752,7 +2778,7 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>496</xloc>
-      <yloc>896</yloc>
+      <yloc>784</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -3639,7 +3665,7 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>784</xloc>
-      <yloc>512</yloc>
+      <yloc>448</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -3682,7 +3708,7 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>784</xloc>
-      <yloc>816</yloc>
+      <yloc>704</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -3768,7 +3794,7 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>784</xloc>
-      <yloc>688</yloc>
+      <yloc>576</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -3811,7 +3837,7 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>784</xloc>
-      <yloc>960</yloc>
+      <yloc>864</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -3961,7 +3987,7 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>192</xloc>
-      <yloc>896</yloc>
+      <yloc>784</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -4246,7 +4272,80 @@ if (last == true) {
     </remotesteps>
     <GUI>
       <xloc>608</xloc>
+      <yloc>896</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>number_of_accurate_state </name>
+    <type>GroupBy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <all_rows>N</all_rows>
+    <ignore_aggregate>N</ignore_aggregate>
+    <field_ignore/>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>grp</prefix>
+    <add_linenr>N</add_linenr>
+    <linenr_fieldname/>
+    <give_back_row>N</give_back_row>
+    <group>
+      </group>
+    <fields>
+      <field>
+        <aggregate>n_rows_not_match</aggregate>
+        <subject>state</subject>
+        <type>COUNT_ALL</type>
+        <valuefield/>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>608</xloc>
       <yloc>992</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Unique rows 2</name>
+    <type>Unique</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <count_rows>N</count_rows>
+    <count_field/>
+    <reject_duplicate_row>N</reject_duplicate_row>
+    <error_description/>
+    <fields>      </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>304</xloc>
+      <yloc>896</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
