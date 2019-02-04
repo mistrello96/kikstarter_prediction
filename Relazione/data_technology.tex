@@ -19,7 +19,7 @@ Il dataset \textit{countries of the world.csv} contiene informazioni che descriv
 		\hline  
 		\rule{0pt}{13pt}Population & Intero & Numero di abitanti in quella regione \\ 
 		\hline  
-		\rule{0pt}{24pt}Area & Intero & \shortstack{Estensione in miglia al quadrato \\ della superficie della nazione} \\ 
+		\rule{0pt}{24pt}Area & Intero & \shortstack{Estensione in miglia al quadrato \\ della superficie della nazione} \\
 		\hline   
 		\rule{0pt}{24pt}Pop. Density & \shortstack{Numero con \\ virgola mobile} & Numero di abitanti per miglio quadro \\ 
 		\hline   
@@ -148,7 +148,7 @@ A fronte di questi numeri, si possono fare ulteriori considerazioni a posteriori
 Poiché il dominio applicativo, in questo caso, è costituito da un dataset molto ristretto, tali conflitti possono essere risolti “a mano” senza dover modificare le soglie e rianalizzare la distribuzione degli errori. 
 Quest'analisi è stata poi utilizzata per modificare il dataset contenente le nazioni e i relativi codici in modo da aver un dataset accurato per le attività di integrazione.\\
 In Figura \ref{fig:dqcountrycodeaccuracy} è presente la pipeline utilizzata in Pentaho per l'analisi di questa metrica.
-\todo[inline]{Figura Errata! serve quella del primo pezzo del file data\_quality DP}
+%\todo[inline]{Figura Errata! serve quella del primo pezzo del file data\_quality DP}
 \begin{table}
 	\caption{Tabella riassuntiva contenente numero e percentuale (si ricorda che si hanno 227 nazioni) dei match perfetti e match, non match e dubbio secondo le bigram calcolate sulle nazioni che non hanno avuto il match perfetto.}
 	
@@ -238,8 +238,8 @@ Dalle misure effettuate, possiamo dire che il dataset è praticamente completo, 
 	\end{tabular}
 \end{table}
 
-\todo[inline]{Ricordarsi di mettere poi il riferimento alla figura DP}
-\todo[inline]{Pipeline della completezza di world country DP}
+%\todo[inline]{Ricordarsi di mettere poi il riferimento alla figura DP}
+%\todo[inline]{Pipeline della completezza di world country DP}
 
 \subsection{Accuratezza sintattica del codice delle nazioni del dataset Kickstarter}
 Per quanto concerne l'accuratezza sintattica delle nazioni nel dataset dei kickstarter (le quali sono rappresentate dal codice a due cifre), prima di verificarne l'accuratezza sintattica, in un modo analogo a come fatto per il dataset precedente, abbiamo valutato quanti valori univoci dell'attributo comparissero, i risultati sono riportati in tabella \ref{tab:unique_code_country}.
@@ -274,8 +274,8 @@ Di conseguenza, facendo riferimento alla Tabella \ref{tab:code_country_compl} po
 \end{table} 
 
 
-\todo[inline]{Ricordarsi di mettere poi il riferimento alla figura DP}
-\todo[inline]{Figura della pipeline DP}
+%\todo[inline]{Ricordarsi di mettere poi il riferimento alla figura DP}
+%\todo[inline]{Figura della pipeline DP}
 
 \subsection{Accuratezza sintattica attributo state (Figura \ref{fig:dqstateaccuracy})}
 
@@ -283,7 +283,7 @@ Di conseguenza, facendo riferimento alla Tabella \ref{tab:code_country_compl} po
 	\centering
 	\includegraphics[width=0.7\linewidth]{images/DQ_stateaccuracy}
 	\caption{Pipeline che verifica tutti i possibili valori dell'attributo state. Gli unici valori plausibili e accettati sono successful, failed, cancelled, live e suspended.}
-	\todo{Non capisco perché diciamo anche cancelled, live e suspended. Filtravo tutti i diversi tra failed e succesfull}
+	%\todo{Non capisco perché diciamo anche cancelled, live e suspended. Filtravo tutti i diversi tra failed e succesfull}
 	\label{fig:dqstateaccuracy}
 \end{figure}
 
@@ -309,7 +309,7 @@ Di conseguenza, facendo riferimento alla Tabella \ref{tab:code_country_compl} po
 
 
 \subsection{Completezza del dataset Kickstarter (Figura \ref{fig:dqcompletezza})}
-\todo[inline]{tua parte}
+%\todo[inline]{tua parte}
 La profilazione dei dati eseguita in precedenza ha mostrato possibili casi di valori sintatticamente corretti ma semanticamente errati; in particolare, un piccolo sottoinsieme di tuple (circa 500) ha mostrato valori privi di senso in diversi campi. Questo sottoinsieme di tuple è stato rimosso dalle operazioni di trasformazione eseguite successivamente, ed è quindi stato deciso di non includere il conteggio di queste tuple nell'analisi della completezza
 
 \begin{figure}[h!]
