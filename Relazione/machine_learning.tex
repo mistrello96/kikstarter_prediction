@@ -1,2 +1,10 @@
-\section{hey}
-\section{boh}
+\section{Creazione del training set}
+Il dataset in input è stato prodotto a seguito delle operazioni di data integration su tre dataset originari. Durante queste operazioni, gli attributi privi di informazioi rilevanti ai fini dell'addestramento di un modello di Machine Learning sono stati rimossi, ottenendo di fatto un dataset già pronto all'uso. Per dividere il dataset in train set e test set, è stata definita una funzione ad hoc che permette di dividere il dataset in 10 parti, usandone poi 9 per il trainset e la restante per il testset. Questa funzione si è rivelata fondamentale per l'operazione di 10-fold cross validation, in cui il modello viene addestrato e testato su porzioni differenti del dataset.
+
+\section{Analisi esplorativa del training set}
+\section{Modelli di Machine Learning utilizzati}
+Al fine di avere una misura di riferimento per i modelli che saranno proposti successivamente, è stato prodotto un modello baseline, che si limita a rispondere sempre failed ad ogni sottomissione di un sample. La risposta risulta essere sempre failed in quanto dall'analisi esplorativa dei dati effettuata in precedente, è emerso che il valore di etichettatura più frequente era prorpio il fallimento del progetto. Riportiamo di seguito le misure di performance ottenute con questo metodo:
+\subsection{Alberi decisionali}
+\subsection{Reti neurali}
+\subsection{Support Vector Machine}
+\subsection{Naive Baies}
