@@ -65,6 +65,9 @@ library(RColorBrewer)
 decisionTree = rpart(state ~ Country + GDP....per.capita. + Service + category + goal + main_category, data=trainset, method="class")
 fancyRpartPlot(decisionTree)
 
+# usiamo il modello per eseguire le previsioni
+testset$prediction <- predict(decisionTree, testset, type = "class")
+
 # e valutiamone le performance
 confusion.matrix = table(testset$state, testset$prediction)
 accuracy = sum(diag(confusion.matrix))/sum(confusion.matrix)
@@ -103,6 +106,32 @@ precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,
 recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,1])
 f1measure = 2 * (precision * recall / (precision + recall))
 
+# NAIVE BAyES
+library(e1071)
+classifier <- naiveBayes(trainset, trainset$state) 
+testset$prediction = predict(classifier, testset)
+
+#valutiamo le performance
+confusion.matrix = table(testset$state, testset$prediction)
+accuracy = sum(diag(confusion.matrix))/sum(confusion.matrix)
+precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,2])
+recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,1])
+f1measure = 2 * (precision * recall / (precision + recall))
+confusion.matrix
+
+#SVM
+library(e1071)
+svm.model = svm(state ~ ., data = trainset[sample(nrow(trainset), 10000), ], kernel = 'linear', cost = 1)
+print(svm.model)
+svm.pred = predict(svm.model, testset) 
+
+confusion.matrix = table(svm.pred, testset$state)
+accuracy = sum(diag(confusion.matrix))/sum(confusion.matrix)
+precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,2])
+recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,1])
+f1measure = 2 * (precision * recall / (precision + recall))
+confusion.matrix
+
 # NEURAL NETWORK
 library(neuralnet)
 # è necessario modificare il train e il test set in modo che le variabili non numeriche siano
@@ -130,10 +159,8 @@ for (i in 1:7){
 }
 
 # creiamo la rete e la addestriamo
-network = neuralnet(successful + failed ~  Country + GDP....per.capita. + Service + backers + category +  goal + main_category , trainsetnet[c(0:5000), ], hidden=3, threshold = 0.01, stepmax = 1e+06, learningrate = 0.01)
-#network = neuralnet(successful + failed ~  GDP....per.capita. + Service + backers + goal , trainsetnet[c(0:1000), ], hidden = 3)
-#network
-?neuralnet
+network = neuralnet(successful + failed ~  Country + GDP....per.capita. + Service + backers + category +  goal + main_category , trainsetnet[sample(nrow(trainset), 10000), ], hidden=3, threshold = 0.01, stepmax = 1e+06, learningrate = 0.01)
+
 # sfruttiamo il modello per eseguire predizione
 net.predict = compute(network, testsetnet[c(1:7)])$net.result
 net.prediction = c("successful", "failed")[apply(net.predict, 1, which.max)]
@@ -145,31 +172,4 @@ accuracy = sum(diag(confusion.matrix))/sum(confusion.matrix)
 precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,2])
 recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,1])
 f1measure = 2 * (precision * recall / (precision + recall))
-
-# NAIVE BAyES
-library(e1071)
-classifier <- naiveBayes(trainset, trainset$state) 
-testset$prediction = predict(classifier, testset)
-
-#valutiamo le performance
-confusion.matrix = table(testset$state, testset$prediction)
-accuracy = sum(diag(confusion.matrix))/sum(confusion.matrix)
-precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,2])
-recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,1])
-f1measure = 2 * (precision * recall / (precision + recall))
-confusion.matrix
-
-
-#SVM
-library(e1071)
-svm.model = svm(state ~ ., data = trainset[sample(nrow(trainset), 100000), ], kernel = 'linear', cost = 1)
-print(svm.model)
-svm.pred = predict(svm.model, testset) 
-
-confusion.matrix = table(svm.pred, testset$state)
-accuracy = sum(diag(confusion.matrix))/sum(confusion.matrix)
-precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,2])
-recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,1])
-f1measure = 2 * (precision * recall / (precision + recall))
-confusion.matrix
 
