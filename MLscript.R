@@ -1,4 +1,4 @@
-setwd("~/Projects/kickstarterprediction/")
+setwd("./")
 library(e1071)
 library(rpart)
 
@@ -45,7 +45,7 @@ rm(ind)
 # Visto che la maggior parte dei progetti è risultata fallimentare, 
 # abbiamo deciso di creare un modello ingenuo che risponda sempre fallito ad ogni sample sottomesso
 
-testset$prediction = rep("failed", 93618)
+testset$prediction = rep("failed", 93965)
 
 # verifichiamo la qualità della soluzione proposta, in modo da utilizzarla come riferimento
 # per i successivi modelli
@@ -64,6 +64,13 @@ library(RColorBrewer)
 # stima di questo paramentro nel caso esso non fosse disponibile
 decisionTree = rpart(state ~ Country + GDP....per.capita. + Service + category + goal + main_category, data=trainset, method="class")
 fancyRpartPlot(decisionTree)
+
+# e valutiamone le performance
+confusion.matrix = table(testset$state, testset$prediction)
+accuracy = sum(diag(confusion.matrix))/sum(confusion.matrix)
+precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + 0)
+recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,1])
+f1measure = 2 * (precision * recall / (precision + recall))
 
 # creiamo ora un albero sfruttando tutti gli attributi disponibili
 decisionTree = rpart(state ~ ., data=trainset, method="class")
@@ -139,15 +146,30 @@ precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,
 recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,1])
 f1measure = 2 * (precision * recall / (precision + recall))
 
-# NAIVE BAIES
+# NAIVE BAyES
 library(e1071)
 classifier <- naiveBayes(trainset, trainset$state) 
-testsetnet$prediction = predict(classifier, testset)
+testset$prediction = predict(classifier, testset)
 
 #valutiamo le performance
-confusion.matrix = table(testsetnet$state, testsetnet$prediction)
+confusion.matrix = table(testset$state, testset$prediction)
 accuracy = sum(diag(confusion.matrix))/sum(confusion.matrix)
 precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,2])
 recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,1])
 f1measure = 2 * (precision * recall / (precision + recall))
 confusion.matrix
+
+
+#SVM
+library(e1071)
+svm.model = svm(state ~ ., data = trainset[sample(nrow(trainset), 100000), ], kernel = 'linear', cost = 1)
+print(svm.model)
+svm.pred = predict(svm.model, testset) 
+
+confusion.matrix = table(svm.pred, testset$state)
+accuracy = sum(diag(confusion.matrix))/sum(confusion.matrix)
+precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,2])
+recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,1])
+f1measure = 2 * (precision * recall / (precision + recall))
+confusion.matrix
+
