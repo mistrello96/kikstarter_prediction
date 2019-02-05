@@ -488,7 +488,8 @@ A seguito dell'unione, sono stati prodotti due nuovi dataset (come mostrato in F
 \section{Analisi di qualità dei dataset (post-integrazione)}
 Al fine di valutare la qualità del lavoro svolto nella fase di integrazione del dataset, le misure di qualità precedentemente stabilite sono state applicate al dataset integrato. In questa sezione verranno riportati i risultati ottenuti e relative considerazioni.
 
-\subsection{Accuratezza sintattica attributo country (Figura \ref{fig:dqtcountries})}
+\subsection{Accuratezza sintattica attributo country}
+Per la misura dell'accuratezza sintattica è stata utilizzata la pipeline mostrata in Figura \ref{fig:dqtcountries}, che individua le tuple il cui valore dell'attributo country risulti sintatticamente insensato e conta i possibili valori che questo campo assume.\\
 L'attributo presenta 21 possibili valori, tutti formati da una coppia di 2 lettere maiuscole dell'alfabeto. Non sono presenti tuple con valore dell'attributo che violino questo vincolo sintattico.
 
 \begin{figure}[h!]
@@ -499,11 +500,11 @@ L'attributo presenta 21 possibili valori, tutti formati da una coppia di 2 lette
 \end{figure}
 
 
-\subsection{Accuratezza sintattica attributo state (Figura \ref{fig:dqtstate})}
+\subsection{Accuratezza sintattica attributo state}
 L'attributo state risulta assumere due possibili valori, successful e failed. Le trasformazioni applicate producono quindi una riduzione dei possibili valori da 408 a 2 possibili valori.
 
-\subsection{Consistenza attributo state (Figura \ref{fig:dqtstate})}
-Per l'attributo in esame, non sono presenti tuple inconsistenti, ove il totale raccolto non sia consistente con lo stato del progetto.
+\subsection{Consistenza attributo state}
+Per l'attributo in esame, non sono presenti tuple inconsistenti, ove il totale raccolto non sia consistente con lo stato del progetto. La pipeline in Figura \ref{fig:dqtstate} mostra la ricerca dei possibili valori del campo state e il conteggio di eventuali tuple con valore dell'attributo state non consistenti con il totale raccolto.
 
 \begin{figure}[h!]
 	\centering
@@ -512,8 +513,9 @@ Per l'attributo in esame, non sono presenti tuple inconsistenti, ove il totale r
 	\label{fig:dqtstate}
 \end{figure}
 
-\subsection{Consistenza attributo backers (Figura \ref{fig:dqtbackers})}
-Per il campo backers, non sono state rilevate tuple con valore del campo negativo oppure con un valore non consistente con totale del denaro raccolto
+\subsection{Consistenza attributo backers}
+Per il campo backers, è stata realizzata una pipeline (mostrata in Figura \ref{fig:dqtbackers}) con l'intento di individuare eventiali tuple che violassero i vincoli di consistenza. La verifica si è concentrata sul valore del campo backers in relazione con il totale del denaro riscosso.\\
+Non sono state rilevate tuple che violassero i vincoli imposti.
 
 \begin{figure}[h!]
 	\centering
