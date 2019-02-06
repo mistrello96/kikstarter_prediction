@@ -7,3 +7,8 @@
 *_per_country.txt
 *_per_service.txt
 .Rhistory
+AUC/bayes/*
+AUC/baseline/*
+AUC/tree/*
+AUC/Ptree/*
+AUC/treeNB/*
