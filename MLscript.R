@@ -311,14 +311,14 @@ svm.pred1000 = predict(svm.model1000, testset1000)
 
 print("Evaluating Support Vector Machine performance with c=100:")
 
-confusion.matrix = table(testset$state, svm.pred100)
+confusion.matrix = table(testset1000$state, svm.pred1000)
 accuracy = sum(diag(confusion.matrix))/sum(confusion.matrix)
 precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,1])
 recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,2])
 f1measure = 2 * (precision * recall / (precision + recall))
 #ROC
-svm.curve = roc(svm.pred, as.numeric(testset$state))
-plot.roc(svm.curve, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
+svm.curve1000 = roc(svm.pred1000, as.numeric(testset1000$state))
+plot.roc(svm.curve1000, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
 
 # NEURAL NETWORK
 library(neuralnet)
