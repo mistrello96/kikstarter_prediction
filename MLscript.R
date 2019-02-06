@@ -209,7 +209,20 @@ rm(i, trainset, testset, recall, precision, f1measure, accuracy)
 print("Evaluating Naive Bayes' performance:")
 evaluatePerformance(bayes.accuracy, bayes.precision, bayes.recall, bayes.f1measure)
 
-
+# AREA UNDER CURVE
+library(ROCR)
+tmp = prop.table(table(dataset$state))
+if(tmp["failed"] >= tmp["successful"]) {
+  dataset$prediction.baseline = rep("failed", nrow(dataset)) 
+} else { # R sintassi non spostare l'esle!
+  dataset$prediction.baseline = rep("successful", nrow(dataset)) 
+}
+rm(tmp)
+pred.to.roc = dataset$prediction.baseline
+pred.rocr = prediction(pred.to.roc, dataset$state)
+pref.rocr = performance(pred.rocr, measure = "auc", x.measure = "cutoff")
+pref.tpr.rocr = performance(pred.rocr, "tpr", "fpr")
+plot(pref.tpr, colorize = T, main = paste("AUC:",(pref.rocr@y.values)))
 
 # I modelli successivi potrebbero richiedere ore per venir trainati
 
