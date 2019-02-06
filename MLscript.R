@@ -1,6 +1,8 @@
 setwd("./")
 library(e1071)
 library(rpart)
+library(ROCR)
+library(corrplot)
 
 evaluatePerformance = function(accuracy, precision, recall, f1measure){
   print(paste("Accuracy mean:",  mean(accuracy)))
@@ -46,9 +48,23 @@ table.state <- table(dataset$state)
 pie(table.state)
 prop.table(table.state)
 
-# APPRENDIMENTO AUTOMATICO
+# correlazione
+# serve passare alla versione numerica e normalizzata
+corrdata <- dataset
+corrdata$state = as.numeric(corrdata$state)
+corrdata$Country = as.numeric(corrdata$Country)
+corrdata$category = as.numeric(corrdata$category) 
+corrdata$main_category = as.numeric(corrdata$main_category) 
 
-# first we need to shuffle our dataset
+for (i in 1:8){
+  corrdata[,i] = (corrdata[,i] - min(corrdata[,i])) / (max(corrdata[,i]) - min (corrdata[,i]))
+}
+
+cormat <- cor(corrdata)
+corrplot(cormat, method = "number", col="black")
+
+# APPRENDIMENTO AUTOMATICO
+# Randomizziamo l'ordine delle righe nel dataset
 dataset <- dataset[sample(nrow(dataset)), ] 
 ind <- cut(1:nrow(dataset), breaks = 10, labels = F)
 
@@ -158,7 +174,7 @@ for(i in 1:10){
   # valutiamo ora il grado di complessità dell'albero, per valutare se sia
   # opportuno eseguire una potatura dell'albero
   # printcp(decisionTree)
-  # plotcp(decisionTree)
+  plotcp(decisionTree)
 
   # creiamo un albero potato e verifichiamo le nuove performance
   prunedtree = prune(decisionTree, cp=.015)
