@@ -29,9 +29,18 @@ levels(dataset$state)
 x <- dataset[, c(2,3,4,6)]
 par(mfrow=c(1,4))
 for(i in 1:4) {
-  boxplot(x[,i], main=names(x)[i]) }
+  if(names(x)[i] == "GDP....per.capita."){
+    boxplot(x[, i], main = "GDP pro capite")
+  } else {
+    boxplot(x[, i], main = names(x)[i]) }
+}
 rm(x)
 rm(i)
+
+barplot(table(dataset$Service), main = "Distribuzione di diffusione del settore terziario", log = "y", col = "#FF6666")
+pie(sort(table(dataset$category), decreasing = T)[1: 10], main = "Distribuzione delle categorie delle campagne", col = c("#CCFFFF", "#FF99CC", "#FFB266", "#B2FF66", "#FF6666"))
+barplot(table(dataset$Country), log = "y", las=2, col = "#FF6666")
+barplot(table(dataset$GDP....per.capita.), log = "y", las=2, col = "#FF6666")
 
 mean(dataset$backers)
 sd(dataset$backers)
@@ -40,10 +49,8 @@ mean(dataset$goal)
 sd(dataset$goal)
 range(dataset$goal)
 
-table.country <- table(dataset$Country)
-sort(table.country,decreasing=TRUE)[1:3]
-table.category <- table(dataset$category)
-sort(table.category,decreasing=TRUE)[1:3]
+
+
 table.main_category <- table(dataset$main_category)
 pie(table.main_category)
 table.state <- table(dataset$state)
@@ -261,12 +268,12 @@ evaluatePerformance(bayes.accuracy, bayes.precision, bayes.recall, bayes.f1measu
 
 # saving the summary roc curve
 pdf("./AUC/Mixed", width = 5, height = 5)
-plot(ggroc(list()))
 plot.roc(Ptree.curve, legacy.axes = T, col = "red", lwd = 3, asp = 1.0)
 plot.roc(tree.curve, legacy.axes = T, col = "orange", lwd = 3, asp = 1.0, add = T)
 plot.roc(baseline.curve, legacy.axes = T, col = "purple", lwd = 3, asp = 1.0, add = T)
 plot.roc(treeNB.curve, legacy.axes = T, col = "blue", lwd = 3, asp = 1.0, add = T)
 plot.roc(bayes.curve, legacy.axes = T, col = "green", lwd = 3, asp = 1.0, add = T)
+legend(0.25, 0.35, legend=c("Baseline", "Tree NB", "Tree", "Pruned tree", "Naive Bayes"), col=c("purple", "blue", "orange", "red", "green"), lty = 1, cex=0.8)
 dev.off()
 
 # I modelli successivi potrebbero richiedere ore per venir trainati. E' stato quindi deciso
