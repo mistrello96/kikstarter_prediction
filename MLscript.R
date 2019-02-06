@@ -26,17 +26,6 @@ dim(dataset)
 sapply(dataset, class)
 levels(dataset$state)
 
-#x <- dataset[, c(2,3,4,6)]
-#par(mfrow=c(1,4))
-#for(i in 1:4) {
-#  if(names(x)[i] == "GDP....per.capita."){
-#    boxplot(x[, i], main = "GDP pro capite")
-#  } else {
-#    boxplot(x[, i], main = names(x)[i]) }
-#}
-#rm(x)
-#rm(i)
-
 pdf("Data_exploration_plots/barlpot_service.pdf", width = 5, height = 5)
 barplot(table(dataset$Service), main = "Distribuzione di diffusione del settore terziario", log = "y", col = "#FF6666")
 dev.off()
@@ -326,7 +315,7 @@ svm.pred1000 = predict(svm.model1000, testset1000)
 
 print("Evaluating Support Vector Machine performance with c=100:")
 
-confusion.matrix = table(testset$state, svm.pred100)
+confusion.matrix = table(testset1000$state, svm.pred1000)
 accuracy = sum(diag(confusion.matrix))/sum(confusion.matrix)
 precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,1])
 recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,2])
@@ -337,6 +326,7 @@ svm1000.auc = auc(svm.curve)
 pdf(paste0("./AUC/svm1000/auc_", i), width = 5, height = 5)
 plot.roc(svm1000.curve, legacy.axes = T, col = "red", lwd = 3, asp = 1.0, main = paste0("AUC = ", round(svm1000.auc, digits = 5)))
 dev.off()
+
 
 # NEURAL NETWORK
 library(neuralnet)
