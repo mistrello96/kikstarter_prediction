@@ -1,6 +1,8 @@
 setwd("./")
 library(e1071)
 library(rpart)
+library(ROCR)
+library(corrplot)
 
 evaluatePerformance = function(accuracy, precision, recall, f1measure){
   print(paste("Accuracy mean:",  mean(accuracy)))
@@ -46,13 +48,27 @@ table.state <- table(dataset$state)
 pie(table.state)
 prop.table(table.state)
 
-# APPRENDIMENTO AUTOMATICO
+# correlazione
+# serve passare alla versione numerica e normalizzata
+corrdata <- dataset
+corrdata$state = as.numeric(corrdata$state)
+corrdata$Country = as.numeric(corrdata$Country)
+corrdata$category = as.numeric(corrdata$category) 
+corrdata$main_category = as.numeric(corrdata$main_category) 
 
-# first we need to shuffle our dataset
+for (i in 1:8){
+  corrdata[,i] = (corrdata[,i] - min(corrdata[,i])) / (max(corrdata[,i]) - min (corrdata[,i]))
+}
+
+cormat <- cor(corrdata)
+corrplot(cormat, method = "number", col="black")
+
+# APPRENDIMENTO AUTOMATICO
+# Randomizziamo l'ordine delle righe nel dataset
 dataset <- dataset[sample(nrow(dataset)), ] 
 ind <- cut(1:nrow(dataset), breaks = 10, labels = F)
 
-#Misure: la nostra precision è quante volte prediciamo correttamente il fallimento su quante volte lo abbiamo predetto
+# Misure: la nostra precision è quante volte prediciamo correttamente il fallimento su quante volte lo abbiamo predetto
 #   recall è quante volte abbiamo predetto correttamente il fallimento su quante volte andava predetto
 
 # BASELINE MODEL
@@ -108,7 +124,7 @@ for(i in 1:10){
   trainset = dataset[ind != i, ]
   testset = dataset[ind == i, ]
   decisionTree = rpart(state ~ Country + GDP....per.capita. + Service + category + goal + main_category, data=trainset, method="class")
-  fancyRpartPlot(decisionTree)
+  # fancyRpartPlot(decisionTree)
   # usiamo il modello per eseguire le previsioni
   testset$prediction <- predict(decisionTree, testset, type = "class")
   # e valutiamone le performance
@@ -142,7 +158,7 @@ for(i in 1:10){
   trainset = dataset[ind != i, ]
   testset = dataset[ind == i, ]
   decisionTree = rpart(state ~ ., data=trainset, method="class")
-  fancyRpartPlot(decisionTree)
+  # fancyRpartPlot(decisionTree)
   # usiamo il modello per eseguire le previsioni
   testset$prediction <- predict(decisionTree, testset, type = "class")
   # e valutiamone le performance
@@ -157,12 +173,12 @@ for(i in 1:10){
   tree.f1measure = append(f1measure, tree.f1measure)
   # valutiamo ora il grado di complessità dell'albero, per valutare se sia
   # opportuno eseguire una potatura dell'albero
-  printcp(decisionTree)
+  # printcp(decisionTree)
   plotcp(decisionTree)
 
   # creiamo un albero potato e verifichiamo le nuove performance
   prunedtree = prune(decisionTree, cp=.015)
-  fancyRpartPlot(prunedtree)
+  # fancyRpartPlot(prunedtree)
   testset$prediction <- predict(prunedtree, testset, type = "class")
   confusion.matrix = table(testset$state, testset$prediction)
   accuracy = sum(diag(confusion.matrix))/sum(confusion.matrix)
@@ -224,20 +240,37 @@ pref.rocr = performance(pred.rocr, measure = "auc", x.measure = "cutoff")
 pref.tpr.rocr = performance(pred.rocr, "tpr", "fpr")
 plot(pref.tpr, colorize = T, main = paste("AUC:",(pref.rocr@y.values)))
 
-# I modelli successivi potrebbero richiedere ore per venir trainati
+# I modelli successivi potrebbero richiedere ore per venir trainati. E' stato quindi deciso
+# di non eseguire l'operazione di 10-fold cross validation, considerando anche la grande dimensione
+# del dataset utilizzato
+
 
 #SVM
 library(e1071)
-svm.model = svm(state ~ ., data = trainset[sample(nrow(trainset), 10000), ], kernel = 'linear', cost = 1)
+# creiamo un modello svm e utilizziamolo per predirre
+svm.model = svm(state ~ ., data = trainset[sample(nrow(trainset)), ], kernel = 'linear', cost = 1)
 print(svm.model)
 svm.pred = predict(svm.model, testset) 
 
-confusion.matrix = table(svm.pred, testset$state)
+print("Evaluating Support Vector Machine performance with c=1:")
+confusion.matrix = table(testset$state, svm.pred)
 accuracy = sum(diag(confusion.matrix))/sum(confusion.matrix)
-precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,2])
-recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,1])
+precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,1])
+recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,2])
 f1measure = 2 * (precision * recall / (precision + recall))
-confusion.matrix
+
+# Visto il grande numero di vettori di supporto, aumentiamo il valore di c a 100
+svm.model100 = svm(state ~ ., data = trainset[sample(nrow(trainset)), ], kernel = 'linear', cost = 100)
+print(svm.model100)
+svm.pred100 = predict(svm.model100, testset) 
+
+print("Evaluating Support Vector Machine performance with c=100:")
+
+confusion.matrix = table(testset$state, svm.pred100)
+accuracy = sum(diag(confusion.matrix))/sum(confusion.matrix)
+precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,1])
+recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,2])
+f1measure = 2 * (precision * recall / (precision + recall))
 
 # NEURAL NETWORK
 library(neuralnet)
@@ -266,7 +299,7 @@ for (i in 1:7){
 }
 
 # creiamo la rete e la addestriamo
-network = neuralnet(successful + failed ~  Country + GDP....per.capita. + Service + backers + category +  goal + main_category , trainsetnet[sample(nrow(trainset), 10000), ], hidden=3, threshold = 0.01, stepmax = 1e+06, learningrate = 0.01)
+network = neuralnet(successful + failed ~  Country + GDP....per.capita. + Service + backers + category +  goal + main_category , trainsetnet, hidden=3, threshold = 0.01, stepmax = 1e+06, learningrate = 0.01)
 
 # sfruttiamo il modello per eseguire predizione
 net.predict = compute(network, testsetnet[c(1:7)])$net.result
@@ -274,9 +307,9 @@ net.prediction = c("successful", "failed")[apply(net.predict, 1, which.max)]
 testsetnet$prediction = net.prediction
 
 #valutiamo le performance
-confusion.matrix = table(testsetnet$state, testsetnet$prediction)
+print("Evaluating Neural Network performance:")
+confusion.matrix = table(testset$state, testset$prediction)
 accuracy = sum(diag(confusion.matrix))/sum(confusion.matrix)
-precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,2])
-recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,1])
+precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,1])
+recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,2])
 f1measure = 2 * (precision * recall / (precision + recall))
-
