@@ -6,3 +6,4 @@
 *.pdf
 *_per_country.txt
 *_per_service.txt
+.Rhistory
