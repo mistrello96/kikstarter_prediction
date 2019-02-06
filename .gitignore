@@ -19,6 +19,12 @@ AUC/Ptree/*
 AUC/treeNB/*
 !AUC/treeNB/.gitkeep
 AUC/Mixed
+AUC/svm/*
+!AUC/svm/.gitkeep
+AUC/svm1000/*
+!AUC/svm1000/.gitkeep
+AUC/nn/*
+!AUC/nn/.gitkeep
 
 Data_exploration_plot/*
 !Data_exploration_plot/.gitkeep
