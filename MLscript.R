@@ -29,18 +29,9 @@ levels(dataset$state)
 x <- dataset[, c(2,3,4,6)]
 par(mfrow=c(1,4))
 for(i in 1:4) {
-  if(names(x)[i] == "GDP....per.capita."){
-    boxplot(x[, i], main = "GDP pro capite")
-  } else {
-    boxplot(x[, i], main = names(x)[i]) }
-}
+  boxplot(x[,i], main=names(x)[i]) }
 rm(x)
 rm(i)
-
-barplot(table(dataset$Service), main = "Distribuzione di diffusione del settore terziario", log = "y", col = "#FF6666")
-pie(sort(table(dataset$category), decreasing = T)[1: 10], main = "Distribuzione delle categorie delle campagne", col = c("#CCFFFF", "#FF99CC", "#FFB266", "#B2FF66", "#FF6666"))
-barplot(table(dataset$Country), log = "y", las=2, col = "#FF6666")
-barplot(table(dataset$GDP....per.capita.), log = "y", las=2, col = "#FF6666")
 
 mean(dataset$backers)
 sd(dataset$backers)
@@ -49,8 +40,10 @@ mean(dataset$goal)
 sd(dataset$goal)
 range(dataset$goal)
 
-
-
+table.country <- table(dataset$Country)
+sort(table.country,decreasing=TRUE)[1:3]
+table.category <- table(dataset$category)
+sort(table.category,decreasing=TRUE)[1:3]
 table.main_category <- table(dataset$main_category)
 pie(table.main_category)
 table.state <- table(dataset$state)
@@ -112,11 +105,8 @@ for(i in 1:10){
   #ROC
   testset$prediction[1] = "successful"
   testset$prediction = factor(testset$prediction)
-  baseline.curve = roc(testset$prediction, as.numeric(testset$state))
-  baseline.auc = auc(baseline.curve)
-  pdf(paste0("./AUC/baseline/auc_", i), width = 5, height = 5)
-  plot.roc(baseline.curve, legacy.axes = T, col = "red", lwd = 3, asp = 1.0, main = paste0("AUC = ", round(baseline.auc, digits = 5)))
-  dev.off()
+  curve = roc(testset$prediction, as.numeric(testset$state))
+  plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
 }
 rm(i, trainset, testset, recall, precision, f1measure, accuracy)
 # Valutiamo medie e varianza delle misure di performance
@@ -155,11 +145,8 @@ for(i in 1:10){
   f1measure = 2 * (precision * recall / (precision + recall))
   treeNB.f1measure = append(f1measure, treeNB.f1measure)
   #ROC
-  treeNB.curve = roc(testset$prediction, as.numeric(testset$state))
-  treeNB.auc = auc(treeNB.curve)
-  pdf(paste0("./AUC/treeNB/auc_", i), width = 5, height = 5)
-  plot.roc(treeNB.curve, legacy.axes = T, col = "red", lwd = 3, asp = 1.0, main = paste0("AUC = ", round(treeNB.auc, digits = 5)))
-  dev.off()
+  curve = roc(testset$prediction, as.numeric(testset$state))
+  plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
 }
 rm(i, trainset, testset, recall, precision, f1measure, accuracy)
 print("Evaluating Decision Tree without backers' performance:")
@@ -195,14 +182,11 @@ for(i in 1:10){
   f1measure = 2 * (precision * recall / (precision + recall))
   tree.f1measure = append(f1measure, tree.f1measure)
   #ROC
-  tree.curve = roc(testset$prediction, as.numeric(testset$state))
-  tree.auc = auc(tree.curve)
-  pdf(paste0("./AUC/tree/auc_", i), width = 5, height = 5)
-  plot.roc(tree.curve, legacy.axes = T, col = "red", lwd = 3, asp = 1.0, main = paste0("AUC = ", round(tree.auc, digits = 5)))
-  dev.off()
+  curve = roc(testset$prediction, as.numeric(testset$state))
+  plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
   # valutiamo ora il grado di complessità dell'albero, per valutare se sia
   # opportuno eseguire una potatura dell'albero
-  # printcp(decisionTree)
+   printcp(decisionTree)
   # plotcp(decisionTree)
 
   # creiamo un albero potato e verifichiamo le nuove performance
@@ -219,11 +203,8 @@ for(i in 1:10){
   f1measure = 2 * (precision * recall / (precision + recall))
   Ptree.f1measure = append(f1measure, Ptree.f1measure)
   #ROC
-  Ptree.curve = roc(testset$prediction, as.numeric(testset$state))
-  Ptree.auc = auc(Ptree.curve)
-  pdf(paste0("./AUC/Ptree/auc_", i), width = 5, height = 5)
-  plot.roc(Ptree.curve, legacy.axes = T, col = "red", lwd = 3, asp = 1.0, main = paste0("AUC = ", round(Ptree.auc, digits = 5)))
-  dev.off()
+  curve = roc(testset$prediction, as.numeric(testset$state))
+  plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
 }
 rm(i, trainset, testset, recall, precision, f1measure, accuracy)
 print("Evaluating not pruned Decision Tree's performance:")
@@ -256,25 +237,12 @@ for(i in 1:10){
   f1measure = 2 * (precision * recall / (precision + recall))
   bayes.f1measure = append(f1measure, bayes.f1measure)
   #ROC
-  bayes.curve = roc(testset$prediction, as.numeric(testset$state))
-  bayes.auc = auc(bayes.curve)
-  pdf(paste0("./AUC/bayes/auc_", i), width = 5, height = 5)
-  plot.roc(bayes.curve, legacy.axes = T, col = "red", lwd = 3, asp = 1.0, main = paste0("AUC = ", round(bayes.auc, digits = 5)))
-  dev.off()
+  curve = roc(testset$prediction, as.numeric(testset$state))
+  plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
 }
 rm(i, trainset, testset, recall, precision, f1measure, accuracy)
 print("Evaluating Naive Bayes' performance:")
 evaluatePerformance(bayes.accuracy, bayes.precision, bayes.recall, bayes.f1measure)
-
-# saving the summary roc curve
-pdf("./AUC/Mixed", width = 5, height = 5)
-plot.roc(Ptree.curve, legacy.axes = T, col = "red", lwd = 3, asp = 1.0)
-plot.roc(tree.curve, legacy.axes = T, col = "orange", lwd = 3, asp = 1.0, add = T)
-plot.roc(baseline.curve, legacy.axes = T, col = "purple", lwd = 3, asp = 1.0, add = T)
-plot.roc(treeNB.curve, legacy.axes = T, col = "blue", lwd = 3, asp = 1.0, add = T)
-plot.roc(bayes.curve, legacy.axes = T, col = "green", lwd = 3, asp = 1.0, add = T)
-legend(0.25, 0.35, legend=c("Baseline", "Tree NB", "Tree", "Pruned tree", "Naive Bayes"), col=c("purple", "blue", "orange", "red", "green"), lty = 1, cex=0.8)
-dev.off()
 
 # I modelli successivi potrebbero richiedere ore per venir trainati. E' stato quindi deciso
 # di non eseguire l'operazione di 10-fold cross validation, considerando anche la grande dimensione
@@ -284,7 +252,10 @@ dev.off()
 #SVM
 library(e1071)
 # creiamo un modello svm e utilizziamolo per predirre
-svm.model = svm(state ~ ., data = trainset[sample(nrow(trainset)), ], kernel = 'linear', cost = 1)
+# svm.model = svm(state ~ ., data = trainset[sample(nrow(trainset)), ], kernel = 'linear', cost = 1)
+# importiamo il modello già trainato per questioni di tempo
+svm.model = readRDS(file = "TOREMOVE/svm.rds")
+testset = readRDS(file = "TOREMOVE/testsetsvm.rds")
 print(svm.model)
 svm.pred = predict(svm.model, testset) 
 
@@ -299,20 +270,23 @@ curve = roc(svm.pred, as.numeric(testset$state))
 plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
 
 # Visto il grande numero di vettori di supporto, aumentiamo il valore di c a 100
-svm.model100 = svm(state ~ ., data = trainset[sample(nrow(trainset)), ], kernel = 'linear', cost = 100)
-print(svm.model100)
-svm.pred100 = predict(svm.model100, testset) 
+# svm.model1000 = svm(state ~ ., data = trainset[sample(nrow(trainset)), ], kernel = 'linear', cost = 100)
+# importiamo il modello già trainato
+svm.model1000 = readRDS(file = "TOREMOVE/svm1000.rds")
+testset1000 = readRDS(file = "TOREMOVE/testsetsvm1000.rds")
+print(svm.model1000)
+svm.pred1000 = predict(svm.model1000, testset1000) 
 
 print("Evaluating Support Vector Machine performance with c=100:")
 
-confusion.matrix = table(testset$state, svm.pred100)
+confusion.matrix = table(testset1000$state, svm.pred1000)
 accuracy = sum(diag(confusion.matrix))/sum(confusion.matrix)
 precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,1])
 recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,2])
 f1measure = 2 * (precision * recall / (precision + recall))
 #ROC
-svm.curve = roc(svm.pred, as.numeric(testset$state))
-plot.roc(svm.curve, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
+curve = roc(svm.pred, as.numeric(testset$state))
+plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
 
 # NEURAL NETWORK
 library(neuralnet)
@@ -341,7 +315,9 @@ for (i in 1:7){
 }
 
 # creiamo la rete e la addestriamo
-network = neuralnet(successful + failed ~  Country + GDP....per.capita. + Service + backers + category +  goal + main_category , trainsetnet, hidden=3, threshold = 0.01, stepmax = 1e+06, learningrate = 0.01)
+# network = neuralnet(successful + failed ~  Country + GDP....per.capita. + Service + backers + category +  goal + main_category , trainsetnet, hidden=3, threshold = 0.01, stepmax = 1e+06, learningrate = 0.01)
+network = readRDS(file = "TOREMOVE/network")
+testsetnet = readRDS(file = "TOREMOVE/testsetnetwork")
 
 # sfruttiamo il modello per eseguire predizione
 net.predict = compute(network, testsetnet[c(1:7)])$net.result
@@ -356,5 +332,5 @@ precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,
 recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,2])
 f1measure = 2 * (precision * recall / (precision + recall))
 #ROC
-net.curve = roc(testsetnet$prediction, as.numeric(testset$state))
-plot.roc(net.curve, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
+curve = roc(testsetnet$prediction, as.numeric(testset$state))
+plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
