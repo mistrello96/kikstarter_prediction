@@ -26,21 +26,38 @@ dim(dataset)
 sapply(dataset, class)
 levels(dataset$state)
 
-x <- dataset[, c(2,3,4,6)]
-par(mfrow=c(1,4))
-for(i in 1:4) {
-  if(names(x)[i] == "GDP....per.capita."){
-    boxplot(x[, i], main = "GDP pro capite")
-  } else {
-    boxplot(x[, i], main = names(x)[i]) }
-}
-rm(x)
-rm(i)
+#x <- dataset[, c(2,3,4,6)]
+#par(mfrow=c(1,4))
+#for(i in 1:4) {
+#  if(names(x)[i] == "GDP....per.capita."){
+#    boxplot(x[, i], main = "GDP pro capite")
+#  } else {
+#    boxplot(x[, i], main = names(x)[i]) }
+#}
+#rm(x)
+#rm(i)
 
+pdf("Data_exploration_plots/barlpot_service.pdf", width = 5, height = 5)
 barplot(table(dataset$Service), main = "Distribuzione di diffusione del settore terziario", log = "y", col = "#FF6666")
+dev.off()
+pdf("Data_exploration_plots/pie_categories.pdf", width = 5, height = 5)
 pie(sort(table(dataset$category), decreasing = T)[1: 10], main = "Distribuzione delle categorie delle campagne", col = c("#CCFFFF", "#FF99CC", "#FFB266", "#B2FF66", "#FF6666"))
-barplot(table(dataset$Country), log = "y", las=2, col = "#FF6666")
-barplot(table(dataset$GDP....per.capita.), log = "y", las=2, col = "#FF6666")
+dev.off()
+pdf("Data_exploration_plots/barlpot_country.pdf", width = 5, height = 5)
+barplot(table(dataset$Country), log = "y", las=2, col = "#FF6666", main = "Distribuzione di numero di campagne per nazione")
+dev.off()
+pdf("Data_exploration_plots/barlpot_gdp.pdf", width = 5, height = 5)
+barplot(table(dataset$GDP....per.capita.), log = "y", las=2, col = "#FF6666", main = "Distribuzione del GDP")
+dev.off()
+table.main_category <- table(dataset$main_category)
+pdf("Data_exploration_plots/pie_main_category.pdf", width = 5, height = 5)
+pie(table.main_category, main = "Distribuzione delle main category", col = c("#CCFFFF", "#FF99CC", "#FFB266", "#B2FF66", "#FF6666"))
+dev.off()
+table.state <- table(dataset$state)
+pdf("Data_exploration_plots/pie_state.pdf", width = 5, height = 5)
+pie(table.state, main = "Distribuzione degli stati delle campagne", col = c("#CCFFFF", "#FF99CC", "#FFB266", "#B2FF66", "#FF6666"))
+dev.off()
+prop.table(table.state)
 
 mean(dataset$backers)
 sd(dataset$backers)
@@ -48,14 +65,6 @@ range(dataset$backers)
 mean(dataset$goal)
 sd(dataset$goal)
 range(dataset$goal)
-
-
-
-table.main_category <- table(dataset$main_category)
-pie(table.main_category)
-table.state <- table(dataset$state)
-pie(table.state)
-prop.table(table.state)
 
 # correlazione
 # serve passare alla versione numerica e normalizzata
@@ -70,7 +79,9 @@ for (i in 1:8){
 }
 
 cormat <- cor(corrdata)
+pdf("Data_exploration_plots/corrplot.pdf", width = 8, height = 8)
 corrplot(cormat, method = "number", col="black")
+dev.off()
 
 # APPRENDIMENTO AUTOMATICO
 # Randomizziamo l'ordine delle righe nel dataset
@@ -276,6 +287,7 @@ plot.roc(bayes.curve, legacy.axes = T, col = "green", lwd = 3, asp = 1.0, add = 
 legend(0.25, 0.35, legend=c("Baseline", "Tree NB", "Tree", "Pruned tree", "Naive Bayes"), col=c("purple", "blue", "orange", "red", "green"), lty = 1, cex=0.8)
 dev.off()
 
+
 # I modelli successivi potrebbero richiedere ore per venir trainati. E' stato quindi deciso
 # di non eseguire l'operazione di 10-fold cross validation, considerando anche la grande dimensione
 # del dataset utilizzato
@@ -298,8 +310,11 @@ precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,
 recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,2])
 f1measure = 2 * (precision * recall / (precision + recall))
 #ROC
-curve = roc(svm.pred, as.numeric(testset$state))
-plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
+svm.curve = roc(svm.pred, as.numeric(testset$state))
+svm.auc = auc(svm.curve)
+pdf(paste0("./AUC/svm/auc_", i), width = 5, height = 5)
+plot.roc(svm.curve, legacy.axes = T, col = "red", lwd = 3, asp = 1.0, main = paste0("AUC = ", round(svm.auc, digits = 5)))
+dev.off()
 
 # Visto il grande numero di vettori di supporto, aumentiamo il valore di c a 100
 # svm.model1000 = svm(state ~ ., data = trainset[sample(nrow(trainset)), ], kernel = 'linear', cost = 100)
@@ -317,8 +332,11 @@ precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,
 recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,2])
 f1measure = 2 * (precision * recall / (precision + recall))
 #ROC
-svm.curve = roc(svm.pred, as.numeric(testset$state))
-plot.roc(svm.curve, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
+svm1000.curve = roc(svm.pred1000, as.numeric(testset$state))
+svm1000.auc = auc(svm.curve)
+pdf(paste0("./AUC/svm1000/auc_", i), width = 5, height = 5)
+plot.roc(svm1000.curve, legacy.axes = T, col = "red", lwd = 3, asp = 1.0, main = paste0("AUC = ", round(svm1000.auc, digits = 5)))
+dev.off()
 
 # NEURAL NETWORK
 library(neuralnet)
@@ -364,5 +382,8 @@ precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,
 recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,2])
 f1measure = 2 * (precision * recall / (precision + recall))
 #ROC
-net.curve = roc(testsetnet$prediction, as.numeric(testset$state))
-plot.roc(net.curve, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
+nn.curve = roc(nn.pred, as.numeric(testset$state))
+nn.auc = auc(nn.curve)
+pdf(paste0("./AUC/nn/auc_", i), width = 5, height = 5)
+plot.roc(nn.curve, legacy.axes = T, col = "red", lwd = 3, asp = 1.0, main = paste0("AUC = ", round(nn.auc, digits = 5)))
+dev.off()
