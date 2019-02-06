@@ -105,10 +105,10 @@ for(i in 1:10){
   #ROC
   testset$prediction[1] = "successful"
   testset$prediction = factor(testset$prediction)
-  curve = roc(testset$prediction, as.numeric(testset$state))
-  baseline.auc = auc(curve)
+  baseline.curve = roc(testset$prediction, as.numeric(testset$state))
+  baseline.auc = auc(baseline.curve)
   pdf(paste0("./AUC/baseline/auc_", i), width = 5, height = 5)
-  plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 1.0, main = paste0("AUC = ", round(baseline.auc, digits = 5)))
+  plot.roc(baseline.curve, legacy.axes = T, col = "red", lwd = 3, asp = 1.0, main = paste0("AUC = ", round(baseline.auc, digits = 5)))
   dev.off()
 }
 rm(i, trainset, testset, recall, precision, f1measure, accuracy)
@@ -148,10 +148,10 @@ for(i in 1:10){
   f1measure = 2 * (precision * recall / (precision + recall))
   treeNB.f1measure = append(f1measure, treeNB.f1measure)
   #ROC
-  curve = roc(testset$prediction, as.numeric(testset$state))
-  treeNB.auc = auc(curve)
+  treeNB.curve = roc(testset$prediction, as.numeric(testset$state))
+  treeNB.auc = auc(treeNB.curve)
   pdf(paste0("./AUC/treeNB/auc_", i), width = 5, height = 5)
-  plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 1.0, main = paste0("AUC = ", round(treeNB.auc, digits = 5)))
+  plot.roc(treeNB.curve, legacy.axes = T, col = "red", lwd = 3, asp = 1.0, main = paste0("AUC = ", round(treeNB.auc, digits = 5)))
   dev.off()
 }
 rm(i, trainset, testset, recall, precision, f1measure, accuracy)
@@ -188,14 +188,14 @@ for(i in 1:10){
   f1measure = 2 * (precision * recall / (precision + recall))
   tree.f1measure = append(f1measure, tree.f1measure)
   #ROC
-  curve = roc(testset$prediction, as.numeric(testset$state))
-  tree.auc = auc(curve)
+  tree.curve = roc(testset$prediction, as.numeric(testset$state))
+  tree.auc = auc(tree.curve)
   pdf(paste0("./AUC/tree/auc_", i), width = 5, height = 5)
-  plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 1.0, main = paste0("AUC = ", round(tree.auc, digits = 5)))
+  plot.roc(tree.curve, legacy.axes = T, col = "red", lwd = 3, asp = 1.0, main = paste0("AUC = ", round(tree.auc, digits = 5)))
   dev.off()
   # valutiamo ora il grado di complessità dell'albero, per valutare se sia
   # opportuno eseguire una potatura dell'albero
-   printcp(decisionTree)
+  # printcp(decisionTree)
   # plotcp(decisionTree)
 
   # creiamo un albero potato e verifichiamo le nuove performance
@@ -212,10 +212,10 @@ for(i in 1:10){
   f1measure = 2 * (precision * recall / (precision + recall))
   Ptree.f1measure = append(f1measure, Ptree.f1measure)
   #ROC
-  curve = roc(testset$prediction, as.numeric(testset$state))
-  Ptree.auc = auc(curve)
+  Ptree.curve = roc(testset$prediction, as.numeric(testset$state))
+  Ptree.auc = auc(Ptree.curve)
   pdf(paste0("./AUC/Ptree/auc_", i), width = 5, height = 5)
-  plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 1.0, main = paste0("AUC = ", round(Ptree.auc, digits = 5)))
+  plot.roc(Ptree.curve, legacy.axes = T, col = "red", lwd = 3, asp = 1.0, main = paste0("AUC = ", round(Ptree.auc, digits = 5)))
   dev.off()
 }
 rm(i, trainset, testset, recall, precision, f1measure, accuracy)
@@ -249,15 +249,25 @@ for(i in 1:10){
   f1measure = 2 * (precision * recall / (precision + recall))
   bayes.f1measure = append(f1measure, bayes.f1measure)
   #ROC
-  curve = roc(testset$prediction, as.numeric(testset$state))
-  bayes.auc = auc(curve)
+  bayes.curve = roc(testset$prediction, as.numeric(testset$state))
+  bayes.auc = auc(bayes.curve)
   pdf(paste0("./AUC/bayes/auc_", i), width = 5, height = 5)
-  plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 1.0, main = paste0("AUC = ", round(bayes.auc, digits = 5)))
+  plot.roc(bayes.curve, legacy.axes = T, col = "red", lwd = 3, asp = 1.0, main = paste0("AUC = ", round(bayes.auc, digits = 5)))
   dev.off()
 }
 rm(i, trainset, testset, recall, precision, f1measure, accuracy)
 print("Evaluating Naive Bayes' performance:")
 evaluatePerformance(bayes.accuracy, bayes.precision, bayes.recall, bayes.f1measure)
+
+# saving the summary roc curve
+pdf("./AUC/Mixed", width = 5, height = 5)
+plot(ggroc(list()))
+plot.roc(Ptree.curve, legacy.axes = T, col = "red", lwd = 3, asp = 1.0)
+plot.roc(tree.curve, legacy.axes = T, col = "orange", lwd = 3, asp = 1.0, add = T)
+plot.roc(baseline.curve, legacy.axes = T, col = "purple", lwd = 3, asp = 1.0, add = T)
+plot.roc(treeNB.curve, legacy.axes = T, col = "blue", lwd = 3, asp = 1.0, add = T)
+plot.roc(bayes.curve, legacy.axes = T, col = "green", lwd = 3, asp = 1.0, add = T)
+dev.off()
 
 # I modelli successivi potrebbero richiedere ore per venir trainati. E' stato quindi deciso
 # di non eseguire l'operazione di 10-fold cross validation, considerando anche la grande dimensione
@@ -294,8 +304,8 @@ precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,
 recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,2])
 f1measure = 2 * (precision * recall / (precision + recall))
 #ROC
-curve = roc(svm.pred, as.numeric(testset$state))
-plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
+svm.curve = roc(svm.pred, as.numeric(testset$state))
+plot.roc(svm.curve, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
 
 # NEURAL NETWORK
 library(neuralnet)
@@ -339,5 +349,5 @@ precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,
 recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,2])
 f1measure = 2 * (precision * recall / (precision + recall))
 #ROC
-curve = roc(testsetnet$prediction, as.numeric(testset$state))
-plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
+net.curve = roc(testsetnet$prediction, as.numeric(testset$state))
+plot.roc(net.curve, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
