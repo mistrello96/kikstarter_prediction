@@ -7,8 +7,14 @@
 *_per_country.txt
 *_per_service.txt
 .Rhistory
+
 AUC/bayes/*
+!AUC/bayes/.gitkeep
 AUC/baseline/*
+!AUC/baseline/.gitkeep
 AUC/tree/*
+!AUC/tree/.gitkeep
 AUC/Ptree/*
+!AUC/Ptree/.gitkeep
 AUC/treeNB/*
+!AUC/treeNB/.gitkeep
