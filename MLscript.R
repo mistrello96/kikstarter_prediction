@@ -2,6 +2,8 @@ setwd("./")
 library(e1071)
 library(rpart)
 library(ROCR)
+library(pROC)
+
 library(corrplot)
 
 evaluatePerformance = function(accuracy, precision, recall, f1measure){
@@ -100,6 +102,11 @@ for(i in 1:10){
   baseline.recall = append(recall, baseline.recall)
   f1measure = 2 * (precision * recall / (precision + recall))
   baseline.f1measure = append(f1measure, baseline.f1measure)
+  #ROC
+  testset$prediction[1] = "successful"
+  testset$prediction = factor(testset$prediction)
+  curve = roc(testset$prediction, as.numeric(testset$state))
+  plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
 }
 rm(i, trainset, testset, recall, precision, f1measure, accuracy)
 # Valutiamo medie e varianza delle misure di performance
@@ -137,6 +144,9 @@ for(i in 1:10){
   treeNB.recall = append(recall, treeNB.recall)
   f1measure = 2 * (precision * recall / (precision + recall))
   treeNB.f1measure = append(f1measure, treeNB.f1measure)
+  #ROC
+  curve = roc(testset$prediction, as.numeric(testset$state))
+  plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
 }
 rm(i, trainset, testset, recall, precision, f1measure, accuracy)
 print("Evaluating Decision Tree without backers' performance:")
@@ -171,10 +181,13 @@ for(i in 1:10){
   tree.recall = append(recall, tree.recall)
   f1measure = 2 * (precision * recall / (precision + recall))
   tree.f1measure = append(f1measure, tree.f1measure)
+  #ROC
+  curve = roc(testset$prediction, as.numeric(testset$state))
+  plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
   # valutiamo ora il grado di complessità dell'albero, per valutare se sia
   # opportuno eseguire una potatura dell'albero
-  # printcp(decisionTree)
-  plotcp(decisionTree)
+   printcp(decisionTree)
+  # plotcp(decisionTree)
 
   # creiamo un albero potato e verifichiamo le nuove performance
   prunedtree = prune(decisionTree, cp=.015)
@@ -189,6 +202,9 @@ for(i in 1:10){
   Ptree.recall = append(recall, Ptree.recall)
   f1measure = 2 * (precision * recall / (precision + recall))
   Ptree.f1measure = append(f1measure, Ptree.f1measure)
+  #ROC
+  curve = roc(testset$prediction, as.numeric(testset$state))
+  plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
 }
 rm(i, trainset, testset, recall, precision, f1measure, accuracy)
 print("Evaluating not pruned Decision Tree's performance:")
@@ -220,25 +236,13 @@ for(i in 1:10){
   bayes.recall = append(recall, bayes.recall)
   f1measure = 2 * (precision * recall / (precision + recall))
   bayes.f1measure = append(f1measure, bayes.f1measure)
+  #ROC
+  curve = roc(testset$prediction, as.numeric(testset$state))
+  plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
 }
 rm(i, trainset, testset, recall, precision, f1measure, accuracy)
 print("Evaluating Naive Bayes' performance:")
 evaluatePerformance(bayes.accuracy, bayes.precision, bayes.recall, bayes.f1measure)
-
-# AREA UNDER CURVE
-library(ROCR)
-tmp = prop.table(table(dataset$state))
-if(tmp["failed"] >= tmp["successful"]) {
-  dataset$prediction.baseline = rep("failed", nrow(dataset)) 
-} else { # R sintassi non spostare l'esle!
-  dataset$prediction.baseline = rep("successful", nrow(dataset)) 
-}
-rm(tmp)
-pred.to.roc = dataset$prediction.baseline
-pred.rocr = prediction(pred.to.roc, dataset$state)
-pref.rocr = performance(pred.rocr, measure = "auc", x.measure = "cutoff")
-pref.tpr.rocr = performance(pred.rocr, "tpr", "fpr")
-plot(pref.tpr, colorize = T, main = paste("AUC:",(pref.rocr@y.values)))
 
 # I modelli successivi potrebbero richiedere ore per venir trainati. E' stato quindi deciso
 # di non eseguire l'operazione di 10-fold cross validation, considerando anche la grande dimensione
@@ -258,6 +262,9 @@ accuracy = sum(diag(confusion.matrix))/sum(confusion.matrix)
 precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,1])
 recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,2])
 f1measure = 2 * (precision * recall / (precision + recall))
+#ROC
+curve = roc(svm.pred, as.numeric(testset$state))
+plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
 
 # Visto il grande numero di vettori di supporto, aumentiamo il valore di c a 100
 svm.model100 = svm(state ~ ., data = trainset[sample(nrow(trainset)), ], kernel = 'linear', cost = 100)
@@ -271,6 +278,9 @@ accuracy = sum(diag(confusion.matrix))/sum(confusion.matrix)
 precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,1])
 recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,2])
 f1measure = 2 * (precision * recall / (precision + recall))
+#ROC
+curve = roc(svm.pred, as.numeric(testset$state))
+plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
 
 # NEURAL NETWORK
 library(neuralnet)
@@ -313,3 +323,6 @@ accuracy = sum(diag(confusion.matrix))/sum(confusion.matrix)
 precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,1])
 recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,2])
 f1measure = 2 * (precision * recall / (precision + recall))
+#ROC
+curve = roc(testsetnet$prediction, as.numeric(testset$state))
+plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
