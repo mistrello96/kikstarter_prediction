@@ -106,7 +106,10 @@ for(i in 1:10){
   testset$prediction[1] = "successful"
   testset$prediction = factor(testset$prediction)
   curve = roc(testset$prediction, as.numeric(testset$state))
-  plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
+  baseline.auc = auc(curve)
+  pdf(paste0("./AUC/baseline/auc_", i), width = 5, height = 5)
+  plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 1.0, main = paste0("AUC = ", round(baseline.auc, digits = 5)))
+  dev.off()
 }
 rm(i, trainset, testset, recall, precision, f1measure, accuracy)
 # Valutiamo medie e varianza delle misure di performance
@@ -146,7 +149,10 @@ for(i in 1:10){
   treeNB.f1measure = append(f1measure, treeNB.f1measure)
   #ROC
   curve = roc(testset$prediction, as.numeric(testset$state))
-  plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
+  treeNB.auc = auc(curve)
+  pdf(paste0("./AUC/treeNB/auc_", i), width = 5, height = 5)
+  plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 1.0, main = paste0("AUC = ", round(treeNB.auc, digits = 5)))
+  dev.off()
 }
 rm(i, trainset, testset, recall, precision, f1measure, accuracy)
 print("Evaluating Decision Tree without backers' performance:")
@@ -183,7 +189,10 @@ for(i in 1:10){
   tree.f1measure = append(f1measure, tree.f1measure)
   #ROC
   curve = roc(testset$prediction, as.numeric(testset$state))
-  plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
+  tree.auc = auc(curve)
+  pdf(paste0("./AUC/tree/auc_", i), width = 5, height = 5)
+  plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 1.0, main = paste0("AUC = ", round(tree.auc, digits = 5)))
+  dev.off()
   # valutiamo ora il grado di complessità dell'albero, per valutare se sia
   # opportuno eseguire una potatura dell'albero
    printcp(decisionTree)
@@ -204,7 +213,10 @@ for(i in 1:10){
   Ptree.f1measure = append(f1measure, Ptree.f1measure)
   #ROC
   curve = roc(testset$prediction, as.numeric(testset$state))
-  plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
+  Ptree.auc = auc(curve)
+  pdf(paste0("./AUC/Ptree/auc_", i), width = 5, height = 5)
+  plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 1.0, main = paste0("AUC = ", round(Ptree.auc, digits = 5)))
+  dev.off()
 }
 rm(i, trainset, testset, recall, precision, f1measure, accuracy)
 print("Evaluating not pruned Decision Tree's performance:")
@@ -238,7 +250,10 @@ for(i in 1:10){
   bayes.f1measure = append(f1measure, bayes.f1measure)
   #ROC
   curve = roc(testset$prediction, as.numeric(testset$state))
-  plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 0.5)
+  bayes.auc = auc(curve)
+  pdf(paste0("./AUC/bayes/auc_", i), width = 5, height = 5)
+  plot.roc(curve, legacy.axes = T, col = "red", lwd = 3, asp = 1.0, main = paste0("AUC = ", round(bayes.auc, digits = 5)))
+  dev.off()
 }
 rm(i, trainset, testset, recall, precision, f1measure, accuracy)
 print("Evaluating Naive Bayes' performance:")
