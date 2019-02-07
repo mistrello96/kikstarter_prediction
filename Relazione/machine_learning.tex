@@ -2,7 +2,10 @@
 Il dataset in input è stato prodotto a seguito delle operazioni di data integration su tre dataset originari. Durante queste operazioni, gli attributi privi di informazioi rilevanti ai fini dell'addestramento di un modello di Machine Learning sono stati rimossi, ottenendo un dataset già pronto all'uso. Per dividere il dataset in train set e test set, è stata definita una funzione ad hoc che permette di dividere il dataset in 10 parti, usandone poi 9 per il trainset e la restante per il testset. Questa funzione si è rivelata fondamentale per l'operazione di 10-fold cross validation, in cui il modello viene addestrato e testato su porzioni differenti del dataset.
 
 \section{Analisi esplorativa del training set}
+\todo{Controllare eventiali affermazioni "forti" MM}
+\todo{Posizionamneto figure MM}
 Ai fini di evidenziare la distribuzione dei dati rispetto ai vari attributi del dataset, è stata condatta un'analisi esplorativa del dataset mediante funzioni statistiche del linguaggio R.\\
+I dataset è formato da 312895 sample, 7 feature e una etichetta a 2 livelli.
 Tramite la funzione \texttt{sapply(dataset, class)} è stata ottenuta la classe di ogni feature, che è stata poi sottoposta ad un'analisi più approfondita.\\
 L'attributo Country è un attributo stringa fattorizzato, che presenta 21 livelli. Il valore più frequentemente riportato è "United States", seguito da "United Kindom" e "Canada".\\
 L'attributo GDP per capita è un attributo numerico di valore intero, distribuito in modo continuo. La distribuzione delle due variabili sopracitate è mostrata in Figura \ref{fig:countrygdp}. Notiamo che per entrmabi i grafici è stata utilizzata la scala logaritmica, in quanto la frequenza associata ad alcuni valori è molto alta. In particolare abbiamo notato che la maggior parte dei progetti (oltre il 70\%) è stato creato negli Stati Uniti.
@@ -36,7 +39,24 @@ La distribuzione della variabile service (Figura \ref{fig:barlpotservice}), rapp
 	\label{fig:barlpotservice}
 \end{figure}
 
-L'ultimo aspetto analizzato è stata la distribuzione dell'etichettatura dei progetti, per capire come fossero divise le tuple all'interno del nostro dataset. Come mostrato in Figura , la maggioranza dei sample in nostro possesso risultano essere relativi a progetti fallimentari. Il numero non risulta comunque tanto squilibrato da generare problemi nella fase di addestramento dei modelli di Machine Learning.
+Le feature goal e backer sono invece due attributi interi e continui che rappresentano rispettivamente la richiesta minima di denaro al fine di considerare il progetto riuscito ed il numero di donatori. Per queste due variabili sono stati analizzati il valore medio e la deviazione standard; i valori ottenuti sono stati riportati nella Tabella \ref{tab:meansdgoalbackers}. Un valore così elevato di deviazione standard indica che i dati sono distribuiti in modo molto vario e distante dal valore medio riportato.
+\begin{table}
+	\centering
+	\label{tab:meansdgoalbackers}
+	\caption{Media e deviazione standard degli attributi goal e backers}
+	\begin{tabular}{|c|c|c|}
+		\hline 
+		\textbf{Feature} & \textbf{Valore medio} & \textbf{Deviazione standard} \\ 
+		\hline 
+		goal & 46672.68 & 1112774 \\ 
+		\hline 
+		backers & 102.98 & 946.76 \\ 
+		\hline 
+	\end{tabular} 
+\end{table}
+
+
+L'ultimo aspetto analizzato è stata la distribuzione dell'etichettatura dei progetti, per capire come fossero divise le tuple all'interno del nostro dataset. Come mostrato in Figura , la maggioranza dei sample (63\%) in nostro possesso risultano essere relativi a progetti fallimentari. Il numero non risulta comunque tanto squilibrato da generare problemi nella fase di addestramento dei modelli di Machine Learning.
 
 \begin{figure}
 	\centering
