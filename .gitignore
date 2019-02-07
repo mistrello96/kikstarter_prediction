@@ -26,5 +26,5 @@ AUC/svm1000/*
 AUC/nn/*
 !AUC/nn/.gitkeep
 
-Data_exploration_plot/*
-!Data_exploration_plot/.gitkeep
+Data_exploration_plots/*
+!Data_exploration_plots/.gitkeep
