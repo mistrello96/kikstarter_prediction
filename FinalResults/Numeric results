@@ -1,0 +1,127 @@
+> dim(dataset)
+[1] 312895      8
+
+sapply(dataset, class)
+           Country GDP....per.capita.            Service            backers           category 
+          "factor"          "integer"          "numeric"          "integer"           "factor" 
+              goal      main_category              state 
+         "integer"           "factor"           "factor" 
+
+> levels(dataset$state)
+[1] "failed"     "successful"
+> prop.table(table.state)
+
+    failed successful 
+ 0.6389492  0.3610508 
+
+> mean(dataset$backers)
+[1] 102.9828
+
+> sd(dataset$backers)
+[1] 946.7649
+
+> range(dataset$backers)
+[1]      0 219382
+
+> mean(dataset$goal)
+[1] 46672.68
+
+> sd(dataset$goal)
+[1] 
+
+> range(dataset$goal)
+[1]         0 100000000
+
+[1] "Evaluating Baseline's performance:"
+> evaluatePerformance(baseline.accuracy, baseline.precision, baseline.recall, baseline.f1measure)
+[1] "Accuracy mean: 0.638949135729169"
+[1] "Accuracy sd: 0.00275150774873485"
+[1] "Precision mean: 0.638949135729169"
+[1] "Precision sd: 0.00275150774873485"
+[1] "Recall mean: 1"
+[1] "Recall sd: 0"
+[1] "F1measure mean: 0.779702780006661"
+[1] "F1measure sd: 0.00204899638430872"
+
+[1] "Evaluating Decision Tree without backers' performance:"
+> evaluatePerformance(treeNB.accuracy, treeNB.precision, treeNB.recall, treeNB.f1measure)
+[1] "Accuracy mean: 0.681474599712343"
+[1] "Accuracy sd: 0.00195016404063963"
+[1] "Precision mean: 0.708495474642875"
+[1] "Precision sd: 0.00366165211203309"
+[1] "Recall mean: 0.852150219202489"
+[1] "Recall sd: 0.00845463215032171"
+[1] "F1measure mean: 0.773677128761965"
+[1] "F1measure sd: 0.00247996717746834"
+
+[1] "Evaluating not pruned Decision Tree's performance:"
+> evaluatePerformance(tree.accuracy, tree.precision, tree.recall, tree.f1measure)
+[1] "Accuracy mean: 0.911238582903059"
+[1] "Accuracy sd: 0.00218559443123526"
+[1] "Precision mean: 0.93763269538928"
+[1] "Precision sd: 0.00306523451932787"
+[1] "Recall mean: 0.922440129181569"
+[1] "Recall sd: 0.00199898988445351"
+[1] "F1measure mean: 0.929971151480437"
+[1] "F1measure sd: 0.00182165329254452"
+
+[1] "Evaluating pruned Decision Tree's performance:"
+> evaluatePerformance(Ptree.accuracy, Ptree.precision, Ptree.recall, Ptree.f1measure)
+[1] "Accuracy mean: 0.903728078020184"
+[1] "Accuracy sd: 0.00197720459335771"
+[1] "Precision mean: 0.950168089957679"
+[1] "Precision sd: 0.00240206952264265"
+[1] "Recall mean: 0.896333786464188"
+[1] "Recall sd: 0.00214305043054557"
+[1] "F1measure mean: 0.92246409419109"
+[1] "F1measure sd: 0.00173709905418547"
+
+[1] "Evaluating Naive Bayes' performance:"
+> evaluatePerformance(bayes.accuracy, bayes.precision, bayes.recall, bayes.f1measure)
+[1] "Accuracy mean: 0.993854165520765"
+[1] "Accuracy sd: 0.000494248979801927"
+[1] "Precision mean: 0.995381523482925"
+[1] "Precision sd: 0.000586526461686494"
+[1] "Recall mean: 0.99499786444494"
+[1] "Recall sd: 0.000391923251491023"
+[1] "F1measure mean: 0.995189568016641"
+[1] "F1measure sd: 0.000387856197871215"
+
+Evaluating Support Vector Machine performance with c=1:
+
+Parameters:
+   SVM-Type:  C-classification 
+ SVM-Kernel:  linear 
+       cost:  1 
+      gamma:  0.005102041 
+
+Number of Support Vectors:  81117
+
+> accuracy
+[1] 0.8844146
+> precision
+[1] 0.8725451
+> recall
+[1] 0.9582114
+> f1measure
+[1] 0.913374
+
+
+"Evaluating Support Vector Machine performance with c=100:"
+
+Parameters:
+   SVM-Type:  C-classification 
+ SVM-Kernel:  linear 
+       cost:  1000 
+      gamma:  0.005102041 
+
+Number of Support Vectors:  61180
+
+accuracy
+[1] 0.9075969
+> precision
+[1] 0.910196
+> recall
+[1] 0.9491304
+> f1measure
+[1] 0.9292556

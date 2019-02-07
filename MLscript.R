@@ -267,13 +267,15 @@ print("Evaluating Naive Bayes' performance:")
 evaluatePerformance(bayes.accuracy, bayes.precision, bayes.recall, bayes.f1measure)
 
 # saving the summary roc curve
-pdf("./AUC/Mixed", width = 5, height = 5)
+pdf("./AUC/Mixed2", width = 5, height = 5)
 plot.roc(Ptree.curve, legacy.axes = T, col = "red", lwd = 3, asp = 1.0)
 plot.roc(tree.curve, legacy.axes = T, col = "orange", lwd = 3, asp = 1.0, add = T)
 plot.roc(baseline.curve, legacy.axes = T, col = "purple", lwd = 3, asp = 1.0, add = T)
 plot.roc(treeNB.curve, legacy.axes = T, col = "blue", lwd = 3, asp = 1.0, add = T)
 plot.roc(bayes.curve, legacy.axes = T, col = "green", lwd = 3, asp = 1.0, add = T)
-legend(0.25, 0.35, legend=c("Baseline", "Tree NB", "Tree", "Pruned tree", "Naive Bayes"), col=c("purple", "blue", "orange", "red", "green"), lty = 1, cex=0.8)
+plot.roc(svm.curve, legacy.axes = T, col = "yellow", lwd = 3, asp = 1.0, add = T)
+plot.roc(svm1000.curve, legacy.axes = T, col = "brown", lwd = 3, asp = 1.0, add = T)
+legend(0.25, 0.35, legend=c("Baseline", "Tree NB", "Tree", "Pruned tree", "Naive Bayes", "SVM1", "SVM1000"), col=c("purple", "blue", "orange", "red", "green"), lty = 1, cex=0.8)
 dev.off()
 
 
@@ -298,10 +300,14 @@ accuracy = sum(diag(confusion.matrix))/sum(confusion.matrix)
 precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,1])
 recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,2])
 f1measure = 2 * (precision * recall / (precision + recall))
+accuracy
+precision
+recall
+f1measure
 #ROC
 svm.curve = roc(svm.pred, as.numeric(testset$state))
 svm.auc = auc(svm.curve)
-pdf(paste0("./AUC/svm/auc_", i), width = 5, height = 5)
+pdf(paste0("./AUC/svm/auc"), width = 5, height = 5)
 plot.roc(svm.curve, legacy.axes = T, col = "red", lwd = 3, asp = 1.0, main = paste0("AUC = ", round(svm.auc, digits = 5)))
 dev.off()
 
@@ -320,10 +326,14 @@ accuracy = sum(diag(confusion.matrix))/sum(confusion.matrix)
 precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,1])
 recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,2])
 f1measure = 2 * (precision * recall / (precision + recall))
+accuracy
+precision
+recall
+f1measure
 #ROC
-svm1000.curve = roc(svm.pred1000, as.numeric(testset$state))
+svm1000.curve = roc(svm.pred1000, as.numeric(testset1000$state))
 svm1000.auc = auc(svm.curve)
-pdf(paste0("./AUC/svm1000/auc_", i), width = 5, height = 5)
+pdf(paste0("./AUC/svm1000/auc"), width = 5, height = 5)
 plot.roc(svm1000.curve, legacy.axes = T, col = "red", lwd = 3, asp = 1.0, main = paste0("AUC = ", round(svm1000.auc, digits = 5)))
 dev.off()
 
@@ -371,9 +381,13 @@ accuracy = sum(diag(confusion.matrix))/sum(confusion.matrix)
 precision = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[2,1])
 recall = confusion.matrix[1,1] / (confusion.matrix[1,1] + confusion.matrix[1,2])
 f1measure = 2 * (precision * recall / (precision + recall))
+accuracy
+precision
+recall
+f1measure
 #ROC
 nn.curve = roc(nn.pred, as.numeric(testset$state))
 nn.auc = auc(nn.curve)
-pdf(paste0("./AUC/nn/auc_", i), width = 5, height = 5)
+pdf(paste0("./AUC/nn/auc"), width = 5, height = 5)
 plot.roc(nn.curve, legacy.axes = T, col = "red", lwd = 3, asp = 1.0, main = paste0("AUC = ", round(nn.auc, digits = 5)))
 dev.off()

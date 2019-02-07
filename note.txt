@@ -1,4 +1,0 @@
-ks-projects-201612.csv -> i campi goal e pledged sono nella currency locale
-  usd pledged è la conversione dei soldi pledgiati in dollari americani
-
-countery_code viene considerato come un "dizionario" delle nazioni
