@@ -279,7 +279,7 @@ La scelta di modificare solo il costo è stata dettata dalla decisione di valuta
 Valutando complessivamente le performance, i cui dati sono riportati in Tabella \ref{tab:svm_perf} e \ref{tab:svm1000_perf} e le cui relative ROC sono rappresentate in Figura \ref{fig:svmperformance} e \ref{fig:svm1000performance}, possiamo concludere che il modello il cui costo è pari ad 1 porta ad una minore precisione, come ci si poteva attendere dato il ruolo del costo, inoltre anche la differenza nella precisione è figlia della stessa causa.
 Risulta particolare che il valore di default rimanga praticamente lo stesso (un \textit{delta} per a 0.009), questo significa che ambo le SVM classificano correttamente le campagne veramente fallimentari allo stesso modo ma nel farlo la prima produce un numero maggiore di falsi positivi (ovvero campagne predette come fallimentari, ma che se avviate avrebbero successo). 
 Inoltre, andando ad analizzare il numero di vettori di supporto utilizzati per lo stabilimento del margine, si nota che la SVM il cui costo è 1 ha utilizzato ne ha utilizzati più di 81 mila, al contempo la seconda ne ha utilizzati circa 61 mila; questa differenza è ancora una volta data dal fatto che un costo più alto provoca l'utilizzo di un margine più ristretto e di conseguenza un utilizzo di un numero minore di vettori di supporto.
-\todo[inline]{Aggiungere considerazione su ROC basandosi sul significato di sensitività e specificità, aspettando che Mistri risolva il mistero di quale grafico è di chi DP}
+Concludendo, anche le ROC e relative AUC sono molto simili tra loro il che implica che la sensitività, come mostrato dai dati riportati nelle tabelle sopra citate, e specificità dei due modelli sono molto vicine tra loro.
 
 \begin{table}
 	\caption{Tabella contenente le performance per quanto riguarda il modello SVM con il costo pari a 1 ed il kernel lineare.}
@@ -343,4 +343,3 @@ Le reti neurali sono un modello che si è rivelato non performare come sperato p
 \end{table}
 
 \subsection{Confronto tra modelli}
-\section{Conclusioni}
