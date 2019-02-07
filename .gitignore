@@ -3,10 +3,10 @@
 *.gz
 *.toc
 *.out
-*.pdf
 *_per_country.txt
 *_per_service.txt
 .Rhistory
+Relazione/Mistri_Papetti_Relazione.pdf
 
 AUC/bayes/*
 !AUC/bayes/.gitkeep

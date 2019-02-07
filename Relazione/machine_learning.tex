@@ -5,16 +5,46 @@ Il dataset in input è stato prodotto a seguito delle operazioni di data integra
 Ai fini di evidenziare la distribuzione dei dati rispetto ai vari attributi del dataset, è stata condatta un'analisi esplorativa del dataset mediante funzioni statistiche del linguaggio R.\\
 Tramite la funzione \texttt{sapply(dataset, class)} è stata ottenuta la classe di ogni feature, che è stata poi sottoposta ad un'analisi più approfondita.\\
 L'attributo Country è un attributo stringa fattorizzato, che presenta 21 livelli. Il valore più frequentemente riportato è "United States", seguito da "United Kindom" e "Canada".\\
-La distribuzione completa è disponibile in Figura \ref{fig:barlpotcountry}.
+L'attributo GDP per capita è un attributo numerico di valore intero, distribuito in modo continuo. La distribuzione delle due variabili sopracitate è mostrata in Figura \ref{fig:countrygdp}. Notiamo che per entrmabi i grafici è stata utilizzata la scala logaritmica, in quanto la frequenza associata ad alcuni valori è molto alta. In particolare abbiamo notato che la maggior parte dei progetti (oltre il 70\%) è stato creato negli Stati Uniti.
+
+\begin{figure}%
+	\centering
+	\subfloat[Distribuzione della variabile Country. Si noti che l'asse y è riportato in scala logaritmica.]{{\includegraphics[width=0.45\linewidth]{../FinalResults/Images/Data_exploration_plots/barlpot_country} }}%
+	\qquad
+	\subfloat[Distribuzione dela variabile rappresentante il GDP pro capite]{{\includegraphics[width=0.45\linewidth]{../FinalResults/Images/Data_exploration_plots/barlpot_gdp}}}%
+	\caption{}%
+	\label{fig:countrygdp}%
+\end{figure}
+
+Sono poi state analizzare gli attributi relativi alle categorie dei progetti proposti, quindi main category e category. Entrambe le varibili, costituite da stringhe fattorizzate, si mostrano distribuite in modo sostenzialmente uniforme tra i possibili valori, come mostrato nella Figura \ref{fig:piecategory}. 
+
+\begin{figure}%
+	\centering
+	\subfloat[Distribuzione dela variabile rappresentante la categoria specifica del progetto.]{{\includegraphics[width=0.45\linewidth]{../FinalResults/Images/Data_exploration_plots/pie_categories} }}%
+	\qquad
+	\subfloat[Distribuzione dela variabile rappresentante la categoria generale del progetto.]{{\includegraphics[width=0.45\linewidth]{../FinalResults/Images/Data_exploration_plots/pie_main_category}}}%
+	\caption{}%
+	\label{fig:piecategory}%
+\end{figure}
+
+La distribuzione della variabile service (Figura \ref{fig:barlpotservice}), rappresentante la percentuale di sviluppo dei settori terziari nel paese in cui è stato proposto il progetto, mostra come la maggior parte dei recrod sia relativa a paesi con un settore terziario predominante sugli altri due.   
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.7\linewidth]{../FinalResults/Images/Data_exploration_plots/barlpot_country}
-	\caption{Distribuzione della variabile Country. Si noti che l'asse y è riportato in scala logaritmica.}
-	\label{fig:barlpotcountry}
+	\includegraphics[width=0.7\linewidth]{../FinalResults/Images/Data_exploration_plots/barlpot_service}
+	\caption{Distribuzione della variabile service.}
+	\label{fig:barlpotservice}
 \end{figure}
 
-L'attributo GDP per capita è un attributo numerico di valore intero, distribuito in modo continuo. La sua distribuzione è mostrata in Figura 
+L'ultimo aspetto analizzato è stata la distribuzione dell'etichettatura dei progetti, per capire come fossero divise le tuple all'interno del nostro dataset. Come mostrato in Figura , la maggioranza dei sample in nostro possesso risultano essere relativi a progetti fallimentari. Il numero non risulta comunque tanto squilibrato da generare problemi nella fase di addestramento dei modelli di Machine Learning.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.8\linewidth]{../FinalResults/Images/Data_exploration_plots/pie_state}
+	\caption{Distribuzione della variabile state, l'etichetta dei nostri sample.}
+	\label{fig:piestate}
+\end{figure}
+
 
 È stata infine prodotta la matrice di correlazione (mostrata in Figura \ref{fig:corrplot}) tra i vari attributi del dataset; come previsto, è emersa una evidente correlazione tra il paese in cui il progetto viene creato e i campi relativi al GDP pro capite e alla percentuale di diffusione del settore terziario nello stato. Questo poichè questi valori provengono da un dataset esterno joinato al dataset dei progetti Kickstarter proprio sul campo nazione. Dalla matrice non emergono altre correlazioni rilevanti tra i restanti attributi del dataset.
 
