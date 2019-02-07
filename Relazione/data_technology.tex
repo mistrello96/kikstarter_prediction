@@ -437,13 +437,13 @@ La profilazione dei dati eseguita in precedenza ha mostrato possibili casi di va
 
 \subsection{Accessibilità dei dataset}
 Tutti i dataset analizzati mostrano un ottimo livello di accessibilità da parte dell'utente, con nomi degli attributi autoesplicativi e facile reperibilità dei dati di interesse. 
-Le uniche note negative di quanto appena detto sono i valori dell'attributo \textit{Climate}, poiché sono dei numeri la cui semantica non è stata specificata, inoltre l'attributo \textit{Coastline} anche se intuitivo non è chiaro come sia stato calcolato, si è supposto essere il rapporto tra area costiera e non costiera, ma non si ha la certezza; potrebbe sorgere anche la domanda di che cosa si intende per area costiera.
-Dato che nel complesso la leggibilità è alta ed i problemi di accessibilità sono nella semantica del dato e non nel nome dell'attributo, non si è resa necessaria la creazione di viste sugli schemi locali dei dataset, mantenendo inalterata la struttura di questi ultimi.
+Le uniche note negative di quanto appena detto sono i valori dell'attributo \textit{Climate}, poiché sono dei numeri la cui semantica non è stata specificata, inoltre l'attributo \textit{Coastline}, seppur intuitivo, non è chiaro come sia stato calcolato, si è supposto essere il rapporto tra area costiera e non costiera, ma non si ha la certezza; potrebbe sorgere anche la domanda di come sia definita formalmente l'area costiera.
+Dato che nel complesso la leggibilità risulta alta ed i problemi di accessibilità riguardano prettamente la semantica del dato e non nel nome dell'attributo, non si è resa necessaria la creazione di viste sugli schemi locali dei dataset, mantenendo inalterata la struttura di questi ultimi.
 
 \subsection{Porprietà temporali}
 \label{subsec:temporali}
-Il dataset \textit{ks-projects-201612.csv} contiene tutti i progetti registrati sulla piattaforma Kickstarter fino alla fine del 2016. Il dataset \textit{countries of the world.csv} contiene invece statistiche sugli stati che si riferiscono all'anno 2017. Ne consegue che i dati non siano perfettamente coerenti dal punto di vista temporale, ma abbiamo reputato questo sfasamento marginale, considerata l'assenza di modifiche radicali degli indici statistici inerenti alle nazioni presi in considerazioni negli anni consecutivi.
-Inoltre, per quanto concerne il valore di aggiornamento dei dati, basandosi sull'ultimo aggiornamento, i dataset utilizzati non soddisfano pienamente tale metrica poiché, ormai siamo nel 2019 e ci si aspetterebbe di avere dei dati aggiornati ad almeno Dicembre 2018.
+Il dataset \textit{ks-projects-201612.csv} contiene tutti i progetti registrati sulla piattaforma Kickstarter fino alla fine del 2016. Il dataset \textit{countries of the world.csv} contiene invece statistiche sugli stati che si riferiscono all'anno 2017. Ne consegue che i dati non siano perfettamente coerenti dal punto di vista temporale, ma abbiamo reputato questo sfasamento marginale, considerata l'assenza di modifiche radicali degli indici statistici inerenti alle nazioni presi in considerazioni in anni consecutivi.
+Inoltre, per quanto concerne il valore di aggiornamento dei dati, i dataset utilizzati non soddisfano pienamente tale misura, in quanto ci si aspetterebbe di disporre dei dati relativi all'anno 2018.
 
 \newpage
 \section{Processo di integrazione dei dati}
