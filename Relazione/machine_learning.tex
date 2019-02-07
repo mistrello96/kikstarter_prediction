@@ -105,6 +105,129 @@ Le curve ROC associate a questo modello, ripotate in Figura \ref{fig:baselineROC
 \end{figure}       
 
 \subsection{Alberi decisionali}
-\subsection{Naive Baies}
+\subsection{Na\"ive Bayes}
+Il modello Na\"ive Bayes si basa sul Teorema di Bayes (si faccia riferimento alla Formula \ref{th:bayes}) e sull'assunzione che tutti gli attributi che descrivono le istanze sono condizionalmente indpendenti l'un l'altro.
+\begin{equation}
+\label{th:bayes}
+P(h|D) = \frac{P(D|h) \cdot P(h)}{P(D)}
+\end{equation}
+Dove, nel nostro caso di interesse: h è un'ipotesi, D è l'insieme dei valori delle \textit{features} dell'istanza e l'operatore | indica la probabilità condizionata.\\
+Il modello si basa quindi sullo stabilire l'ipotesi $h_{MAP}$, ovvero l'ipotesi massima a posteriori sfruttando la Formula \ref{for:hmap}, ovvero trovare l'ipotesi, tra le \textit{n} ipotesi disponibili, che massimizza il prodotto tra la probabilità a priori del verificarsi dell'ipotesi ($P(h_{i})$) e la produttoria tra i \textit{k} attributi delle relative verosimiglianze, rispetto all'ipotesi considerata, dell'assunzione da parte di tale attributo del valore che possiede il corrispettivo nell'istanza da classificare. 
+Si noti che tale produttoria può essere calcolata grazie all'assunzione di indipendenza condizionale degli attributi.
+Anche se non abbiamo formalmente mostrato tale ipotesi per il dataset utilizzato, vi sono casi in letteratura in cui tale modello ottiene delle buone performance in casi in cui gli attributi non sono condizionalmente indipendenti; di conseguenza abbiamo provato ad effettuare la predizione utilizzando questo modello.\\
+\begin{equation}
+	\label{for:hmap}
+	h_{MAP} = argmax_{i = 0}^{n}\left(P(h_{i}) \cdot \prod_{j = 0}^{k}P(a_{j}|h_{i})\right)
+\end{equation}
+In termini pratici, riferendoci ad \emph{R}, il \texttt{trainset} è la matrice su cui calcolerà le varie probabilità a priori e le verosimiglianze per i vari attributi; il \texttt{trainset}, come al solito, saranno le istanze non etichettate da classificare.
+L'implementazione del classificatore utilizzata è quella fornita nella libreria \texttt{e1071}, inoltre, per il suo utilizzo non sono state utilizzate impostazioni particolari.
+
+In Figura \ref{fig:bayesperformance} sono rappresentati i boxplot per quanto riguarda le quattro misure di performance utilizzate, inoltre, nella Tabella \ref{tab:bayes_perf} sono rappresentate le relative medie e deviazioni standard; tali misure di performance sono state calcolate mediante un processo di 10-fold cross validation.
+Valutando tali dati, notiamo che il classificatore Na\"ive Bayes è estremamente accurato ed ha alti valori sia di precisione che di recall, il che ci garantisce che quando viene predetto il fallimento di una campagna è altamemente probabile che fallisca, poiché sia il valore di recall che di precisione sono elevati.
+Le curve ROC e le relativa AUC confermano ulteriormente quanto detto fin'ora; le singole ROC prodotte dai singoli passi del processo di 10-fold cross validation sono riportate in Figura \ref{fig:bayesROC}.
+
+\begin{table}
+	\caption{Tabella contenente la media e la deviazione standard rispetto alle misure di performance effettuate basandosi sull'esecuzione di una 10-fold cross validation sfruttando il modello Na\"ive Bayes.}
+	
+	\label{tab:bayes_perf}
+	
+	\centering
+	\begin{tabular}{c|cc}
+		Misura & Media & Deviazione standard \\
+		\hline
+		Accuratezza & 0.994 & 0.0005 \\
+		Precisione & 0.995 &  0.0006\\
+		Recall & 0.995 & 0.0004 \\
+		F-measure & 0.995 & 0.0004 \\
+	\end{tabular}
+\end{table} 
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{../FinalResults/Bayes_performance}
+	\caption{Boxplot relativi alle misure di performance del modello Na\"ive Bayes.}
+	\label{fig:bayesperformance}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\subfloat{\includegraphics[width=0.3\linewidth]{../FinalResults/Images/bayes/auc_1.pdf}}\quad
+	\subfloat{\includegraphics[width=0.3\linewidth]{../FinalResults/Images/bayes/auc_2.pdf}}\quad
+	\subfloat{\includegraphics[width=0.3\linewidth]{../FinalResults/Images/bayes/auc_3.pdf}}\quad
+	\subfloat{\includegraphics[width=0.3\linewidth]{../FinalResults/Images/bayes/auc_4.pdf}}\quad
+	\subfloat{\includegraphics[width=0.3\linewidth]{../FinalResults/Images/bayes/auc_5.pdf}}\quad
+	\subfloat{\includegraphics[width=0.3\linewidth]{../FinalResults/Images/bayes/auc_6.pdf}}\quad
+	\subfloat{\includegraphics[width=0.3\linewidth]{../FinalResults/Images/bayes/auc_7.pdf}}\quad
+	\subfloat{\includegraphics[width=0.3\linewidth]{../FinalResults/Images/bayes/auc_8.pdf}}\quad
+	\subfloat{\includegraphics[width=0.3\linewidth]{../FinalResults/Images/bayes/auc_9.pdf}}\quad
+	\subfloat{\includegraphics[width=0.3\linewidth]{../FinalResults/Images/bayes/auc_10.pdf}}\quad
+	\caption{Curve ROC del modello Na\"ive Bayes per la 10-fold cross validation.}
+	\label{fig:bayesROC}
+\end{figure} 
 \subsection{Support Vector Machine}
+Le SVM (Support Vector Machine) sono algoritmi utilizzati sia per la classificazione binaria, ma non solo. 
+Concettualmente si basano sul voler rappresentare le istanze in un iperspazio \textit{K}-dimensionale e ricercare un iperpiano separatore delle due classi, ottenendo così due semi-iperspazi in ciascuno dei quali sono presenti tutte e sole le istanze appartenenti ad una classe.
+Risulta necessario sottolineare che non sempre è possibile suddividere l'insieme delle istanze mediante un iperpiano, perché le due classi potrebbero non essere linearmente separabili in un iperspazio \textit{K}-dimensionale.
+Per ovviare a tale problema possono essere utilizzate sia delle trasformazioni geometriche in cui, generalmente, si aumentano le dimensioni dell'iperspazio (le quali portano a costi computazionali maggiori), oppure sfruttare i metodi Kernel che, brevemente, permettono di calcolare il risultato di tali trasformazioni rimanendo in \textit{K} dimensioni durante la computazione, renendo quindi il procedimento più efficiente.
+Supponendo di avere le istanze nello spazio linearmente seprabili, poiché le classi lo sono nativamente o mediante l'utilizzo dei metodi Kernel, le SVM, di fatto, dovranno risolvere un problema di ottimizzazione: massimizzare il margine dell'iperpiano separatore.
+Per far ciò, è quindi necessario identificare i vettori di supporto, ovvero l'insieme delle istanze che giacciono “vicino” al margine dell'iperpiano separatore.\\
+Passando ad una trattazione più pratica rispetto al progetto, l'implementazione delle SVM utilizzata è quella fornita dalla libreria \texttt{e1071}; tale implementazione permette di specificare due parametri fondamentali:\begin{itemize}
+	\item \texttt{kernel}, ovvero il metodo kernel utilizzato sia durante la fase di \textit{training} che per la fase di \textit{testing}, alcune funzioni possibili sono \texttt{linear} o \texttt{sigmoid};
+	\item \texttt{cost} ovvero il costo di \textit{trade-off} tra la penalità derivante dalle variabili di slack e la larghezza del margine, ovvero più il valore del costo è basso più il margine sarà largo e potrebbe portare ad un maggiore errore nelle classificazioni, più è alto più il margine è strettoe meno errori di classificazione sono ammessi; si noti che potrebbero verificarsi casi di \textit{overfitting} causati da un'assegnazione del costo non ottimale. 
+\end{itemize}
+Poiché il tempo di training di tale implementazione delle SVM è molto oneroso in termini di tempo e dato che il dataset è composto da oltre 312 mila istanze, quindi il \textit{training set} da oltre 218 mila, si è deciso, di conseguenza, di effettuare il processo di training e di testing una sola volta, senza effettuare la 10-fold cross validation.
+Abbiamo indagato le performance di due SVM differenti: la prima con un kernel lineare ed un costo pari ad 1, la seconda sempre con un kernel lineare ed un costo pari a 1000. 
+La scelta di modificare solo il costo è stata dettata dalla decisione di valutare come cambiassero le performance mantenendo lo stesso metodo kernel, non sono stati testati altri metodi kernel poiché il tempo di training sarebbe stato troppo elevato (probabilmente ancora più elevato dei kernel lineari perché avrebbe implicato la computazione di funzioni più costose) ai fini del progetto, preferendo anche l'indagine del comportamento delle reti neurali; inoltre non si è voluta tentare un'operazione di \textit{automatic tuning} dei costi a causa dei tempi e neanche l'indagine del parametro \texttt{gamma} è stata effettuata poiché sono stati utilizzati solo kernel lineari.
+
+Valutando complessivamente le performance, i cui dati sono riportati in Tabella \ref{tab:svm_perf} e \ref{tab:svm1000_perf} e le cui relative ROC sono rappresentate in Figura \ref{fig:svmperformance} e \ref{fig:svm1000performance}, possiamo concludere che il modello il cui costo è pari ad 1 porta ad una minore precisione, come ci si poteva attendere dato il ruolo del costo, inoltre anche la differenza nella precisione è figlia della stessa causa.
+Risulta particolare che il valore di default rimanga praticamente lo stesso (un \textit{delta} per a 0.009), questo significa che ambo le SVM classificano correttamente le campagne veramente fallimentari allo stesso modo ma nel farlo la prima produce un numero maggiore di falsi positivi (ovvero campagne predette come fallimentari, ma che se avviate avrebbero successo). 
+Inoltre, andando ad analizzare il numero di vettori di supporto utilizzati per lo stabilimento del margine, si nota che la SVM il cui costo è 1 ha utilizzato ne ha utilizzati più di 81 mila, al contempo la seconda ne ha utilizzati circa 61 mila; questa differenza è ancora una volta data dal fatto che un costo più alto provoca l'utilizzo di un margine più ristretto e di conseguenza un utilizzo di un numero minore di vettori di supporto.
+\todo[inline]{Aggiungere considerazione su ROC basandosi sul significato di sensitività e specificità, aspettando che Mistri risolva il mistero di quale grafico è di chi DP}
+
+\begin{table}
+	\caption{Tabella contenente le performance per quanto riguarda il modello SVM con il costo pari a 1 ed il kernel lineare.}
+	
+	\label{tab:svm_perf}
+	
+	\centering
+	\begin{tabular}{c|c}
+		Misura & valore \\
+		\hline
+		Accuratezza & 0.884 \\
+		Precisione & 0.873 \\
+		Recall & 0.958 \\
+		F-measure & 0.913 \\
+	\end{tabular}
+\end{table}
+
+\begin{table}
+	\caption{Tabella contenente le performance per quanto riguarda il modello SVM con il costo pari a 1000 ed il kernel lineare.}
+	
+	\label{tab:svm1000_perf}
+	
+	\centering
+	\begin{tabular}{c|c}
+		Misura & valore \\
+		\hline
+		Accuratezza & 0.908 \\
+		Precisione & 0.910 \\
+		Recall &  0.949\\
+		F-measure & 0.929 \\
+	\end{tabular}
+\end{table}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{../FinalResults/Images/svm/auc.pdf}
+	\caption{Boxplot relativi alle misure di performance del modello SVM con costo pari a 1.}
+	\label{fig:svmperformance}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{../FinalResults/Images/svm1000/auc.pdf}
+	\caption{Boxplot relativi alle misure di performance del modello SVM con costo pari a 1000.}
+	\label{fig:svm1000performance}
+\end{figure}
+
 \subsection{Reti neurali}
