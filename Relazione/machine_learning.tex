@@ -1,45 +1,45 @@
 \section{Creazione del training set}
 Il dataset in input è stato prodotto a seguito delle operazioni di data integration su tre dataset originari. Durante queste operazioni, gli attributi privi di informazioi rilevanti ai fini dell'addestramento di un modello di Machine Learning sono stati rimossi, ottenendo un dataset già pronto all'uso. Per dividere il dataset in train set e test set, è stata definita una funzione ad hoc che permette di dividere il dataset in 10 parti, usandone poi 9 per il trainset e la restante per il testset. Questa funzione si è rivelata fondamentale per l'operazione di 10-fold cross validation, in cui il modello viene addestrato e testato su porzioni differenti del dataset.
 
-\section{Analisi esplorativa del training set}
+\section{Analisi esplorativa del dataset}
 \todo{Controllare eventiali affermazioni "forti" MM}
 \todo{Posizionamneto figure MM}
-Ai fini di evidenziare la distribuzione dei dati rispetto ai vari attributi del dataset, è stata condatta un'analisi esplorativa del dataset mediante funzioni statistiche del linguaggio R.\\
+Ai fini di evidenziare la distribuzione dei dati rispetto ai vari attributi del dataset, è stata condotta un'analisi esplorativa del dataset mediante funzioni statistiche del linguaggio R.\\
 I dataset è formato da 312895 sample, 7 feature e una etichetta a 2 livelli.
 Tramite la funzione \texttt{sapply(dataset, class)} è stata ottenuta la classe di ogni feature, che è stata poi sottoposta ad un'analisi più approfondita.\\
 L'attributo Country è un attributo stringa fattorizzato, che presenta 21 livelli. Il valore più frequentemente riportato è "United States", seguito da "United Kindom" e "Canada".\\
-L'attributo GDP per capita è un attributo numerico di valore intero, distribuito in modo continuo. La distribuzione delle due variabili sopracitate è mostrata in Figura \ref{fig:countrygdp}. Notiamo che per entrmabi i grafici è stata utilizzata la scala logaritmica, in quanto la frequenza associata ad alcuni valori è molto alta. In particolare abbiamo notato che la maggior parte dei progetti (oltre il 70\%) è stato creato negli Stati Uniti.
+L'attributo GDP per capita è un attributo numerico di valore intero continuo che rappresenta il guadagno annuo medio nello stato in cui il progetto è stato proposto. La distribuzione dei due attributi sopracitati è mostrata in Figura \ref{fig:countrygdp}. Notiamo che per entrambi i grafici è stata utilizzata la scala logaritmica, in quanto la frequenza associata ad alcuni valori è molto alta. In particolare abbiamo notato che la maggior parte dei progetti (oltre il 70\%) è stato creato negli Stati Uniti.
 
 \begin{figure}%
 	\centering
-	\subfloat[Distribuzione della variabile Country. Si noti che l'asse y è riportato in scala logaritmica.]{{\includegraphics[width=0.45\linewidth]{../FinalResults/Images/Data_exploration_plots/barlpot_country} }}%
+	\subfloat[Distribuzione dell'attributo Country. Si noti che l'asse y è riportato in scala logaritmica.]{{\includegraphics[width=0.45\linewidth]{../FinalResults/Images/Data_exploration_plots/barlpot_country} }}%
 	\qquad
-	\subfloat[Distribuzione dela variabile rappresentante il GDP pro capite]{{\includegraphics[width=0.45\linewidth]{../FinalResults/Images/Data_exploration_plots/barlpot_gdp}}}%
+	\subfloat[Distribuzione dell'attributo rappresentante il GDP pro capite]{{\includegraphics[width=0.45\linewidth]{../FinalResults/Images/Data_exploration_plots/barlpot_gdp}}}%
 	\caption{}%
 	\label{fig:countrygdp}%
 \end{figure}
 
-Sono poi state analizzare gli attributi relativi alle categorie dei progetti proposti, quindi main category e category. Entrambe le varibili, costituite da stringhe fattorizzate, si mostrano distribuite in modo sostenzialmente uniforme tra i possibili valori, come mostrato nella Figura \ref{fig:piecategory}. 
+Sono poi stati analizzati gli attributi relativi alle categorie dei progetti proposti, quindi le feature main category e category. Entrambi i campi, costituiti da stringhe fattorizzate, si mostrano distribuite in modo sostanzialmente uguale tra i possibili valori, come mostrato nella Figura \ref{fig:piecategory}. 
 
 \begin{figure}%
 	\centering
-	\subfloat[Distribuzione dela variabile rappresentante la categoria specifica del progetto.]{{\includegraphics[width=0.45\linewidth]{../FinalResults/Images/Data_exploration_plots/pie_categories} }}%
+	\subfloat[Distribuzione dell'attributo rappresentante la categoria specifica del progetto.]{{\includegraphics[width=0.45\linewidth]{../FinalResults/Images/Data_exploration_plots/pie_categories} }}%
 	\qquad
-	\subfloat[Distribuzione dela variabile rappresentante la categoria generale del progetto.]{{\includegraphics[width=0.45\linewidth]{../FinalResults/Images/Data_exploration_plots/pie_main_category}}}%
+	\subfloat[Distribuzione dell'attributo rappresentante la categoria generale del progetto.]{{\includegraphics[width=0.45\linewidth]{../FinalResults/Images/Data_exploration_plots/pie_main_category}}}%
 	\caption{}%
 	\label{fig:piecategory}%
 \end{figure}
 
-La distribuzione della variabile service (Figura \ref{fig:barlpotservice}), rappresentante la percentuale di sviluppo dei settori terziari nel paese in cui è stato proposto il progetto, mostra come la maggior parte dei recrod sia relativa a paesi con un settore terziario predominante sugli altri due.   
+La distribuzione del campo service (Figura \ref{fig:barlpotservice}), rappresentante la percentuale di sviluppo dei settori terziari nel paese in cui è stato proposto il progetto, mostra come la maggior parte dei sample sia relativa a paesi con un settore terziario predominante sugli altri due.   
 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.7\linewidth]{../FinalResults/Images/Data_exploration_plots/barlpot_service}
-	\caption{Distribuzione della variabile service.}
+	\caption{Distribuzione dell'attributo service.}
 	\label{fig:barlpotservice}
 \end{figure}
 
-Le feature goal e backer sono invece due attributi interi e continui che rappresentano rispettivamente la richiesta minima di denaro al fine di considerare il progetto riuscito ed il numero di donatori. Per queste due variabili sono stati analizzati il valore medio e la deviazione standard; i valori ottenuti sono stati riportati nella Tabella \ref{tab:meansdgoalbackers}. Un valore così elevato di deviazione standard indica che i dati sono distribuiti in modo molto vario e distante dal valore medio riportato.
+Le feature goal e backer sono due attributi interi e continui che rappresentano rispettivamente la richiesta minima di denaro al fine di considerare il progetto riuscito ed il numero di donatori. Per questi due campi sono stati analizzati il valore medio e la deviazione standard; i risultati ottenuti sono stati riportati nella Tabella \ref{tab:meansdgoalbackers}. Un valore così elevato di deviazione standard rispetto alla media, indica che i dati sono caratterizzata da una significativa varietà e distanza dal valore medio riportato.
 \begin{table}
 	\centering
 	\label{tab:meansdgoalbackers}
@@ -61,7 +61,7 @@ L'ultimo aspetto analizzato è stata la distribuzione dell'etichettatura dei pro
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\linewidth]{../FinalResults/Images/Data_exploration_plots/pie_state}
-	\caption{Distribuzione della variabile state, l'etichetta dei nostri sample.}
+	\caption{Distribuzione dell'attributo state, l'etichetta dei nostri sample.}
 	\label{fig:piestate}
 \end{figure}
 
@@ -71,7 +71,7 @@ L'ultimo aspetto analizzato è stata la distribuzione dell'etichettatura dei pro
 \begin{figure}
 	\centering
 	\includegraphics[width=1\linewidth]{../FinalResults/Images/Data_exploration_plots/corrplot}
-	\caption{Matrice di correlazione tra le variabili del dataset.}
+	\caption{Matrice di correlazione tra le feature del dataset.}
 	\label{fig:corrplot}
 \end{figure}
 
