@@ -109,7 +109,7 @@ Le curve ROC associate a questo modello, ripotate in Figura \ref{fig:baselineROC
 \end{figure}       
 
 \subsection{Alberi decisionali}
-Gli alberi decisionali sono modelli utilizzati per il Machine Learning che basano la loro tecnica di predizione su un albero etichettato, in cui ad ogni nodo viene presa la decisione del ramo in cui proseguire in base al valore dell'attributo con cui il nodo è etichettato. Al termine di questo albero le foglie sono etichettate con il valore dell'attributo su cui si sta facendo predizione, nel nostro caso l'attributo state. Gli alberi implementati dalla libreria R texttt{rpart} permettono di valutare una serie di parametri, tra cui l'attributo cp, che permettono di regolare le dimensioni dell'albero prodotto e migliorarne le performance, riducendo, per quanto possibile, l'overfitting del modello.
+Gli alberi decisionali sono modelli utilizzati per il Machine Learning che basano la loro tecnica di predizione su un albero etichettato, in cui ad ogni nodo viene presa la decisione del ramo in cui proseguire in base al valore dell'attributo con cui il nodo è etichettato. Le foglie di questo albero sono etichettate con il valore dell'attributo su cui si sta facendo predizione, nel nostro caso l'attributo state. La regola di decisione per le etichette segue la metrica chiamata impurità di Gini; essa è una misura della frequenza con cui un elemento scelto casualmente dall'insieme viene etichettato in modo errato se fosse etichettato in modo casuale in base alla distribuzione delle etichette nel sottoinsieme rimanente. L'impurità di Gini può essere calcolata sommando la probabilità $p_i$ di un oggetto con l'etichetta $i$ di essere scelto per la probabilità $ \sum\limits_{k\neq i} p_{k}=1-p_{i} $ di un errore nella categorizzazione di quell'elemento; questo valore raggiunge il minimo (zero) quando tutti i casi nel nodo rientrano in una singola categoria di etichettatura. .Gli alberi implementati dalla libreria R texttt{rpart} permettono di valutare una serie di parametri, tra cui l'attributo cp, che permettono di regolare le dimensioni dell'albero prodotto e migliorarne le performance, riducendo, per quanto possibile, l'overfitting del modello.
 Inizialmente è stato creato un albero che non sfruttava l'attributo backer del dataset, in quanto abbiamo immaginato che questo valore fosse di difficile stima per un utente che volesse inserire un nuovo progetto sulla piattaforma. L'albero generato si è però mostrato deludente, con performance paragonabili al modello baseline, come mostrato in Figura \ref{fig:treenbperformance} e in Tabella \ref{tab:treenbperformance}.
 \begin{table}
 	\caption{Tabella che riporta rispettivamente media e deviazione standard delle misure in Figura \ref{fig:treenbperformance}.}
@@ -343,3 +343,16 @@ Le reti neurali sono un modello che si è rivelato non performare come sperato p
 \end{table}
 
 \subsection{Confronto tra modelli}
+\todo{ricontorllare e aggiungere MM}
+I modelli presentati nelle sezioni precedenti hanno mostrato pregi e difetti, che saranno ora velocemente riassunti.
+Gli alberi decisionali hanno mostrato un utilizzo limitato delle feature del dataset, limitandosi a sfruttare solo due delle 7 feature disponibili. Ciò porta a performance non ottimali del modello durante la classificazione di nuovi sample. A loro favore, il training e la classificazioni risultano molto veloci.\\
+Il modello Na\"ive Bayes ha prodotto performance ottimali, risultando rapido sia nella fase di addestramento che nella fase di classificazione. L'unica mancanza riscontrata è l'assenza di parametri per la personalizzazione del processo di learning, che non si è però tramutata in una problematica in quanto i risultati prodotti si sono rivelati più che soddisfacente.\\
+Le SVM hanno mostrato un tempo di training e di classificazione molto elevato a confronto dei modelli precedentemente discussi, fornendo però prestazioni leggermente superiori agli alberi di decisioni ottenuti.\\
+Le reti neurali hanno mostrato tempi di training sproporzionatamente elevati rispetto alle altre tecniche indagate, non portando ad un risultato utilizzabile per la classificazione.\\
+La Figura \ref{fig:mixed2} mostrano le curve ROC dei modelli ottenuti a confronto. Il modello che spicca su tutti è il Na\"ive Bayes, che risulta  avere una AOC corrispondente alla curva superiore a $0.99$; alberi di decisione e SVM seguono "a parimerito", mente in coda troviamo l'albero di decisione privo dell'attributo backer.
+\begin{figure}
+	\centering
+	\includegraphics[width=0.9\linewidth]{../FinalResults/Images/Mixed2}
+	\caption{Curve ROC dei modelli presentati nella relazione.}
+	\label{fig:mixed2}
+\end{figure}
