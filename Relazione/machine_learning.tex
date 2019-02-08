@@ -21,6 +21,24 @@ Sono poi stati analizzati gli attributi relativi alle categorie dei progetti pro
 In Figura \ref{fig:piecategory} sono riportati i grafici a torta di come si distribuiscono tra loro le 10 category più diffuse e tutte le main category.
 Se la distribuzione delle 10 categorie pi diffuse è abbastanza uniforme, non vi è una categoria che domina sulle altre, altrettanto non può essere detto per le main category poiché \textit{Film \& Video}
 occupa una buona percentuale seguita da \textit{Music} e \textit{Publishing}, lasciando quindi percentuali ridotte a tutte le altre categorie principali.
+
+La distribuzione del campo service (sezione a della Figura \ref{fig:piestate}), rappresentante la percentuale di sviluppo del settore terziario nel Paese in cui è stato proposto il progetto, mostra come la maggior parte dei sample sia relativa a paesi con un settore terziario predominante sugli altri due, perché è diffuso più del 50 \%.   
+
+
+Le feature goal e backer sono due attributi interi e continui che rappresentano rispettivamente la richiesta minima di denaro al fine di considerare il progetto riuscito ed il numero di donatori. Per questi due campi sono stati analizzati il valore medio e la deviazione standard; i risultati ottenuti sono stati riportati nella Tabella \ref{tab:backer}. Un valore così elevato di deviazione standard rispetto alla media, indica che i dati sono caratterizzata da una significativa varietà e distanza dal valore medio riportato.
+
+\begin{table}[h]
+	\centering
+	\caption{Media e deviazione standard degli attributi goal e backers}
+	\begin{tabular}{c|cc}
+		Feature & Valore medio & Deviazione standard \\
+		\hline  
+		goal & 46672.68 & 1112774 \\ 
+		backers & 102.98 & 946.76 \\ 
+	\end{tabular} 
+	\label{tab:backer}
+\end{table}
+
 \begin{figure}%
 	\centering
 	\subfloat[Distribuzione dell'attributo rappresentante la categoria specifica del progetto.]{{\includegraphics[width=0.45\linewidth]{../FinalResults/Images/Data_exploration_plots/pie_categories} }}%
@@ -29,24 +47,6 @@ occupa una buona percentuale seguita da \textit{Music} e \textit{Publishing}, la
 	\caption{}%
 	\label{fig:piecategory}%
 \end{figure}
-
-La distribuzione del campo service (sezione a della Figura \ref{fig:piestate}), rappresentante la percentuale di sviluppo del settore terziario nel Paese in cui è stato proposto il progetto, mostra come la maggior parte dei sample sia relativa a paesi con un settore terziario predominante sugli altri due, perché è diffuso più del 50 \%.   
-
-
-Le feature goal e backer sono due attributi interi e continui che rappresentano rispettivamente la richiesta minima di denaro al fine di considerare il progetto riuscito ed il numero di donatori. Per questi due campi sono stati analizzati il valore medio e la deviazione standard; i risultati ottenuti sono stati riportati nella Tabella \ref{tab:backer}. Un valore così elevato di deviazione standard rispetto alla media, indica che i dati sono caratterizzata da una significativa varietà e distanza dal valore medio riportato.
-
-\begin{table}
-	\centering
-	\caption{Media e deviazione standard degli attributi goal e backers}
-	\begin{tabular}{|c|cc|}
-		\hline 
-		\textbf{Feature} & \textbf{Valore medio} & \textbf{Deviazione standard} \\  
-		goal & 46672.68 & 1112774 \\ 
-		backers & 102.98 & 946.76 \\ 
-	\end{tabular} 
-	\label{tab:backer}
-\end{table}
-
 
 L'ultimo aspetto analizzato è stata la distribuzione dell'etichettatura dei progetti, per capire come fossero divise le tuple all'interno del nostro dataset. Come mostrato nella sezione (b) della Figura \ref{fig:piestate}, la maggioranza dei sample (63 \%) in nostro possesso risultano essere relativi a progetti fallimentari. Il numero non risulta comunque tanto squilibrato da generare problemi nella fase di addestramento dei modelli di Machine Learning.
 
@@ -67,7 +67,7 @@ L'ultimo aspetto analizzato è stata la distribuzione dell'etichettatura dei pro
 	\caption{Matrice di correlazione tra le feature del dataset.}
 	\label{fig:corrplot}
 \end{figure}
-
+\newpage
 \section{Modelli di Machine Learning utilizzati}
 In questa sezione, andremo a mostrare, dopo aver brevemente introdotto teoricamente i modelli, come tali modelli si comportano nella predizione dell'attributo state sfruttando il dataset analizzato precedentemente.
 Per fare ciò, sono state utilizzate diverse misure di performance: \begin{itemize}
@@ -90,10 +90,10 @@ Questa scelta è stata dettata dalle tempistiche impiegate per il training di qu
 
 \subsection{Baseline}
 Al fine di avere una misura di riferimento per i modelli che saranno proposti successivamente, è stato prodotto un modello baseline, che si limita a rispondere sempre failed ad ogni sottomissione di un sample. La risposta risulta essere sempre failed in quanto, dall'analisi esplorativa dei dati effettuata in precedenza, è emerso che il valore di etichettatura più frequente era prorpio il fallimento del progetto.\\
-In Figura \ref{fig:baselineperformance} e nella Tabella \ref{tab:acc_state} sono riportate le misure di performance ottenute con questo modello a seguito dell'operazione di 10 fold cross validation; notiamo come i valori di accuratezza e precisione si uniformino al valore di  probabilità dell'etichettatura failed nel dataset, mentre la recall rimanga ovviamente fissa ad 1.\\
+In Figura \ref{fig:baselineperformance} e nella Tabella \ref{tab:baselineperformance} sono riportate le misure di performance ottenute con questo modello a seguito dell'operazione di 10 fold cross validation; notiamo come i valori di accuratezza e precisione si uniformino al valore di  probabilità dell'etichettatura failed nel dataset, mentre la recall rimanga ovviamente fissa ad 1.\\
 Le curve ROC associate a questo modello, ripotate in Figura \ref{fig:baselineROC}, restituiscono un valore AUC molto variabile: ciò è dovuto dalla diversa distribuzione dei sample con etichettatura failed all'interno dei testset prodotti dal porcesso di 10-fold cross validation.
-\begin{table}
-	\caption{Tabella che riporta rispettivamente media e deviazione standard delle misure in Figura \ref{fig:baselineperformance}.}
+\begin{table}[h!]
+	\caption{Tabella che riporta rispettivamente media e deviazione standard delle misure di performance in Figura \ref{fig:baselineperformance}.}
 	\label{tab:baselineperformance}
 	\centering
 	\begin{tabular}{c|cc}
@@ -105,13 +105,6 @@ Le curve ROC associate a questo modello, ripotate in Figura \ref{fig:baselineROC
 		F1Measure & 0.7797 & 0.0020 \\
 	\end{tabular}
 \end{table} 
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\linewidth]{../FinalResults/Baseline_performance}
-	\caption{Boxplot relativi alle misure di performance del modello baseline.}
-	\label{fig:baselineperformance}
-\end{figure}
-
 \begin{figure}
 	\centering
 	\subfloat{\includegraphics[width=0.3\linewidth]{../FinalResults/Images/baseline/auc_1.pdf}}\quad
@@ -127,11 +120,18 @@ Le curve ROC associate a questo modello, ripotate in Figura \ref{fig:baselineROC
 	\caption{Curve ROC del modello baseline risultanti dal processo di 10-fold cross validation.}
 	\label{fig:baselineROC}
 \end{figure}       
-
+\clearpage
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{../FinalResults/Baseline_performance}
+	\caption{Boxplot relativi alle misure di performance del modello baseline.}
+	\label{fig:baselineperformance}
+\end{figure}
 \subsection{Alberi decisionali}
 Gli alberi decisionali sono modelli utilizzati per il Machine Learning che basano la loro tecnica di predizione su un albero etichettato, in cui ad ogni nodo viene presa la decisione del ramo in cui proseguire in base al valore dell'attributo con cui il nodo è etichettato. Le foglie di questo albero sono etichettate con il valore dell'attributo su cui si sta facendo predizione, nel nostro caso l'attributo state. La regola di decisione per le etichette segue la metrica chiamata impurità di Gini; essa è una misura della frequenza con cui un elemento scelto casualmente dall'insieme viene etichettato in modo errato se fosse etichettato in modo casuale in base alla distribuzione delle etichette nel sottoinsieme rimanente. L'impurità di Gini può essere calcolata sommando la probabilità $p_i$ di un oggetto con l'etichetta $i$ di essere scelto per la probabilità $ \sum\limits_{k\neq i} p_{k}=1-p_{i} $ di un errore nella categorizzazione di quell'elemento; questo valore raggiunge il minimo (zero) quando tutti i casi nel nodo rientrano in una singola categoria di etichettatura. .Gli alberi implementati dalla libreria \emph{R} texttt{rpart} permettono di valutare una serie di parametri, tra cui l'attributo cp, che permettono di regolare le dimensioni dell'albero prodotto e migliorarne le performance, riducendo, per quanto possibile, l'overfitting del modello.
 Inizialmente è stato creato un albero che non sfruttava l'attributo backer del dataset, in quanto abbiamo immaginato che questo valore fosse di difficile stima per un utente che volesse inserire un nuovo progetto sulla piattaforma. L'albero generato si è però mostrato deludente, con performance paragonabili al modello baseline, come mostrato in Figura \ref{fig:treenbperformance} e in Tabella \ref{tab:treenbperformance}.
-\begin{table}
+Le curve ROC relative a questo modello (riportate in Figura \ref{fig:treeNBROC}) sono risultate essere molto simili nelle varie iterazioni, mostrando un maggiore livello di solidità circa la composizione del trainset e del testset rispetto al modello baseline.
+\begin{table}[h!]
 	\caption{Tabella che riporta rispettivamente media e deviazione standard delle misure in Figura \ref{fig:treenbperformance}.}
 	\label{tab:treenbperformance}
 	\centering
@@ -144,14 +144,13 @@ Inizialmente è stato creato un albero che non sfruttava l'attributo backer del 
 		F1Measure & 0.7736 & 0.0024 \\
 	\end{tabular}
 \end{table}
-\begin{figure}
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.7\linewidth]{../FinalResults/TreeNB_performance}
 	\caption{Boxplot relativi alle misure di performance dell'albero di decisione senza l'utilizzo della feature backer.}
 	\label{fig:treenbperformance}
 \end{figure}
-Le curve ROC relative a questo modello (riportate in Figura \ref{fig:treeNBROC}) sono risultate essere molto simili nelle varie iterazioni, mostrando un maggiore livello di solidità circa la composizione del trainset e del testset rispetto al modello baseline.
-\begin{figure}
+\begin{figure}[h!]
 	\centering
 	\subfloat{\includegraphics[width=0.3\linewidth]{../FinalResults/Images/treeNB/auc_1.pdf}}\quad
 	\subfloat{\includegraphics[width=0.3\linewidth]{../FinalResults/Images/treeNB/auc_2.pdf}}\quad
@@ -167,16 +166,16 @@ Le curve ROC relative a questo modello (riportate in Figura \ref{fig:treeNBROC})
 	\label{fig:treeNBROC}
 \end{figure}  
 \newpage
-E' stato quindi deciso di sfruttare tutte le feature disponibili, supponendo che per futuri progetti non ancora realizzati sarà possibile stimare il valore dei backer tramite l'utilizzo di modelli di regressione lineare. L'albero prodotto dal processo di addestramento è mostrato in Figura \ref{fig:tree}. Le performance ottenute dal nuovo modello sono decisamente superiori al precedente, come mostrato in nella Tabella e in Figura.\\
+È stato quindi deciso di sfruttare tutte le feature disponibili, supponendo che per futuri progetti non ancora realizzati sarà possibile stimare il valore dei backer tramite l'utilizzo di modelli di regressione lineare. L'albero prodotto dal processo di addestramento è mostrato in Figura \ref{fig:tree}. Le performance ottenute dal nuovo modello sono decisamente superiori al precedente, come mostrato nella Tabella \ref{tab:treeperformance} e in Figura \ref{fig:treeperformance}.\\
 \begin{figure}
 	\centering
 	\includegraphics[width=0.9\linewidth]{../FinalResults/tree}
 	\caption{Albero prodotto dal processo di addestramento con tutte le feature del dataset.}
 	\label{fig:tree}
 \end{figure}
-Le feature utilizzate dal modello sono esclusivamente il numero di backer e il goal del progetto, gli altri campi del dataset non sono utilizzati per la classificazione. Ciononostante le performance ottenute da questo modello (riportate nella Tabella \ref{tab:treeperformance} e in Figura \ref{fig:treeperformance}) si sono rivelate più che discrete, superando nettamente il modello baseline proposto. La scarsissima varianza dei valori durante il processo di 10-fold cross validation mostra come il modello prodotto sia solido e non sensibile a eventuali eterogeneità di distribuzione di tuple etichettate come fallite o riuscite. Questo si ripercuote anche sulle curve ROC, riportate in Figura \ref{fig:treeROC}, il cui andamento è pressoché identico durante tutte le 10 iterazioni di validazione.
+Le feature utilizzate dal modello sono esclusivamente il numero di backer e il goal del progetto, gli altri campi del dataset non sono utilizzati per la classificazione. Ciononostante le performance ottenute da questo modello si sono rivelate più che discrete, superando nettamente il modello baseline proposto. La scarsissima varianza dei valori durante il processo di 10-fold cross validation mostra come il modello prodotto sia solido e non sensibile a eventuali eterogeneità di distribuzione di tuple etichettate come fallite o riuscite. Questo si ripercuote anche sulle curve ROC, riportate in Figura \ref{fig:treeROC}, il cui andamento è pressoché identico durante tutte le 10 iterazioni di validazione.
 
-\begin{table}
+\begin{table}[h!]
 	\caption{Tabella che riporta rispettivamente media e deviazione standard delle misure in Figura \ref{fig:treeperformance}.}
 	\label{tab:treeperformance}
 	\centering
@@ -189,13 +188,13 @@ Le feature utilizzate dal modello sono esclusivamente il numero di backer e il g
 		F1Measure & 0.9299 & 0.0018 \\
 	\end{tabular}
 \end{table}
-\begin{figure}
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.7\linewidth]{../FinalResults/Tree_performance}
 	\caption{Boxplot relativi alle misure di performance dell'albero di decisione con tutte le feature.}
 	\label{fig:treeperformance}
 \end{figure}
-\begin{figure}
+\begin{figure}[h!]
 	\centering
 	\subfloat{\includegraphics[width=0.3\linewidth]{../FinalResults/Images/tree/auc_1.pdf}}\quad
 	\subfloat{\includegraphics[width=0.3\linewidth]{../FinalResults/Images/tree/auc_2.pdf}}\quad
@@ -224,7 +223,7 @@ Infine, abbiamo valutato il parametro di complessità dell'albero prodotto. Il g
 	\caption{Albero risultante dalla potatura con valore del parametro cp pari a 0.015}
 	\label{fig:prunedtree}
 \end{figure}
-
+\clearpage
 \subsection{Na\"ive Bayes}
 Il modello Na\"ive Bayes si basa sul Teorema di Bayes (si faccia riferimento alla Formula \ref{th:bayes}) e sull'assunzione che tutti gli attributi che descrivono le istanze sono condizionalmente indpendenti l'un l'altro.
 \begin{equation}
@@ -246,7 +245,7 @@ In Figura \ref{fig:bayesperformance} sono rappresentati i boxplot per quanto rig
 Valutando tali dati, notiamo che il classificatore Na\"ive Bayes è estremamente accurato ed ha alti valori sia di precisione che di recall, il che ci garantisce che quando viene predetto il fallimento di una campagna è altamemente probabile che fallisca, poiché sia il valore di recall che di precisione sono elevati.
 Le curve ROC e le relativa AUC confermano ulteriormente quanto detto fin'ora; le singole ROC prodotte dai singoli passi del processo di 10-fold cross validation sono riportate in Figura \ref{fig:bayesROC}.
 
-\begin{table}
+\begin{table}[h!]
 	\caption{Tabella contenente la media e la deviazione standard rispetto alle misure di performance effettuate basandosi sull'esecuzione di una 10-fold cross validation sfruttando il modello Na\"ive Bayes.}
 	
 	\label{tab:bayes_perf}
@@ -262,7 +261,7 @@ Le curve ROC e le relativa AUC confermano ulteriormente quanto detto fin'ora; le
 	\end{tabular}
 \end{table} 
 
-\begin{figure}
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.7\linewidth]{../FinalResults/Bayes_performance}
 	\caption{Boxplot relativi alle misure di performance del modello Na\"ive Bayes.}
@@ -284,7 +283,7 @@ Le curve ROC e le relativa AUC confermano ulteriormente quanto detto fin'ora; le
 	\caption{Curve ROC del modello Na\"ive Bayes per la 10-fold cross validation.}
 	\label{fig:bayesROC}
 \end{figure} 
-
+\clearpage
 \subsection{Support Vector Machine}
 Le SVM (Support Vector Machine) sono algoritmi utilizzati sia per la classificazione binaria, ma non solo. 
 Concettualmente si basano sul voler rappresentare le istanze in un iperspazio \textit{K}-dimensionale e ricercare un iperpiano separatore delle due classi, ottenendo così due semi-iperspazi in ciascuno dei quali sono presenti tutte e sole le istanze appartenenti ad una classe.
@@ -294,7 +293,7 @@ Supponendo di avere le istanze nello spazio linearmente seprabili, poiché le cl
 Per far ciò, è quindi necessario identificare i vettori di supporto, ovvero l'insieme delle istanze che giacciono “vicino” al margine dell'iperpiano separatore.\\
 Passando ad una trattazione più pratica rispetto al progetto, l'implementazione delle SVM utilizzata è quella fornita dalla libreria \texttt{e1071}; tale implementazione permette di specificare due parametri fondamentali:\begin{itemize}
 	\item \texttt{kernel}, ovvero il metodo kernel utilizzato sia durante la fase di training che per la fase di \textit{testing}, alcune funzioni possibili sono \texttt{linear} o \texttt{sigmoid};
-	\item \texttt{cost} ovvero il costo di \textit{trade-off} tra la penalità derivante dalle variabili di slack e la larghezza del margine, ovvero più il valore del costo è basso più il margine sarà largo e potrebbe portare ad un maggiore errore nelle classificazioni, più è alto più il margine è strettoe meno errori di classificazione sono ammessi; si noti che potrebbero verificarsi casi di \textit{overfitting} causati da un'assegnazione del costo non ottimale. 
+	\item \texttt{cost}, ovvero il costo di \textit{trade-off} tra la penalità derivante dalle variabili di slack e la larghezza del margine, ovvero più il valore del costo è basso più il margine sarà largo e potrebbe portare ad un maggiore errore nelle classificazioni, più è alto più il margine è strettoe meno errori di classificazione sono ammessi; si noti che potrebbero verificarsi casi di \textit{overfitting} causati da un'assegnazione del costo non ottimale. 
 \end{itemize}
 Poiché il tempo di training di tale implementazione delle SVM è molto oneroso in termini di tempo e dato che il dataset è composto da oltre 312 mila istanze, quindi il \textit{training set} da oltre 218 mila, si è deciso, di conseguenza, di effettuare il processo di training e di testing una sola volta, senza effettuare la 10-fold cross validation.
 Abbiamo indagato le performance di due SVM differenti: la prima con un kernel lineare ed un costo pari ad 1, la seconda sempre con un kernel lineare ed un costo pari a 1000. 
@@ -344,13 +343,13 @@ Concludendo, anche le ROC e relative AUC sono molto simili tra loro il che impli
 	\label{fig:svmperformance}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=0.7\linewidth]{../FinalResults/Images/svm1000/auc.pdf}
 	\caption{Boxplot relativi alle misure di performance del modello SVM con costo pari a 1000.}
 	\label{fig:svm1000performance}
 \end{figure}
-
+\clearpage
 \subsection{Reti neurali}
 Le reti neurali sono un modello che si è rivelato non performare come sperato per il nostro caso di studio. L'assenza di conoscenza pregressa circa una possibile topologia della rete e l'abbondanza di parametri che influiscono sulla corretta convergenza dell'algoritmo di apprendimento ha portato alla impossibilità di produrre un modello funzionante. Sono stati effettuati numerosi test per trovare la corretta combinazione di parametri, modificando il numero di neuroni nascosti, il numero massimo di iterazioni del processo di learnig e il valore di learning rate della rete; seppur alcuni test su scala ridotta abbiano prodotto un modello funzionante e dalle performance accettabili (riportate in Tabella \ref{tab:nnperformance}), ogni tentativo di training della rete sull'intero dataset ha portato alla non convergenza del processo. Abbiamo quindi deciso di non includere questo modello nella nostra analisi, in quanto non è stato possibile replicare i risultati ottenuti su scala ridotta su tutto il dataset. Altri fattori che hanno contribuito all'esclusione di questo modello sono il lungo tempo di training della rete al crescere del numero di neuroni e di sample in input.
 
