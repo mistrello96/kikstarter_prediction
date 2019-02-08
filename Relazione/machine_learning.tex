@@ -363,16 +363,17 @@ Le reti neurali sono un modello che si è rivelato non performare come sperato p
 \end{table}
 
 \subsection{Confronto tra modelli}
-\todo{ricontorllare e aggiungere MM}
 I modelli presentati nelle sezioni precedenti hanno mostrato pregi e difetti, che saranno ora velocemente riassunti.
 Gli alberi decisionali hanno mostrato un utilizzo limitato delle feature del dataset, limitandosi a sfruttare solo due delle 7 feature disponibili. Ciò porta a performance non ottimali del modello durante la classificazione di nuovi sample. A loro favore, il training e la classificazioni risultano molto veloci.\\
 Il modello Na\"ive Bayes ha prodotto performance ottimali, risultando rapido sia nella fase di addestramento che nella fase di classificazione. L'unica mancanza riscontrata è l'assenza di parametri per la personalizzazione del processo di learning, che non si è però tramutata in una problematica in quanto i risultati prodotti si sono rivelati più che soddisfacente.\\
 Le SVM hanno mostrato un tempo di training e di classificazione molto elevato a confronto dei modelli precedentemente discussi, fornendo però prestazioni leggermente superiori agli alberi di decisioni ottenuti.\\
 Le reti neurali hanno mostrato tempi di training sproporzionatamente elevati rispetto alle altre tecniche indagate, non portando ad un risultato utilizzabile per la classificazione.\\
-La Figura \ref{fig:mixed2} mostrano le curve ROC dei modelli ottenuti a confronto. Il modello che spicca su tutti è il Na\"ive Bayes, che risulta  avere una AOC corrispondente alla curva superiore a $0.99$; alberi di decisione e SVM seguono "a parimerito", mente in coda troviamo l'albero di decisione privo dell'attributo backer.
+La Figura \ref{fig:mixed2} mostrano le curve ROC dei modelli ottenuti a confronto. Il modello che spicca su tutti è il Na\"ive Bayes, che risulta  avere una AUC corrispondente alla curva superiore a $0.99$; alberi di decisione e SVM seguono “a parimerito”, mentre infine troviamo l'albero di decisione privo dell'attributo backer.
+Le curve ROC rappresetate sono le curve inerenti alla decima iterazione del processo di 10-fold cross validation, mentre per le SVM sono rappresentate le due curve ROC analizzate in precedenza.
+Rappresentare una sola ROC per curva non è limitativo poiché come mostrato in precedenza hanno un comportamento molto analogo in tutte e 10 le iterazioni, l'unico caso differente è la baseline poiché da come viene partizionato il dataset può avere casi “fortunati” in cui predice molto bene, ma come visto sono casi particolare e la sua tendenza è comportarsi in un modo analogo alla curva mostrata in figura.
 \begin{figure}
 	\centering
 	\includegraphics[width=0.9\linewidth]{../FinalResults/Images/Mixed2}
-	\caption{Curve ROC dei modelli presentati nella relazione.}
+	\caption{Curve ROC dei modelli presentati nella relazione, sono state riportate le ROC della decima iterazione del processo di 10-fold cross validation di ogni modello analizzato e le ROC delle SVM.}
 	\label{fig:mixed2}
 \end{figure}
