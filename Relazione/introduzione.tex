@@ -3,6 +3,20 @@ Il dominio di riferimento del progetto è quello delle startup, in particolare i
 Questo tipo di soluzioni hanno riscosso un discreto successo, producendo di fatto una grande quantità di informazioni circa l'interesse del pubblico per le varie tipologie di progetto.\\
 L'idea scaturita dal nostro gruppo è stata quella di sfruttare i dati relativi ai progetti Kickstarter, resi disponibili pubblicamente sulla piattaforma \href{https://www.kaggle.com/}{\emph{Kaggle}}, al fine di comprendere quali aspetti di questi progetti potessero portare al loro successo o al loro fallimento (aspetti quali categoria, soglia di denaro richiesto, paese d'origine dell'idea \dots).
 
+\section{Obiettivi}
+Gli obiettivi di questo lavoro sono principalmente due, anche se a loro volta possono essere suddivisi in altri obiettivi: \begin{enumerate}
+	\item realizzare un dataset integrato partendo da differenti dataset, per fare ciò sarà necessario: \begin{itemize}
+		\item effettuare un'analisi di qualità sui singoli dataset;
+		\item effettuare un processo di integrazione sfruttando anche i risultati dell'analisi precedente;
+		\item analizzare la qualità del dataset prodotto per valutare se il processo di integrazione è stato buono oppure presenta ulteriori complicanze;
+		\item eseguire delle analisi descrittive basilari per ottenere informazioni statistiche che potrebbe risultare rilevanti nella parte di apprendimento automatico.
+	\end{itemize}
+	\item partendo dal dataset integrato, effettuare un processo di apprendimento automatico per valutare le performance di vari modelli, risulta, quindi, necessario: \begin{itemize}
+		\item effettuare un processo di analisi esplorativa del dataset;
+		\item effettuare un processo di training e testing, sfruttando la \textit{K}-fold cross validation, per valutare i vari modelli e le relative performance.
+	\end{itemize}
+\end{enumerate}
+
 \section{Selte di design}
 \label{sec:design}
 Al fine di creare un dataset integrato da poter sfruttare per eseguire il training del modello di Machine Learning, sono stati sfruttati tre diversi dataset provenienti da fonti diverse.\\

@@ -38,14 +38,11 @@ Le feature goal e backer sono due attributi interi e continui che rappresentano 
 \begin{table}
 	\centering
 	\caption{Media e deviazione standard degli attributi goal e backers}
-	\begin{tabular}{|c|c|c|}
+	\begin{tabular}{|c|cc|}
 		\hline 
-		\textbf{Feature} & \textbf{Valore medio} & \textbf{Deviazione standard} \\ 
-		\hline 
+		\textbf{Feature} & \textbf{Valore medio} & \textbf{Deviazione standard} \\  
 		goal & 46672.68 & 1112774 \\ 
-		\hline 
 		backers & 102.98 & 946.76 \\ 
-		\hline 
 	\end{tabular} 
 	\label{tab:backer}
 \end{table}
@@ -99,7 +96,9 @@ Le curve ROC associate a questo modello, ripotate in Figura \ref{fig:baselineROC
 	\caption{Tabella che riporta rispettivamente media e deviazione standard delle misure in Figura \ref{fig:baselineperformance}.}
 	\label{tab:baselineperformance}
 	\centering
-	\begin{tabular}{c|c|c}
+	\begin{tabular}{c|cc}
+		Misura & Media & Deviazione standard \\
+		\hline
 		Accuracy & 0.6389 & 0.0028 \\ 
 		Precision & 0.6389 & 0.0027 \\
 		Recall & 1 & 0 \\
@@ -136,7 +135,9 @@ Inizialmente è stato creato un albero che non sfruttava l'attributo backer del 
 	\caption{Tabella che riporta rispettivamente media e deviazione standard delle misure in Figura \ref{fig:treenbperformance}.}
 	\label{tab:treenbperformance}
 	\centering
-	\begin{tabular}{c|c|c}
+	\begin{tabular}{c|cc}
+		Misura & Media & Deviazione standard \\
+		\hline
 		Accuracy & 0.6814 & 0.0019 \\ 
 		Precision & 0.7084 & 0.0036 \\
 		Recall & 0.8521 & 0.0084 \\
@@ -179,7 +180,9 @@ Le feature utilizzate dal modello sono esclusivamente il numero di backer e il g
 	\caption{Tabella che riporta rispettivamente media e deviazione standard delle misure in Figura \ref{fig:treeperformance}.}
 	\label{tab:treeperformance}
 	\centering
-	\begin{tabular}{c|c|c}
+	\begin{tabular}{c|cc}
+		Misura & Media & Deviazione standard \\
+		\hline
 		Accuracy & 0.9112 & 0.0021 \\ 
 		Precision & 0.9376 & 0.0030 \\
 		Recall & 0.9224 & 0.0019 \\
@@ -356,6 +359,8 @@ Le reti neurali sono un modello che si è rivelato non performare come sperato p
 	\label{tab:nnperformance}
 	\centering
 	\begin{tabular}{c|c}
+		Misura & valore \\
+		\hline
 		Accuracy & 0.8953  \\ 
 		Precision & 0.9808  \\
 		Recall & 0.8521  \\
