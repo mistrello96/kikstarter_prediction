@@ -80,15 +80,16 @@ Per fare ciò, sono state utilizzate diverse misure di performance: \begin{itemi
 	\item f-measure;
 	\item la curva ROC (Receiver Operating Characteristic) e la rispettiva AUC (Area Under Curve). 
 \end{itemize}
-Si sottolinea che per le misure di recall e precisione, valutiamo i progetti predetti correttamente come fallimentari.\\
-Invece, i modelli utilizzati sono i seguenti:\begin{itemize}
-	\item baseline, in modo da avere una misura di riferimento per i modelli successivi indagati;
-	\item alberi decisionali, abbiamo deciso di analizzarli in modo da valutare se le decisioni potessero essere prese basandosi sul valore assunto da un sottoinsieme di tuple;
-	\item Na\"ive Bayes, perché eravamo interessati al suo comportamento quando utilizza dei trainset molto numerosi e con dati che non sono garantiti essere causalmente indipendenti;
-	\item Support Vector Machine, per valutare il loro comportamento rispetto agli altri modelli ed approfondire l'influenza del costo rispetto al numero di vettori di supporto utilizzati;
-	\item reti neurali, perché sono al momento una delle tecniche più utilizzate in diversi ambiti.
+Si noti che per le misure di recall e precisione, sono stati valutati i progetti predetti correttamente come fallimentari.\\
+I modelli indagati in questa relazione sono i seguenti:\begin{itemize}
+	\item Baseline: fornisce una scala di riferimento per i modelli successivamente analizzati;
+	\item Alberi decisionali: abbiamo deciso di analizzarli in modo da valutare quali attributi fossero ritenuti più importanti e se le decisioni potessero essere prese basandosi sul valore assunto da un sottoinsieme di tuple;
+	\item Na\"ive Bayes: siamo interessati al tempo di addestramento quando utilizza dei trainset molto numerosi e con dati che non sono garantiti essere causalmente indipendenti;
+	\item Support Vector Machine: vogliamo valutare il loro comportamento rispetto agli altri modelli ed approfondire l'influenza del costo rispetto al numero di vettori di supporto utilizzati per la classificazione;
+	\item Reti neurali: sono al momento una delle tecniche più utilizzate in diversi ambiti, ricche di parametri che influiscono il processo di learning e classificazione.
 \end{itemize}
-Per i primi 3 modelli, abbiamo effettuato un processo di 10-fold cross validation perché i tempi di training e testing sono bassi; invece, per le Support Vector Machine e le reti neurali sono stati effettuati dei processi di training utilizzando il 70 \% del dataset come insieme di istanze di training ed il restante per il testing, questa operazione è stata dettata dai tempi impiegati per il training di questi modelli, inoltre, il numero elevato di istanze del dataset (e quindi nel trainset) ci permette di considerare queste performance ed analizzarle in maniera sicura poiché è improbabile che si sia presa una suddivisione del dataset “patologica” e quindi valutare delle performance ingannevoli.
+Per i primi 3 modelli abbiamo effettuato un processo di 10-fold cross validation, in quanto i tempi di training e testing sono risultati essere contenuti; per le Support Vector Machine e le reti neurali, invece, sono stati effettuati dei processi di training utilizzando il 70 \% del dataset come insieme di istanze di training ed il restante per il testing.\\
+Questa scelta è stata dettata dalle tempistiche impiegate per il training di questi modelli e dal fatto che, considerato il numero elevato di istanze presenti nel dataset (e quindi nel trainset), possiamo considerare solidi e affidabili i risultati ottenuti, poiché è improbabile che si sia presentata una suddivisione del dataset “patologica”.
 
 \subsection{Baseline}
 Al fine di avere una misura di riferimento per i modelli che saranno proposti successivamente, è stato prodotto un modello baseline, che si limita a rispondere sempre failed ad ogni sottomissione di un sample. La risposta risulta essere sempre failed in quanto, dall'analisi esplorativa dei dati effettuata in precedenza, è emerso che il valore di etichettatura più frequente era prorpio il fallimento del progetto.\\
