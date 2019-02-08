@@ -4,7 +4,7 @@ Come accennato nella Sezione \ref{sec:design}, i tre dataset utilizzati, present
 In particolare, due di questi dataset (\textit{countries of the world.csv} e \textit{ks-projects-201612.csv}) sono quelli che verrano utilizzati effettivamente per estrarre delle \textit{features} per il processo di apprendimento automatico, mentre il terzo (\textit{country\_code.csv}) viene utilizzato sia come dizionario per l'analisi di qualità dei dati, sia per la parte di integrazione.\\
 Il dataset \textit{countries of the world.csv} contiene informazioni che descrivono il rispettivo territorio e sviluppo di 227 nazioni del mondo; si veda la Tabella \ref{tab:world_countires_att} per i dettagli.
 \begin{table}
-	\caption{Tabella riassuntiva degli attributi presenti nel file \textit{countries of the world.csv}, l'attributo in corsivo è la chiave primaria della relazione.\\(*) Si veda la Sotto sezione \ref{subsec:temporali}.}
+	\caption{Tabella riassuntiva degli attributi presenti nel file \textit{countries of the world.csv}, l'attributo in corsivo è la chiave primaria della relazione.\\(*) Si veda la Sottosezione \ref{subsec:temporali}.}
 
 	\label{tab:world_countires_att}
 
@@ -380,11 +380,11 @@ La pipeline è rappresentata in Figura \ref{fig:dqbackersconsistency}.
 \end{figure}
 
 \subsection{Completezza del dataset Kickstarter}
-Come già detto in precedenza (Sotto sezione \ref{subsec:compl_country}), per completezza intendiamo: “il numero di valori  \texttt{null} che compaiono nella colonna di un attributo.”.
+Come già detto in precedenza (Sottosezione \ref{subsec:compl_country}), per completezza intendiamo: “il numero di valori  \texttt{null} che compaiono nella colonna di un attributo.”.
 Di conseguenza anche in questo caso andiamo a valutare solo i valori \texttt{null} e non tutti quei valori, anche se presenti come già mostrato precedentemente, sintatticamente scorretti.
 In Tabella \ref{tab:compl_ks} sono presenti il numero e la relativa percentuale di valori \texttt{null} per ogni colonna, infine si è contato anche il numero complessivo di valori nulli e la loro percentuale rispetto al totale.
 Dalle misure effettuate, possiamo dire che il dataset è praticamente completo, inoltre il dato che manca spesso è l'ammontare in dollare dei soldi donati, il quale non è un attributo utilizzato per il processo di apprendimento automatico.
-La pipeline è analoga a quella utilizzata nella Sotto sezione \ref{subsec:compl_country}, come mostrato in Figura \ref{fig:dqcompletezza}.
+La pipeline è analoga a quella utilizzata nella Sottosezione \ref{subsec:compl_country}, come mostrato in Figura \ref{fig:dqcompletezza}.
 \begin{table}
 	\caption{Tabella riassuntiva contenente numero e percentuale dei valori \texttt{null} presenti nel dataset per ogni attributo. Infine, si fornisce un'ultima riga contenente il numero totale di \texttt{null} e la percentuale rispetto ad ogni campo del dataset.}
 	
@@ -516,18 +516,18 @@ Per l'attributo in esame, non sono presenti tuple inconsistenti, ove il totale r
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.6\linewidth]{images/DQT_state}
-	\caption{Pipeline per la verifica della consistenza e della accuratezza sintattica dell'attributo State}
+	\caption{Pipeline per la verifica della consistenza e della accuratezza sintattica dell'attributo State.}
 	\label{fig:dqtstate}
 \end{figure}
 
 \subsection{Consistenza attributo Backers}
-Per il campo Backers, è stata realizzata una pipeline (mostrata in Figura \ref{fig:dqtbackers}) con l'intento di individuare eventiali tuple che violassero i vincoli di consistenza. La verifica si è concentrata sul valore del campo Backers in relazione con il totale del denaro riscosso, basandosi sul vincolo definito nella Sotto sezione \ref{subsec:cons_backers}.\\
+Per il campo Backers, è stata realizzata una pipeline (mostrata in Figura \ref{fig:dqtbackers}) con l'intento di individuare eventiali tuple che violassero i vincoli di consistenza. La verifica si è concentrata sul valore del campo Backers in relazione con il totale del denaro riscosso, basandosi sul vincolo definito nella Sottosezione \ref{subsec:cons_backers}.\\
 L'esecuzione della pipeline non ha portato alla rilevazione di tuple che violassero i vincoli imposti.
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.7\linewidth]{images/DQT_backers}
-	\caption{Pipeline per la verifica della consistenza dell'attributo backers}
+	\caption{Pipeline per la verifica della consistenza dell'attributo backers.}
 	\label{fig:dqtbackers}
 \end{figure}
 
@@ -546,7 +546,7 @@ In Tabella \ref{tab:recap} si mostrano il numero di tuple che non soddisfano i v
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=1\linewidth]{images/QDT_recordlinkage}
-	\caption{Pipeline utilizzata per la verifica del processo di \textit{record linkage} effettuata}
+	\caption{Pipeline utilizzata per la verifica del processo di \textit{record linkage} effettuata.}
 	\label{fig:qdtrecordlinkage}
 \end{figure}
 	\begin{table}
