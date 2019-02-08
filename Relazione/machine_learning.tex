@@ -2,24 +2,25 @@
 Il dataset in input è stato prodotto a seguito delle operazioni di data integration su tre dataset originari. Durante queste operazioni, gli attributi privi di informazioi rilevanti ai fini dell'addestramento di un modello di Machine Learning sono stati rimossi, ottenendo un dataset già pronto all'uso. Per dividere il dataset in train set e test set, è stata definita una funzione ad hoc che permette di dividere il dataset in 10 parti, usandone poi 9 per il trainset e la restante per il testset. Questa funzione si è rivelata fondamentale per l'operazione di 10-fold cross validation, in cui il modello viene addestrato e testato su porzioni differenti del dataset.
 
 \section{Analisi esplorativa del dataset}
-\todo{Controllare eventiali affermazioni "forti" MM}
 Ai fini di evidenziare la distribuzione dei dati rispetto ai vari attributi del dataset, è stata condotta un'analisi esplorativa del dataset mediante funzioni statistiche del linguaggio \emph{R}.\\
-I dataset è formato da 312895 sample, 7 feature e una etichetta a 2 livelli.
+I dataset è formato da 312895 sample, 7 feature ed una etichetta a 2 livelli.
 Tramite la funzione \texttt{sapply(dataset, class)} è stata ottenuta la classe di ogni feature, che è stata poi sottoposta ad un'analisi più approfondita.\\
 L'attributo Country è un attributo stringa fattorizzato, che presenta 21 livelli. Il valore più frequentemente riportato è "United States", seguito da "United Kindom" e "Canada".\\
-L'attributo GDP per capita è un attributo numerico di valore intero continuo che rappresenta il guadagno annuo medio nello stato in cui il progetto è stato proposto. La distribuzione dei due attributi sopracitati è mostrata in Figura \ref{fig:countrygdp}. Notiamo che per entrambi i grafici è stata utilizzata la scala logaritmica, in quanto la frequenza associata ad alcuni valori è molto alta. In particolare abbiamo notato che la maggior parte dei progetti (oltre il 70\%) è stato creato negli Stati Uniti.
+L'attributo GDP per capita è un attributo numerico di valore intero continuo che rappresenta il guadagno annuo medio \textit{ro capite} nello stato in cui il progetto è stato proposto. La distribuzione dei due attributi sopracitati è mostrata in Figura \ref{fig:countrygdp}. Sottolineiamo che per entrambi i grafici è stata utilizzata la scala logaritmica, in quanto la frequenza associata ad alcuni valori è molto alta. In particolare abbiamo notato che la maggior parte dei progetti (oltre il 70 \%) è stato creato negli Stati Uniti.
 
 \begin{figure}%
 	\centering
-	\subfloat[Distribuzione dell'attributo Country. Si noti che l'asse y è riportato in scala logaritmica.]{{\includegraphics[width=0.45\linewidth]{../FinalResults/Images/Data_exploration_plots/barlpot_country} }}%
+	\subfloat[Distribuzione dell'attributo Country. Si noti che l'asse \textit{y} è riportato in scala logaritmica.]{{\includegraphics[width=0.45\linewidth]{../FinalResults/Images/Data_exploration_plots/barlpot_country} }}%
 	\qquad
-	\subfloat[Distribuzione dell'attributo rappresentante il GDP pro capite]{{\includegraphics[width=0.45\linewidth]{../FinalResults/Images/Data_exploration_plots/barlpot_gdp}}}%
+	\subfloat[Distribuzione dell'attributo rappresentante il GDP \textit{pro capite}]{{\includegraphics[width=0.45\linewidth]{../FinalResults/Images/Data_exploration_plots/barlpot_gdp}}}%
 	\caption{}%
 	\label{fig:countrygdp}%
 \end{figure}
 
-Sono poi stati analizzati gli attributi relativi alle categorie dei progetti proposti, quindi le feature main category e category. Entrambi i campi, costituiti da stringhe fattorizzate, si mostrano distribuite in modo sostanzialmente uguale tra i possibili valori, come mostrato nella Figura \ref{fig:piecategory}. 
-
+Sono poi stati analizzati gli attributi relativi alle categorie dei progetti proposti, quindi le feature: main category e category. 
+In Figura \ref{fig:piecategory} sono riportati i grafici a torta di come si distribuiscono tra loro le 10 category più diffuse e tutte le main category.
+Se la distribuzione delle 10 categorie pi diffuse è abbastanza uniforme, non vi è una categoria che domina sulle altre, altrettanto non può essere detto per le main category poiché \textit{Film \& Video}
+occupa una buona percentuale seguita da \textit{Music} e \textit{Publishing}, lasciando quindi percentuali ridotte a tutte le altre categorie principali.
 \begin{figure}%
 	\centering
 	\subfloat[Distribuzione dell'attributo rappresentante la categoria specifica del progetto.]{{\includegraphics[width=0.45\linewidth]{../FinalResults/Images/Data_exploration_plots/pie_categories} }}%
@@ -29,7 +30,7 @@ Sono poi stati analizzati gli attributi relativi alle categorie dei progetti pro
 	\label{fig:piecategory}%
 \end{figure}
 
-La distribuzione del campo service (sezione a della Figura \ref{fig:piestate}), rappresentante la percentuale di sviluppo dei settori terziari nel paese in cui è stato proposto il progetto, mostra come la maggior parte dei sample sia relativa a paesi con un settore terziario predominante sugli altri due.   
+La distribuzione del campo service (sezione a della Figura \ref{fig:piestate}), rappresentante la percentuale di sviluppo del settore terziario nel Paese in cui è stato proposto il progetto, mostra come la maggior parte dei sample sia relativa a paesi con un settore terziario predominante sugli altri due, perché è diffuso più del 50 \%.   
 
 
 Le feature goal e backer sono due attributi interi e continui che rappresentano rispettivamente la richiesta minima di denaro al fine di considerare il progetto riuscito ed il numero di donatori. Per questi due campi sono stati analizzati il valore medio e la deviazione standard; i risultati ottenuti sono stati riportati nella Tabella \ref{tab:backer}. Un valore così elevato di deviazione standard rispetto alla media, indica che i dati sono caratterizzata da una significativa varietà e distanza dal valore medio riportato.
@@ -50,7 +51,7 @@ Le feature goal e backer sono due attributi interi e continui che rappresentano 
 \end{table}
 
 
-L'ultimo aspetto analizzato è stata la distribuzione dell'etichettatura dei progetti, per capire come fossero divise le tuple all'interno del nostro dataset. Come mostrato nella sezione b della Figura \ref{fig:piestate}, la maggioranza dei sample (63\%) in nostro possesso risultano essere relativi a progetti fallimentari. Il numero non risulta comunque tanto squilibrato da generare problemi nella fase di addestramento dei modelli di Machine Learning.
+L'ultimo aspetto analizzato è stata la distribuzione dell'etichettatura dei progetti, per capire come fossero divise le tuple all'interno del nostro dataset. Come mostrato nella sezione (b) della Figura \ref{fig:piestate}, la maggioranza dei sample (63 \%) in nostro possesso risultano essere relativi a progetti fallimentari. Il numero non risulta comunque tanto squilibrato da generare problemi nella fase di addestramento dei modelli di Machine Learning.
 
 \begin{figure}%
 	\centering
@@ -61,7 +62,7 @@ L'ultimo aspetto analizzato è stata la distribuzione dell'etichettatura dei pro
 	\label{fig:piestate}%
 \end{figure}
 
-È stata infine prodotta la matrice di correlazione (mostrata in Figura \ref{fig:corrplot}) tra i vari attributi del dataset; come previsto, è emersa una evidente correlazione tra il paese in cui il progetto viene creato e i campi relativi al GDP pro capite e alla percentuale di diffusione del settore terziario nello stato. Questo poichè questi valori provengono da un dataset esterno joinato al dataset dei progetti Kickstarter proprio sul campo nazione. Dalla matrice non emergono altre correlazioni rilevanti tra i restanti attributi del dataset.
+È stata infine prodotta la matrice di correlazione (mostrata in Figura \ref{fig:corrplot}) tra i vari attributi del dataset; come previsto, è emersa una evidente correlazione tra il paese in cui il progetto viene creato e i campi relativi al GDP pro capite e alla percentuale di diffusione del settore terziario nello stato. Questo poichè questi valori provengono da un dataset esterno \textit{joinato} al dataset dei progetti Kickstarter proprio sul campo nazione. Dalla matrice non emergono altre correlazioni rilevanti tra i restanti attributi del dataset.
 
 \begin{figure}
 	\centering
@@ -71,9 +72,28 @@ L'ultimo aspetto analizzato è stata la distribuzione dell'etichettatura dei pro
 \end{figure}
 
 \section{Modelli di Machine Learning utilizzati}
+In questa sezione, andremo a mostrare, dopo aver brevemente introdotto teoricamente i modelli, come tali modelli si comportano nella predizione dell'attributo state sfruttando il dataset analizzato precedentemente.
+Per fare ciò, sono state utilizzate diverse misure di performance: \begin{itemize}
+	\item accuratezza;
+	\item precisione;
+	\item recall;
+	\item f-measure;
+	\item la curva ROC (Receiver Operating Characteristic) e la rispettiva AUC (Area Under Curve). 
+\end{itemize}
+Si sottolinea che per le misure di recall e precisione, valutiamo i progetti predetti correttamente come fallimentari.\\
+Invece, i modelli utilizzati sono i seguenti:\begin{itemize}
+	\item baseline, in modo da avere una misura di riferimento per i modelli successivi indagati;
+	\item alberi decisionali, abbiamo deciso di analizzarli in modo da valutare se le decisioni potessero essere prese basandosi sul valore assunto da un sottoinsieme di tuple;
+	\item Na\"ive Bayes, perché eravamo interessati al suo comportamento quando utilizza dei trainset molto numerosi e con dati che non sono garantiti essere causalmente indipendenti;
+	\item Support Vector Machine, per valutare il loro comportamento rispetto agli altri modelli ed approfondire l'influenza del costo rispetto al numero di vettori di supporto utilizzati;
+	\item reti neurali, perché sono al momento una delle tecniche più utilizzate in diversi ambiti.
+\end{itemize}
+Per i primi 3 modelli, abbiamo effettuato un processo di 10-fold cross validation perché i tempi di training e testing sono bassi; invece, per le Support Vector Machine e le reti neurali sono stati effettuati dei processi di training utilizzando il 70 \% del dataset come insieme di istanze di training ed il restante per il testing, questa operazione è stata dettata dai tempi impiegati per il training di questi modelli, inoltre, il numero elevato di istanze del dataset (e quindi nel trainset) ci permette di considerare queste performance ed analizzarle in maniera sicura poiché è improbabile che si sia presa una suddivisione del dataset “patologica” e quindi valutare delle performance ingannevoli.
+
+\subsection{Baseline}
 Al fine di avere una misura di riferimento per i modelli che saranno proposti successivamente, è stato prodotto un modello baseline, che si limita a rispondere sempre failed ad ogni sottomissione di un sample. La risposta risulta essere sempre failed in quanto, dall'analisi esplorativa dei dati effettuata in precedenza, è emerso che il valore di etichettatura più frequente era prorpio il fallimento del progetto.\\
 In Figura \ref{fig:baselineperformance} e nella Tabella \ref{tab:acc_state} sono riportate le misure di performance ottenute con questo modello a seguito dell'operazione di 10 fold cross validation; notiamo come i valori di accuratezza e precisione si uniformino al valore di  probabilità dell'etichettatura failed nel dataset, mentre la recall rimanga ovviamente fissa ad 1.\\
-Le curve ROC associate a questo modello, ripotate in Figura \ref{fig:baselineROC}, restituiscono un valore della Area Under Curve (AUC) molto variabile: ciò è dovuto dalla diversa distribuzione dei sample con etichettatura failed all'interno dei testset prodotti dal porcesso di 10-fold cross validation.
+Le curve ROC associate a questo modello, ripotate in Figura \ref{fig:baselineROC}, restituiscono un valore AUC molto variabile: ciò è dovuto dalla diversa distribuzione dei sample con etichettatura failed all'interno dei testset prodotti dal porcesso di 10-fold cross validation.
 \begin{table}
 	\caption{Tabella che riporta rispettivamente media e deviazione standard delle misure in Figura \ref{fig:baselineperformance}.}
 	\label{tab:baselineperformance}
@@ -207,7 +227,7 @@ Il modello Na\"ive Bayes si basa sul Teorema di Bayes (si faccia riferimento all
 \label{th:bayes}
 P(h|D) = \frac{P(D|h) \cdot P(h)}{P(D)}
 \end{equation}
-Dove, nel nostro caso di interesse: h è un'ipotesi, D è l'insieme dei valori delle \textit{features} dell'istanza e l'operatore | indica la probabilità condizionata.\\
+Dove, nel nostro caso di interesse: h è un'ipotesi, D è l'insieme dei valori delle feature dell'istanza e l'operatore | indica la probabilità condizionata.\\
 Il modello si basa quindi sullo stabilire l'ipotesi $h_{MAP}$, ovvero l'ipotesi massima a posteriori sfruttando la Formula \ref{for:hmap}, ovvero trovare l'ipotesi, tra le \textit{n} ipotesi disponibili, che massimizza il prodotto tra la probabilità a priori del verificarsi dell'ipotesi ($P(h_{i})$) e la produttoria tra i \textit{k} attributi delle relative verosimiglianze, rispetto all'ipotesi considerata, dell'assunzione da parte di tale attributo del valore che possiede il corrispettivo nell'istanza da classificare. 
 Si noti che tale produttoria può essere calcolata grazie all'assunzione di indipendenza condizionale degli attributi.
 Anche se non abbiamo formalmente mostrato tale ipotesi per il dataset utilizzato, vi sono casi in letteratura in cui tale modello ottiene delle buone performance in casi in cui gli attributi non sono condizionalmente indipendenti; di conseguenza abbiamo provato ad effettuare la predizione utilizzando questo modello.\\
@@ -269,7 +289,7 @@ Per ovviare a tale problema possono essere utilizzate sia delle trasformazioni g
 Supponendo di avere le istanze nello spazio linearmente seprabili, poiché le classi lo sono nativamente o mediante l'utilizzo dei metodi Kernel, le SVM, di fatto, dovranno risolvere un problema di ottimizzazione: massimizzare il margine dell'iperpiano separatore.
 Per far ciò, è quindi necessario identificare i vettori di supporto, ovvero l'insieme delle istanze che giacciono “vicino” al margine dell'iperpiano separatore.\\
 Passando ad una trattazione più pratica rispetto al progetto, l'implementazione delle SVM utilizzata è quella fornita dalla libreria \texttt{e1071}; tale implementazione permette di specificare due parametri fondamentali:\begin{itemize}
-	\item \texttt{kernel}, ovvero il metodo kernel utilizzato sia durante la fase di \textit{training} che per la fase di \textit{testing}, alcune funzioni possibili sono \texttt{linear} o \texttt{sigmoid};
+	\item \texttt{kernel}, ovvero il metodo kernel utilizzato sia durante la fase di training che per la fase di \textit{testing}, alcune funzioni possibili sono \texttt{linear} o \texttt{sigmoid};
 	\item \texttt{cost} ovvero il costo di \textit{trade-off} tra la penalità derivante dalle variabili di slack e la larghezza del margine, ovvero più il valore del costo è basso più il margine sarà largo e potrebbe portare ad un maggiore errore nelle classificazioni, più è alto più il margine è strettoe meno errori di classificazione sono ammessi; si noti che potrebbero verificarsi casi di \textit{overfitting} causati da un'assegnazione del costo non ottimale. 
 \end{itemize}
 Poiché il tempo di training di tale implementazione delle SVM è molto oneroso in termini di tempo e dato che il dataset è composto da oltre 312 mila istanze, quindi il \textit{training set} da oltre 218 mila, si è deciso, di conseguenza, di effettuare il processo di training e di testing una sola volta, senza effettuare la 10-fold cross validation.
@@ -279,7 +299,7 @@ La scelta di modificare solo il costo è stata dettata dalla decisione di valuta
 Valutando complessivamente le performance, i cui dati sono riportati in Tabella \ref{tab:svm_perf} e \ref{tab:svm1000_perf} e le cui relative ROC sono rappresentate in Figura \ref{fig:svmperformance} e \ref{fig:svm1000performance}, possiamo concludere che il modello il cui costo è pari ad 1 porta ad una minore precisione, come ci si poteva attendere dato il ruolo del costo, inoltre anche la differenza nella precisione è figlia della stessa causa.
 Risulta particolare che il valore di default rimanga praticamente lo stesso (un \textit{delta} per a 0.009), questo significa che ambo le SVM classificano correttamente le campagne veramente fallimentari allo stesso modo ma nel farlo la prima produce un numero maggiore di falsi positivi (ovvero campagne predette come fallimentari, ma che se avviate avrebbero successo). 
 Inoltre, andando ad analizzare il numero di vettori di supporto utilizzati per lo stabilimento del margine, si nota che la SVM il cui costo è 1 ha utilizzato ne ha utilizzati più di 81 mila, al contempo la seconda ne ha utilizzati circa 61 mila; questa differenza è ancora una volta data dal fatto che un costo più alto provoca l'utilizzo di un margine più ristretto e di conseguenza un utilizzo di un numero minore di vettori di supporto.
-Concludendo, anche le ROC e relative AUC sono molto simili tra loro il che implica che la sensitività, come mostrato dai dati riportati nelle tabelle sopra citate, e specificità dei due modelli sono molto vicine tra loro.
+Concludendo, anche le ROC e relative AUC sono molto simili tra loro il che implica che la sensitività, come mostrato dai dati riportati nelle tabelle sopra citata, e specificità dei due modelli sono rispettivamente molto vicine tra loro.
 
 \begin{table}
 	\caption{Tabella contenente le performance per quanto riguarda il modello SVM con il costo pari a 1 ed il kernel lineare.}
