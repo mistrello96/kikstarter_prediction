@@ -225,7 +225,7 @@ Infine, abbiamo valutato il parametro di complessità dell'albero prodotto. Il g
 \end{figure}
 \clearpage
 \subsection{Na\"ive Bayes}
-Il modello Na\"ive Bayes si basa sul Teorema di Bayes (si faccia riferimento alla Formula \ref{th:bayes}) e sull'assunzione che tutti gli attributi che descrivono le istanze sono condizionalmente indpendenti l'un l'altro.
+Il modello Na\"ive Bayes si basa sul Teorema di Bayes (si faccia riferimento alla Formula \ref{th:bayes}) e sull'assunzione che tutti gli attributi che descrivono le istanze sono condizionalmente indipendenti l'un l'altro.
 \begin{equation}
 \label{th:bayes}
 P(h|D) = \frac{P(D|h) \cdot P(h)}{P(D)}
@@ -285,7 +285,7 @@ Le curve ROC e le relativa AUC confermano ulteriormente quanto detto fin'ora; le
 \end{figure} 
 \clearpage
 \subsection{Support Vector Machine}
-Le SVM (Support Vector Machine) sono algoritmi utilizzati sia per la classificazione binaria, ma non solo. 
+Le SVM (Support Vector Machine) sono algoritmi utilizzati per la classificazione binaria, ma non solo. 
 Concettualmente si basano sul voler rappresentare le istanze in un iperspazio \textit{K}-dimensionale e ricercare un iperpiano separatore delle due classi, ottenendo così due semi-iperspazi in ciascuno dei quali sono presenti tutte e sole le istanze appartenenti ad una classe.
 Risulta necessario sottolineare che non sempre è possibile suddividere l'insieme delle istanze mediante un iperpiano, perché le due classi potrebbero non essere linearmente separabili in un iperspazio \textit{K}-dimensionale.
 Per ovviare a tale problema possono essere utilizzate sia delle trasformazioni geometriche in cui, generalmente, si aumentano le dimensioni dell'iperspazio (le quali portano a costi computazionali maggiori), oppure sfruttare i metodi Kernel che, brevemente, permettono di calcolare il risultato di tali trasformazioni rimanendo in \textit{K} dimensioni durante la computazione, renendo quindi il procedimento più efficiente.
@@ -311,7 +311,7 @@ Concludendo, anche le ROC e relative AUC sono molto simili tra loro il che impli
 	
 	\centering
 	\begin{tabular}{c|c}
-		Misura & valore \\
+		Misura & Valore \\
 		\hline
 		Accuratezza & 0.884 \\
 		Precisione & 0.873 \\
@@ -327,7 +327,7 @@ Concludendo, anche le ROC e relative AUC sono molto simili tra loro il che impli
 	
 	\centering
 	\begin{tabular}{c|c}
-		Misura & valore \\
+		Misura & Valore \\
 		\hline
 		Accuratezza & 0.908 \\
 		Precisione & 0.910 \\
@@ -358,7 +358,7 @@ Le reti neurali sono un modello che si è rivelato non performare come sperato p
 	\label{tab:nnperformance}
 	\centering
 	\begin{tabular}{c|c}
-		Misura & valore \\
+		Misura & Valore \\
 		\hline
 		Accuracy & 0.8953  \\ 
 		Precision & 0.9808  \\
