@@ -230,7 +230,7 @@ Il modello Na\"ive Bayes si basa sul Teorema di Bayes (si faccia riferimento all
 \label{th:bayes}
 P(h|D) = \frac{P(D|h) \cdot P(h)}{P(D)}
 \end{equation}
-Dove, nel nostro caso di interesse: h è un'ipotesi, D è l'insieme dei valori delle feature dell'istanza e l'operatore | indica la probabilità condizionata.\\
+Nel nostro caso di interesse: h è un'ipotesi, D è l'insieme dei valori delle feature dell'istanza e l'operatore | indica la probabilità condizionata.\\
 Il modello si basa quindi sullo stabilire l'ipotesi $h_{MAP}$, ovvero l'ipotesi massima a posteriori sfruttando la Formula \ref{for:hmap}, ovvero trovare l'ipotesi, tra le \textit{n} ipotesi disponibili, che massimizza il prodotto tra la probabilità a priori del verificarsi dell'ipotesi ($P(h_{i})$) e la produttoria tra i \textit{k} attributi delle relative verosimiglianze, rispetto all'ipotesi considerata, dell'assunzione da parte di tale attributo del valore che possiede il corrispettivo nell'istanza da classificare. 
 Si noti che tale produttoria può essere calcolata grazie all'assunzione di indipendenza condizionale degli attributi.
 Anche se non abbiamo formalmente mostrato tale ipotesi per il dataset utilizzato, vi sono casi in letteratura in cui tale modello ottiene delle buone performance in casi in cui gli attributi non sono condizionalmente indipendenti; di conseguenza abbiamo provato ad effettuare la predizione utilizzando questo modello.\\
